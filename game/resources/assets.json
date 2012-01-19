@@ -1,0 +1,9 @@
+[
+  ["elephant", "game/resources/img/elephant.png"],
+  ["bike", "game/resources/img/bike.png"],
+  ["transformer", "game/resources/img/prime.png"],
+  ["light", "game/resources/img/light.jpg"],
+  ["fur", "game/resources/img/fur.png"],
+  ["toggle_back", "game/resources/img/toggle_back.png"],
+  ["toggle_slider", "game/resources/img/toggle_slider.png"]
+]

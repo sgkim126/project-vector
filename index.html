@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ProjectVector</title>
+
+    <link href="style/box2d.css" rel="stylesheet" type="text/css" />
+	<!--[if IE]><script type="text/javascript" src="lib/excanvas.js"></script><![endif]-->
+    <script src="lib/prototype-1.6.0.2.js"></script>
+    <script src="lib/jquery-1.7.1.min.js"></script>
+    <script src="lib/tween.js"></script>
+    <script src="lib/closure-library/closure/goog/base.js"></script>
+    <script src='lib/fluid_solver.js'></script>
+    <script src="lib/event_dispatcher.js"></script>
+    <script src="deps.js"></script>
+
+    <script src='engine/engine.js'></script>
+    <script src='engine/camera.js'></script>
+    <script src='engine/level.js'></script>
+    <script src='engine/entity.js'></script>
+    <script src='engine/asset_manager.js'></script>
+    <script src='engine/collision.js'></script>
+    <script src='engine/display_node.js'></script>
+    <script src='engine/object_pool.js'></script>
+    <script src='engine/component_manager.js'></script>
+    <script src='engine/timer_registery.js'></script>
+
+    <script src='game/game.js'></script>
+    <script src='game/graphics/canvasRenderer.js'></script>
+    <script src='game/graphics/particle_manager.js'></script>
+    <script src='game/input/controls.js'></script>
+    <script src='game/ui/ui_elephant.js'></script>
+    <script src='game/ui/ui_transformer.js'></script>
+    <script src='game/ui/ui_toggle.js'></script>
+    <script src='game/ui/ui_basic.js'></script>
+    <script src='game/levels/geomwars_level.js'></script>
+    <script src='game/entities/player.js'></script>
+    <script src='game/entities/projectile.js'></script>
+    <script src='game/entities/enemy1.js'></script>
+    <script src='game/entities/components/cameraFollow.js'></script>
+    <script src='game/entities/components/controlMove.js'></script>
+    <script src='game/entities/components/circleBody.js'></script>
+    <script src='game/entities/components/squareBody.js'></script>
+    <script src='game/entities/components/basicSprite.js'></script>
+    <script src='game/entities/components/weapon.js'></script>
+
+    <script>
+      var $j = jQuery.noConflict();
+      $j(document).ready(function() {
+          var canvas = $j("#gameCanvas");
+          var context = {
+              canvas: canvas,
+              renderer: new CanvasRenderer(canvas),
+              timeStep: 1.0 / 60,
+              iteration: 1,
+              paused: false
+          };
+          var engine = new Engine();
+          context.engine = engine;
+          engine.initalise(context, 'game/resources/assets.json', function() {
+              engine.start(context, new Game());
+          });
+      });
+    </script>
+  </head>
+
+  <body>
+    <canvas id='gameCanvas' width='600' height='400'></canvas>
+  </body>
+</html>
