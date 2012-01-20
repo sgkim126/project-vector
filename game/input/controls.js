@@ -44,12 +44,14 @@ function Controls(context) {
     };
 
     $j(window).bind('touchmove', function (e) {
-
+try {
         e.preventDefault();
 
         that.tempX = e.targetTouches[0].pageX - $j(context.canvas).offset().left;
         that.tempY = e.targetTouches[0].pageY - $j(context.canvas).offset().top;
-
+} catch (err) {
+    alert(err);
+}
     });
 
     $j(context.canvas).bind('touchstart', function (e) {
