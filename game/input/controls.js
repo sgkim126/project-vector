@@ -47,8 +47,8 @@ function Controls(context) {
 try {
         e.preventDefault();
 
-        that.tempX = e.targetTouches[0].pageX - $j(context.canvas).offset().left;
-        that.tempY = e.targetTouches[0].pageY - $j(context.canvas).offset().top;
+        that.tempX = e.originalEvent.targetTouches[0].pageX;// - $j(context.canvas).offset().left;
+        that.tempY = e.originalEvent.targetTouches[0].pageY;// - $j(context.canvas).offset().top;
 } catch (err) {
     alert(err);
 }
