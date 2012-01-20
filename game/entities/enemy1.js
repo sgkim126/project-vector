@@ -41,6 +41,10 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     this.bodyComponent = new CircleBody(this, world, level, x, y, 20, 0, this.data);
 
+    this.vectorDraw3DComponent = new VectorDraw3D(this, this.bodyComponent, '#2255FF', 1.05);
+
+    this.components.add(context, this.vectorDraw3DComponent, 'sprite');
+
     this.components.add(context, this.bodyComponent, 'body');
 
 };

@@ -14,7 +14,7 @@ function Player(context, world, level, x, y, textureId) {
     this.bodyComponent = new CircleBody(this, world, level, x, y, 12, 1);
     this.cameraFollowComponent = new CameraFollow(this, this.bodyComponent);
     this.controlMoveComponent = new ControlMove(this, this.bodyComponent);
-    this.vectorDraw3DComponent = new VectorDraw3D(this, this.bodyComponent);
+    this.vectorDraw3DComponent = new VectorDraw3D(this, this.bodyComponent, '#FFFF00', 0.75);
     this.weaponComponent = new Weapon(this, world, level, this.bodyComponent, this.weaponVector);
 
     this.components.add(context, this.bodyComponent, 'body');

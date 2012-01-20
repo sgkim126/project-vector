@@ -90,7 +90,7 @@ GeomWarsLevel.prototype = {
 
         var timerRegistery = context.timerRegistery;
 
-        //timerRegistery.add('spawn', 4, function () { that.spawnEnemy(context, that.player); } );
+        timerRegistery.add('spawn', 4, function () { that.spawnEnemy(context, that.player); } );
 
     },
 
