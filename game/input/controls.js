@@ -45,6 +45,8 @@ function Controls(context) {
 
     $j(context.canvas).bind('touchmove', function (e) {
 
+        e.preventDefault();
+
         that.tempX = e.targetTouches[0].pageX - $j(context.canvas).offset().left;
         that.tempY = e.targetTouches[0].pageY - $j(context.canvas).offset().top;
 
@@ -54,24 +56,26 @@ function Controls(context) {
 
     $j(context.canvas).bind('touchstart', function (e) {
 
+        e.preventDefault();
+
         that.tempIsDragging = true;
 
         that.tempX = e.targetTouches[0].pageX;
         that.tempY = e.targetTouches[0].pageY;
 
-        e.preventDefault();
-
     });
 
     $j(context.canvas).bind('touchend', function (e) {
 
-        that.tempIsDragging = false;
-
         e.preventDefault();
+
+        that.tempIsDragging = false;
 
     });
 
     $j(window).mousemove(function(e) {
+
+        e.preventDefault();
 
         that.tempX = e.pageX - $j(context.canvas).offset().left;
         that.tempY = e.pageY - $j(context.canvas).offset().top;
@@ -80,6 +84,8 @@ function Controls(context) {
 
     $j(context.canvas).mousedown(function(e) {
 
+        e.preventDefault();
+
         that.tempIsDragging = true;
 
         that.tempX = e.pageX - $j(context.canvas).offset().left;
@@ -87,13 +93,17 @@ function Controls(context) {
 
     });
 
-    $j(context.canvas).mouseup(function() {
+    $j(context.canvas).mouseup(function(e) {
+
+        e.preventDefault();
 
         that.tempIsDragging = false;
 
     });
 
-    $j(context.canvas).mouseleave(function() {
+    $j(context.canvas).mouseleave(function(e) {
+
+        e.preventDefault();
 
         that.tempIsDragging = false;
 
