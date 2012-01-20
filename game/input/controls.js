@@ -44,16 +44,18 @@ function Controls(context) {
     };
 
     $j(context.canvas).bind('touchmove', function (e) {
-
+try{
         e.preventDefault();
         var msg ='';
         //that.tempX = e.targetTouches[0].pageX - $j(context.canvas).offset().left;
         //that.tempY = e.targetTouches[0].pageY - $j(context.canvas).offset().top;
 
-        msg += 'hello';//JSON.stringify(e);
+        msg += JSON.stringify(e);
 
 alert(msg);
-
+} catch (err) {
+alert(err);
+}
     });
 
     $j(context.canvas).bind('touchstart', function (e) {
