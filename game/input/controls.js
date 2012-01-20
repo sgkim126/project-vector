@@ -50,26 +50,24 @@ function Controls(context) {
         that.tempX = e.targetTouches[0].pageX - $j(context.canvas).offset().left;
         that.tempY = e.targetTouches[0].pageY - $j(context.canvas).offset().top;
 
-        e.preventDefault();
-
     });
 
     $j(context.canvas).bind('touchstart', function (e) {
-
-        e.preventDefault();
 
         that.tempIsDragging = true;
 
         that.tempX = e.targetTouches[0].pageX;
         that.tempY = e.targetTouches[0].pageY;
 
+        //e.preventDefault();
+
     });
 
     $j(context.canvas).bind('touchend', function (e) {
 
-        e.preventDefault();
-
         that.tempIsDragging = false;
+
+        //e.preventDefault();
 
     });
 
