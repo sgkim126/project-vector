@@ -45,11 +45,7 @@ function Controls(context) {
 
     $j(context.canvas).bind('touchmove', function (e) {
 
-        that.tempIsDragging = true;
-
         e.preventDefault();
-
-alert(e.originalEvent.touches[0].pageX);
 
         that.tempX = e.originalEvent.touches[0].pageX - $j(context.canvas).offset().left;
         that.tempY = e.originalEvent.touches[0].pageY - $j(context.canvas).offset().top;
@@ -57,6 +53,10 @@ alert(e.originalEvent.touches[0].pageX);
     });
 
     $j(context.canvas).bind('touchstart', function (e) {
+
+        that.tempIsDragging = true;
+
+        alert(e.originalEvent.touches[0].pageX);
 
         e.preventDefault();
 
