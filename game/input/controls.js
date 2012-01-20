@@ -8,7 +8,7 @@ function Controls(context) {
     var that = this;
 
     this.prototype += Object.extend(this, new EventDispatcher());
-
+alert('hello');
     this.isDragging = false;
     this.tempIsDragging = false;
     this.wasDragging = false;
