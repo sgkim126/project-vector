@@ -44,24 +44,22 @@ function Controls(context) {
     };
 
     $j(window).bind('touchmove', function (e) {
-try {
+
         e.preventDefault();
 
         that.tempX = e.originalEvent.targetTouches[0].pageX;// - $j(context.canvas).offset().left;
         that.tempY = e.originalEvent.targetTouches[0].pageY;// - $j(context.canvas).offset().top;
-} catch (err) {
-    alert(err);
-}
+
     });
 
     $j(context.canvas).bind('touchstart', function (e) {
 
+        e.preventDefault();
+
         that.tempIsDragging = true;
 
-        that.tempX = e.targetTouches[0].pageX;
-        that.tempY = e.targetTouches[0].pageY;
-
-        //e.preventDefault();
+        that.tempX = e.originalEvent.targetTouches[0].pageX;
+        that.tempY = e.originalEvent.targetTouches[0].pageY;
 
     });
 
