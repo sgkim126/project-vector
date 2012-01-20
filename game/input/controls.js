@@ -50,7 +50,7 @@ function Controls(context) {
         //that.tempX = e.targetTouches[0].pageX - $j(context.canvas).offset().left;
         //that.tempY = e.targetTouches[0].pageY - $j(context.canvas).offset().top;
 
-        msg += JSON.stringify(e);
+        msg += 'hello';//JSON.stringify(e);
 
 alert(msg);
 
