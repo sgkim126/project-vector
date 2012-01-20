@@ -47,8 +47,8 @@ function Controls(context) {
 
         e.preventDefault();
 
-        that.tempX = e.originalEvent.touches[0].pageX - $j(context.canvas).offset().left;
-        that.tempY = e.originalEvent.touches[0].pageY - $j(context.canvas).offset().top;
+        that.tempX = e.pageX - $j(context.canvas).offset().left;
+        that.tempY = e.pageY - $j(context.canvas).offset().top;
 
     });
 
@@ -56,12 +56,10 @@ function Controls(context) {
 
         that.tempIsDragging = true;
 
-        alert(e.originalEvent.touches[0].pageX);
-
         e.preventDefault();
 
-        that.tempX = e.originalEvent.touches[0].pageX;
-        that.tempY = e.originalEvent.touches[0].pageY;
+        that.tempX = e.pageX;
+        that.tempY = e.pageY;
 
     });
 
