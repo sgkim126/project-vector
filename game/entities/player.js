@@ -21,7 +21,7 @@ function Player(context, world, level, x, y, textureId) {
     this.components.add(context, this.cameraFollowComponent, 'camera');
     this.components.add(context, this.controlMoveComponent, 'control');
     this.components.add(context, this.weaponComponent, 'weapon');
-    //this.components.add(context, this.vectorDraw3DComponent, 'sprite');
+    this.components.add(context, this.vectorDraw3DComponent, 'sprite');
 
 };
 
