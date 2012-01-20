@@ -47,8 +47,8 @@ function Controls(context) {
 
         e.preventDefault();
 
-        that.tempX = e.originalEvent.targetTouches[0].pageX;// - $j(context.canvas).offset().left;
-        that.tempY = e.originalEvent.targetTouches[0].pageY;// - $j(context.canvas).offset().top;
+        that.tempX = e.originalEvent.targetTouches[0].pageX;
+        that.tempY = e.originalEvent.targetTouches[0].pageY;
 
     });
 
@@ -66,8 +66,6 @@ function Controls(context) {
     $j(context.canvas).bind('touchend', function (e) {
 
         that.tempIsDragging = false;
-
-        //e.preventDefault();
 
     });
 
