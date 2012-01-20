@@ -128,9 +128,9 @@ GeomWarsLevel.prototype = {
             mat33Pool.release(backMatrix);
         }
 
-        this.fluidSolver.tick(context.timeStep, visc, diff);
+        //this.fluidSolver.tick(context.timeStep, visc, diff);
 
-        this.particleManager.update(context, this.vScale);
+        //this.particleManager.update(context, this.vScale);
 
     },
 
