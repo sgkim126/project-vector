@@ -12,6 +12,7 @@ function CanvasRenderer(canvas) {
     this.graphics = canvas[0].getContext('2d');
     this.width = canvas[0].width;
     this.height = canvas[0].height;
+    this.shadowsEnabled = true;
 }
 
 CanvasRenderer.prototype = {
@@ -57,9 +58,12 @@ CanvasRenderer.prototype = {
 
         this.graphics.strokeStyle = color;
         this.graphics.lineWidth = width;
-        //this.graphics.shadowBlur = blur;
         this.graphics.shadowColor = color;
         this.graphics.globalAlpha = alpha;
+
+        if (this.shadowsEnabled) {
+            this.graphics.shadowBlur = blur;
+        }
 
         this.graphics.beginPath();
 
@@ -85,9 +89,13 @@ CanvasRenderer.prototype = {
 
     },
 
-    drawCircle: function (x, y, radius) {
+    drawCircle: function (x, y, radius, blur) {
 
         var graphics = this.graphics;
+
+        if (this.shadowsEnabled) {
+            graphics.shadowBlur = blur;
+        }
 
         graphics.strokeStyle = "#000000";
         graphics.fillStyle = "#000000";
