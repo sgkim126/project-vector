@@ -46,10 +46,14 @@ function Controls(context) {
     $j(context.canvas).bind('touchmove', function (e) {
 
         e.preventDefault();
-
+        var msg ='';
         //that.tempX = e.targetTouches[0].pageX - $j(context.canvas).offset().left;
         //that.tempY = e.targetTouches[0].pageY - $j(context.canvas).offset().top;
-alert('hello');
+        
+        msg += 'x : ' + e.targetTouches[0].pageX + '  y : ' + e.targetTouches[0].pageY + '\n';
+        msg += 'offset.left : ' + JSON.stringify($j(context.canvas).offset());
+alert(msg);
+
     });
 
     $j(context.canvas).bind('touchstart', function (e) {
