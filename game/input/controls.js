@@ -45,6 +45,8 @@ function Controls(context) {
 
     $j(context.canvas).bind('touchmove', function (e) {
 
+        that.tempIsDragging = true;
+
         e.preventDefault();
 
         that.tempX = e.originalEvent.touches[0].pageX - $j(context.canvas).offset().left;
