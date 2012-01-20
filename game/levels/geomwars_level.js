@@ -155,7 +155,7 @@ GeomWarsLevel.prototype = {
         camera.worldTransform(matrix, 0.8, gridMatrix1);
         camera.worldTransform(matrix, 0.7, gridMatrix2);
 
-        this.drawGrid(context, 0.5, this.vScale, gridMatrix0);
+        //this.drawGrid(context, 0.5, this.vScale, gridMatrix0);
         //this.drawGrid(context, 0.3, this.vScale * 0.66, gridMatrix1);
         //this.drawGrid(context, 0.1, this.vScale * 0.33, gridMatrix2);
 
