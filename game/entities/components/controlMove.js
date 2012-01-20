@@ -25,8 +25,8 @@ ControlMove.prototype = {
 
             var body = this.bodyComponent.object;
 
-            this.velocity.x = controls.normalDeltaX * 2200000;
-            this.velocity.y = controls.normalDeltaY * 2200000;
+            this.velocity.x = controls.normalDeltaX * 220000;
+            this.velocity.y = controls.normalDeltaY * 220000;
 
             body.m_force.add(this.velocity);
 

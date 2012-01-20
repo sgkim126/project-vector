@@ -94,7 +94,7 @@ Enemy1.prototype = {
     onUpdate: function (context) {
 
         if (this.explosionForce > 0) {
-console.log(this.explodeX);
+
             var fluidSolver = this.level.fluidSolver;
 
             fluidSolver.applyForce(this.explodeX, this.explodeY, this.explosionForce, this.explosionForce);

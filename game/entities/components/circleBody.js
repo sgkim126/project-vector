@@ -30,7 +30,7 @@ CircleBody.prototype = {
     onInitalize: function (context) {
 
         var ballSd = new box2d.CircleDef();
-        ballSd.density = 0.1;
+        ballSd.density = 0.01;
         ballSd.radius = this.radius;
         ballSd.restitution = 0.5;
         ballSd.friction = 1;
