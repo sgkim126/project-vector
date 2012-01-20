@@ -12,7 +12,7 @@ function CanvasRenderer(canvas) {
     this.graphics = canvas[0].getContext('2d');
     this.width = canvas[0].width;
     this.height = canvas[0].height;
-    this.shadowsEnabled = true;
+    this.shadowsEnabled = false;
 }
 
 CanvasRenderer.prototype = {
