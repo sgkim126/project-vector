@@ -31,6 +31,12 @@ Player.prototype = {
 
         var body = this.bodyComponent;
 
+        var events = context.events;
+
+        var fadeInTween = new Tween(events, this.vectorDraw3DComponent, 'alpha', Tween.regularEaseIn, 0, 1, 0.25);
+
+        fadeInTween.start();
+
         this.lastX = 0;
         this.lastY = 0;
         this.x = 0;

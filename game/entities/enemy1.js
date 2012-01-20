@@ -15,6 +15,10 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     this.velocity = new box2d.Vec2();
 
+    var events = context.events;
+
+    var timerRegistery = context.timerRegistery;
+
     this.data = new function() {
 
         this.contactEvent = function ( body, contact ) {
@@ -27,7 +31,14 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                 if (that.hitCount <= 0) {
 
-                    level.removeEntity(context, that);
+                    timerRegistery.add('bullet_' + that.id, 0.15, that.die);
+
+                    that.bodyComponent.object.m_shapeList.m_groupIndex = -1;
+
+                    var fadeOutTween = new Tween(events, that.vectorDraw3DComponent, 'alpha', Tween.regularEaseOut, 1, 0, 0.15);
+
+                    fadeOutTween.start();
+
 
                 }
 
@@ -36,6 +47,12 @@ function Enemy1(context, world, level, target, x, y, textureId) {
         }
 
         this.name = 'enemy1';
+
+    }
+
+    this.die = function (context) {
+
+        level.removeEntity(context, that);
 
     }
 

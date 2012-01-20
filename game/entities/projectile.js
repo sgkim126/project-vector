@@ -13,6 +13,8 @@ function Projectile(context, world, level, position, vector, id) {
 
     this.vector = vector;
 
+    var events = context.events;
+
     var timerRegistery = context.timerRegistery;
 
     this.data = new function() {
@@ -22,6 +24,10 @@ function Projectile(context, world, level, position, vector, id) {
             timerRegistery.add('bullet_' + that.id, 0.15, that.die);
 
             that.bodyComponent.object.m_shapeList.m_groupIndex = -1;
+
+            var fadeOutTween = new Tween(events, that.vectorDraw3DComponent, 'alpha', Tween.regularEaseIn, 1, 0, 0.15);
+
+            fadeOutTween.start();
 
         }
 
@@ -50,11 +56,18 @@ Projectile.prototype = {
     onInitalize: function (context) {
 
         var timerRegistery = context.timerRegistery;
+
+        var events = context.events;
+
         var body = this.bodyComponent.object;
 
         body.m_force.add( this.vector );
 
         timerRegistery.add('bullet_' + this.id, 5, this.die);
+
+        var fadeInTween = new Tween(events, this.vectorDraw3DComponent, 'alpha', Tween.regularEaseIn, 0, 1, 0.05);
+
+        fadeInTween.start();
 
     },
 
