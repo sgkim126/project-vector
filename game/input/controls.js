@@ -43,7 +43,26 @@ function Controls(context) {
         type: 'end'
     };
 
-    
+    $j(context.canvas).bind('touchmove', function (e) {
+
+        that.tempX = e.originalEvent.touches[0].pageX - $j(context.canvas).offset().left;
+        that.tempY = e.originalEvent.touches[0].pageY - $j(context.canvas).offset().top;
+
+    });
+
+    $j(context.canvas).bind('touchstart', function (e) {
+
+        that.tempX = e.originalEvent.touches[0].pageX;
+        that.tempY = e.originalEvent.touches[0].pageY;
+
+    });
+
+    $j(context.canvas).bind('touchend', function (e) {
+
+        that.tempIsDragging = false;
+
+    });
+
     $j(window).mousemove(function(e) {
 
         that.tempX = e.pageX - $j(context.canvas).offset().left;
