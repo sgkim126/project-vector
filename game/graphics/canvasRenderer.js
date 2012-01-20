@@ -49,7 +49,11 @@ CanvasRenderer.prototype = {
 
         this.graphics.save();
 
-        this.graphics.setTransform(m.col1.x, m.col1.y, m.col2.x, m.col2.y, m.col1.z, m.col2.z);
+        if (m) {
+
+            this.graphics.setTransform(m.col1.x, m.col1.y, m.col2.x, m.col2.y, m.col1.z, m.col2.z);
+
+        }
 
         this.graphics.strokeStyle = color;
         this.graphics.lineWidth = width;
