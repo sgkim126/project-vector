@@ -19,6 +19,7 @@ function VectorDraw3D(entity, bodyComponent, color, scale) {
 
     this.xRotation = 0;
     this.yRotation = 0;
+    this.scaleModify = 1;
 
     this.transformedVertex0 = [0, 0, 0];
     this.transformedVertex1 = [0, 0, 0];
@@ -68,6 +69,7 @@ VectorDraw3D.prototype = {
 
         this.matrix.SetIdentity();
         this.matrix.ConcatM22(body.m_R);
+        this.matrix.Scale(this.scaleModify, this.scaleModify);
         this.matrix.TranslateV(body.m_position);
 
         this.matrix2.SetIdentity();

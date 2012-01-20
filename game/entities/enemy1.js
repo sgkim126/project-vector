@@ -37,8 +37,11 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     var fadeOutTween = new Tween(events, that.vectorDraw3DComponent, 'alpha', Tween.regularEaseOut, 1, 0, 0.15);
 
+                    var explodeTween = new Tween(events, that.vectorDraw3DComponent, 'scaleModify', Tween.regularEaseOut, 1, 2, 0.15);
+
                     fadeOutTween.start();
 
+                    explodeTween.start();
 
                 }
 
