@@ -97,6 +97,7 @@ CanvasRenderer.prototype = {
             graphics.shadowBlur = blur;
         }
 
+        graphics.shadowColor = "#000000";
         graphics.strokeStyle = "#000000";
         graphics.fillStyle = "#000000";
         graphics.beginPath();

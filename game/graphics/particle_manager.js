@@ -100,7 +100,7 @@ ParticleManager.prototype = {
 
             var p = this.particles[i];
 
-            renderer.drawCircle(p.x, p.y, 3);
+            renderer.drawCircle(p.x, p.y, 3, 4);
 
         }
 
