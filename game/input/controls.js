@@ -49,8 +49,8 @@ function Controls(context) {
         var msg ='';
         //that.tempX = e.targetTouches[0].pageX - $j(context.canvas).offset().left;
         //that.tempY = e.targetTouches[0].pageY - $j(context.canvas).offset().top;
-        
-        msg += 'x : ' + e.targetTouches[0].pageX + '  y : ' + e.targetTouches[0].pageY + '\n';
+
+        msg += JSON.stringify(e);
 
 alert(msg);
 
