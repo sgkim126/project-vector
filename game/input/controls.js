@@ -53,7 +53,7 @@ alert('hello');
     });
 
     $j(context.canvas).bind('touchstart', function (e) {
-
+alert('bye');
         that.tempIsDragging = true;
 
         that.tempX = e.targetTouches[0].pageX;
