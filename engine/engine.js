@@ -92,7 +92,15 @@ Engine.prototype = {
 
         };
 
+        context.render = function () {
+
+            that.render(context, game);
+
+        };
+
         context.step();
+
+        context.render();
 
     },
 
@@ -119,14 +127,20 @@ Engine.prototype = {
 
         events.dispatchEvent(tickEvent);
 
-        this.render(context, game);
-
         // FIXME: use context timestep
         setTimeout(context.step, 10);
 
     },
 
     render: function (context, game) {
+
+        window.requestAnimationFrame( context.render );
+
+        this.draw(context, game);
+
+    },
+
+    draw: function (context, game) {
 
         game.render(context);
 
