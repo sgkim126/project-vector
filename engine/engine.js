@@ -127,8 +127,9 @@ Engine.prototype = {
 
         events.dispatchEvent(tickEvent);
 
-        // FIXME: use context timestep
-        setTimeout(context.step, 10);
+        var timeStepMillis = Math.floor(context.timeStep * 1000);
+
+        setTimeout(context.step, timeStepMillis);
 
     },
 
