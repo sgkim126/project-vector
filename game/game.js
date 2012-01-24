@@ -58,7 +58,7 @@ Game.prototype = {
 
         context.controls = new Controls(context);
 
-        this.buildUI(context, this.rootUIDisplayNode);
+        //this.buildUI(context, this.rootUIDisplayNode);
 
         engine.addLevel('GeomWars', new GeomWarsLevel());
         engine.setLevel('GeomWars');
