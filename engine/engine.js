@@ -26,6 +26,12 @@ Engine.prototype = {
 
         }
 
+        context.menuEvents = new function() {
+
+            this.prototype += Object.extend(this, new EventDispatcher());
+
+        }
+
         context.vec2Pool = new ObjectPool(box2d.Vec2);
 
         context.mat33Pool = new ObjectPool(box2d.Mat33);
@@ -35,6 +41,8 @@ Engine.prototype = {
         context.assetManager = new AssetManager();
 
         context.timerRegistery = new TimerRegistery();
+
+        context.menuTimerRegistery = new TimerRegistery();
 
         this.loadResources(context, resourceList, function () {
 
@@ -107,7 +115,11 @@ Engine.prototype = {
     step: function(context, game) {
 
         var events = context.events;
+        var menuEvents = context.menuEvents;
+
         var timerRegistery = context.timerRegistery;
+
+        var menuTimerRegistery = context.menuTimerRegistery;
 
         var stepping = false;
 
@@ -119,13 +131,23 @@ Engine.prototype = {
 
         }
 
-        game.update(context);
-
-        this.currentLevel.update(context);
+        game.updateUI(context);
 
         timerRegistery.update(context);
 
-        events.dispatchEvent(tickEvent);
+        menuEvents.dispatchEvent(tickEvent);
+
+        if (!context.paused) {
+
+            game.update(context);
+
+            this.currentLevel.update(context);
+
+            timerRegistery.update(context);
+
+            events.dispatchEvent(tickEvent);
+
+        }
 
         var timeStepMillis = Math.floor(context.timeStep * 1000);
 

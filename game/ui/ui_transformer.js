@@ -70,7 +70,7 @@ UITransformer.prototype = {
 
     testAnimation: function(context) {
 
-        var events = context.events;
+        var events = context.menuEvents;
 
         var tsc = new Tween(events, this, 'scale', Tween.bounceEaseOut, 0.45, 0.35, 0.5);
         var tbr = new Tween(events, this, 'brightness', Tween.regularEaseIn, 1, 0, 0.5);

@@ -31,7 +31,7 @@ function UIElephant(context, controller) {
 
     controller.addEventListener('toggle', function (e, target) {
 
-        var events = target.context.events;
+        var events = target.context.menuEvents;
 
         if (e.data === 'ON') {
 
@@ -57,7 +57,7 @@ UIElephant.prototype = {
 
         var that = this;
 
-        var events = context.events;
+        var events = context.menuEvents;
 
         var sc = parseFloat(this.scale);
         var xx = parseFloat(this.x);

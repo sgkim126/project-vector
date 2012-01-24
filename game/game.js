@@ -58,7 +58,7 @@ Game.prototype = {
 
         context.controls = new Controls(context);
 
-        //this.buildUI(context, this.rootUIDisplayNode);
+        this.buildUI(context, this.rootUIDisplayNode);
 
         engine.addLevel('GeomWars', new GeomWarsLevel());
         engine.setLevel('GeomWars');
@@ -68,11 +68,17 @@ Game.prototype = {
     update: function (context) {
 
         var camera = context.camera;
+
+        camera.update(context);
+
+    },
+
+    updateUI: function (context) {
+
         var controls = context.controls;
 
         controls.update(context);
         controls.updateEvents();
-        camera.update(context);
 
         this.rootUIDisplayNode.update(context);
         this.rootUIDisplayNode.traverse(context, 'ui');

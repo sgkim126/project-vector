@@ -23,7 +23,7 @@ function UIToggle(context) {
     this.toggle.y = 0.0258;
     this.addChild(this.toggle);
     this.toggle.slideOff = function (context) {
-        var events = context.events;
+        var events = context.menuEvents;
         var xTween;
         if (that.status === 'ON') {
             xTween = new Tween(events, this, 'x', Tween.strongEaseOut, parseFloat(this.x), 0.084, 0.5);
@@ -53,7 +53,8 @@ UIToggle.prototype.Toggle = function(e, target) {
         else {
             target.status = 'OFF';
         }
-        var brightnessTween = new Tween(target.context.events, target, 'brightness', Tween.regularEaseOut, 0.75, 0, 0.5);
+        var events = target.context.menuEvents;
+        var brightnessTween = new Tween(events, target, 'brightness', Tween.regularEaseOut, 0.75, 0, 0.5);
         brightnessTween.start();
         target.dispatchEvent({
             type: 'toggle',
