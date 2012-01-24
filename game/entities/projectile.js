@@ -13,6 +13,8 @@ function Projectile(context, world, level, position, vector, id) {
 
     this.vector = vector;
 
+    var model = models.cube;
+
     var events = context.events;
 
     var timerRegistery = context.timerRegistery;
@@ -43,7 +45,7 @@ function Projectile(context, world, level, position, vector, id) {
 
     this.bodyComponent = new SquareBody(this, world, level, 5, 5, position.x, position.y, 1, this.data);
 
-    this.vectorDraw3DComponent = new VectorDraw3D(this, this.bodyComponent, '#FF5500', 0.4);
+    this.vectorDraw3DComponent = new VectorDraw3D(this, model, this.bodyComponent, '#FF5500', 0.4);
 
     this.components.add(context, this.vectorDraw3DComponent, 'sprite');
 

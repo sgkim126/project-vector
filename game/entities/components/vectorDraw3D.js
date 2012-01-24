@@ -3,13 +3,17 @@
 
 'use strict';
 
-function VectorDraw3D(entity, bodyComponent, color, scale) {
+function VectorDraw3D(entity, model, bodyComponent, color, scale) {
 
     this.entity = entity;
 
     this.enabled = true;
 
     this.color = color;
+
+    this.vertexList = model.vertexList.clone();
+
+    this.linesList = model.linesList.clone();
 
     this.bodyComponent = bodyComponent;
 
@@ -25,13 +29,6 @@ function VectorDraw3D(entity, bodyComponent, color, scale) {
     this.transformedVertex1 = [0, 0, 0];
 
     this.alpha = 1;
-
-    this.vertexList = [[-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1],
-                       [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1]];
-
-    this.linesList = [[0, 1], [1, 2], [2, 3], [3, 0],
-                      [4, 5], [5, 6], [6, 7], [7, 4],
-                      [0, 4], [1, 5], [2, 6], [3, 7]];
 
     for (var i =0; i < this.vertexList.length; i++) {
 
