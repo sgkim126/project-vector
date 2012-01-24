@@ -121,6 +121,20 @@ GeomWarsLevel.prototype = {
 
         var controls = context.controls;
 
+        var camera = context.camera;
+
+        var border = camera.border;
+
+        var horizontalLimit = this.width - border.x;
+        var verticalLimit = this.height - border.y;
+
+        if (camera.position.x < border.x) camera.position.x = border.x;
+        if (camera.position.y < border.y) camera.position.y = border.y;
+        if (camera.position.x > horizontalLimit) camera.position.x = horizontalLimit;
+        if (camera.position.y > verticalLimit) camera.position.y = verticalLimit;
+
+        if (camera.zoom > 1.3) camera.zoom = 1.3;
+
         if (controls.isDragging) {
 
             var mat33Pool = context.mat33Pool;

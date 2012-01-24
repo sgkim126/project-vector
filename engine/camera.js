@@ -24,6 +24,7 @@ function Camera(context) {
 
     this.zoom = 1;
     this.position = new box2d.Vec2(0, 0);
+    this.border = new box2d.Vec2(0, 0);
 
     this.targetPosition = new box2d.Vec2(0, 0);
     this.zoomTarget = 1;
@@ -61,7 +62,7 @@ Camera.prototype = {
         var timeStep = context.timeStep;
 
         var positionDelta = vec2Pool.create();
-
+ 
         // FIXME: calculate in context
         var expectedTimeStep = 60;
         var timeAdjust = timeStep * expectedTimeStep;
@@ -78,6 +79,10 @@ Camera.prototype = {
 
         var zoomDelta = ((this.zoomTarget * this.zoomMultiplier) - this.zoom) * (this.zoomSpeed * timeAdjust);
         this.zoom += zoomDelta;
+
+        this.border.SetV(this.virtualScreenShape);
+        this.border.Mul(this.zoom);
+        this.border.Div(2);
 
         vec2Pool.release(positionDelta);
 
