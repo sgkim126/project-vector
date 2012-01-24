@@ -13,6 +13,7 @@
     <script src='lib/fluid_solver.js'></script>
     <script src="lib/event_dispatcher.js"></script>
     <script src="lib/request_animation_frame.js"></script>
+    <script src="lib/stats.js"></script>
     <script src="deps.js"></script>
 
     <script src='engine/engine.js'></script>
@@ -62,6 +63,14 @@
           engine.initalise(context, 'game/resources/assets.json', function() {
               engine.start(context, new Game());
           });
+          var stats = new Stats();
+          stats.getDomElement().style.position = 'absolute';
+          stats.getDomElement().style.left = '0px';
+          stats.getDomElement().style.top = '0px';
+          document.body.appendChild(stats.getDomElement());
+          setInterval(function() {
+              stats.update();
+          }, 1000 / 60);
       });
     </script>
   </head>
