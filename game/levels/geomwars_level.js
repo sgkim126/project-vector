@@ -90,13 +90,7 @@ GeomWarsLevel.prototype = {
 
     onInitalize: function (context) {
 
-        var that = this;
-
-        this.player = new Player(context, this.world, this, 500, 300, 'fur');
-
         context.camera.setPosition(500, 300);
-
-        this.addEntity(context, this.player);
 
         var halfWidth = this.width / 2;
         var halfHeight = this.height / 2;
@@ -105,6 +99,16 @@ GeomWarsLevel.prototype = {
         this.createBox(this.world, halfWidth, 10, halfWidth, 10, true, 'ground');
         this.createBox(this.world, this.width - 10, halfHeight, 10, halfHeight, true, 'ground');
         this.createBox(this.world, halfWidth, this.height - 10, halfWidth, 10, true, 'ground');
+
+    },
+
+    startGame: function (context) {
+
+        var that = this;
+
+        this.player = new Player(context, this.world, this, 500, 300, 'fur');
+
+        this.addEntity(context, this.player);
 
         var timerRegistery = context.timerRegistery;
 
