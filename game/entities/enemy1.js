@@ -19,7 +19,7 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     this.explosionForce = 0;
 
-    var model = models.cube;
+    var model = models.icosahedron;
 
     var events = context.events;
 

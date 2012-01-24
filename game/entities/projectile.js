@@ -13,7 +13,7 @@ function Projectile(context, world, level, position, vector, id) {
 
     this.vector = vector;
 
-    var model = models.cube;
+    var model = models.octahedron;
 
     var events = context.events;
 

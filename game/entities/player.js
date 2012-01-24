@@ -11,7 +11,7 @@ function Player(context, world, level, x, y, textureId) {
 
     this.weaponVector = new box2d.Vec2(1 * this.weaponPower, 0);
 
-    var model = models.cube;
+    var model = models.octahedron;
 
     this.bodyComponent = new CircleBody(this, world, level, x, y, 12, 1);
     this.cameraFollowComponent = new CameraFollow(this, this.bodyComponent);
