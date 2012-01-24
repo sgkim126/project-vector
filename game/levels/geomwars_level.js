@@ -22,8 +22,26 @@ function GeomWarsLevel() {
     this.player = null;
 
     this.fluidSolver = new FluidSolver();
+    var n = this.fluidSolver.N + 1;
 
     this.particleManager = new ParticleManager(this.fluidSolver, this, 80);
+
+    this.gridVertexPositions = new Array(n);
+
+    for (var y = 0; y < n; y++) {
+
+        this.gridVertexPositions[y] = new Array(n);
+    }
+
+    for (var y = 0; y < n; y++) {
+
+        for (var x = 0; x < n; x++) {
+
+            this.gridVertexPositions[x][y] = [0, 0];
+
+        }
+
+    }
 
     for (var i = 0; i < 80; i++) {
 
@@ -207,8 +225,6 @@ GeomWarsLevel.prototype = {
 
         var renderer = context.renderer;
 
-        renderer.beginLines('#000000', 2, 0, alpha, matrix);
-
         var fluidSolver = this.fluidSolver;
         var n = fluidSolver.N;
 
@@ -218,35 +234,43 @@ GeomWarsLevel.prototype = {
         var scaleX = this.width;
         var scaleY = this.height;
 
-        var overflow = 0;
-
         var x0 = 0;
         var y0 = 0;
 
-        for (var y = -yStep * overflow, y0 = 0; y < (1 - yStep) + (yStep * overflow); y += yStep, y0++) {
+        var gridVertexPositions = this.gridVertexPositions;
 
-            for (var x = -xStep * overflow, x0 = 0; x < (1 - xStep) + (xStep * overflow); x += xStep, x0++) {
+        for (var y = 0, y0 = 0; y < 1; y += yStep, y0++) {
+
+            for (var x = 0, x0 = 0; x < 1; x += xStep, x0++) {
 
                 var dx1 = fluidSolver.getDx(x0, y0) * vScale * 2;
                 var dy1 = fluidSolver.getDy(x0, y0) * vScale * 2;
 
-                var dx2 = fluidSolver.getDx(x0+1, y0) * vScale * 2;
-                var dy2 = fluidSolver.getDy(x0+1, y0) * vScale * 2;
+                gridVertexPositions[x0][y0][0] = (x + dx1) * scaleX;
+                gridVertexPositions[x0][y0][1] = (y + dy1) * scaleY;
 
-                var dx3 = fluidSolver.getDx(x0, y0+1) * vScale * 2;
-                var dy3 = fluidSolver.getDy(x0, y0+1) * vScale * 2;
+            }
 
-                var x1 = (x + dx1) * scaleX;
-                var y1 = (y + dy1) * scaleY;
-                var x2 = (x + xStep + dx2) * scaleX;
-                var y2 = (y + dy2) * scaleY;
-                var x3 = (x + dx3) * scaleX;
-                var y3 = (y + yStep + dy3) * scaleY;
+        }
 
-                renderer.moveTo(x1, y1);
-                renderer.lineTo(x2, y2);
-                renderer.moveTo(x1, y1);
-                renderer.lineTo(x3, y3);
+        renderer.beginLines('#000000', 2, 0, alpha, matrix);
+
+        for (var y0 = 0; y0 < n; y0++) {
+
+            for (var x0 = 0; x0 < n; x0++) {
+
+                var dx1 = gridVertexPositions[x0][y0][0];
+                var dy1 = gridVertexPositions[x0][y0][1];
+
+                var dx2 = gridVertexPositions[x0+1][y0][0];
+                var dy2 = gridVertexPositions[x0+1][y0][1];
+
+                var dx3 = gridVertexPositions[x0][y0+1][0];
+                var dy3 = gridVertexPositions[x0][y0+1][1];
+
+                renderer.moveTo(dx2, dy2);
+                renderer.lineTo(dx1, dy1);
+                renderer.lineTo(dx3, dy3);
 
             }
 
