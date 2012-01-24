@@ -246,8 +246,22 @@ GeomWarsLevel.prototype = {
                 var dx1 = fluidSolver.getDx(x0, y0) * vScale * 2;
                 var dy1 = fluidSolver.getDy(x0, y0) * vScale * 2;
 
-                gridVertexPositions[x0][y0][0] = (x + dx1) * scaleX;
-                gridVertexPositions[x0][y0][1] = (y + dy1) * scaleY;
+                var lengthSquared = Math.abs(dx1 * dx1 + dy1 * dy1);
+                var maxLength = 0.2;
+
+                if (lengthSquared > maxLength * maxLength) {
+
+                    var inverseLength = 1 / Math.sqrt(lengthSquared);
+                    dx1 *= inverseLength * maxLength;
+                    dy1 *= inverseLength * maxLength;
+
+                }
+
+                dx1 = (x + dx1) * scaleX;
+                dy1 = (y + dy1) * scaleY;
+
+                gridVertexPositions[x0][y0][0] = dx1;
+                gridVertexPositions[x0][y0][1] = dy1;
 
             }
 

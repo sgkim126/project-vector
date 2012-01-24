@@ -37,7 +37,7 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                 if (that.hitCount <= 0) {
 
-                    timerRegistery.add('bullet_' + that.id, 0.15, that.die);
+                    timerRegistery.add('bullet_' + that.id, 0.5, that.die);
 
                     that.bodyComponent.object.m_shapeList.m_groupIndex = -1;
 
@@ -49,7 +49,7 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     that.explodeY = (position.y / that.level.height) * fluidSolver.N;
 
-                    var explodeForceTween = new Tween(events, that, 'explosionForce', Tween.regularEaseIn, 0, 400, 0.5);
+                    var explodeForceTween = new Tween(events, that, 'explosionForce', Tween.regularEaseIn, 15, 0, 0.5);
 
                     var fadeOutTween = new Tween(events, that.vectorDraw3DComponent, 'alpha', Tween.regularEaseOut, 1, 0, 0.15);
 
