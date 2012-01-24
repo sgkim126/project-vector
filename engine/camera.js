@@ -53,6 +53,10 @@ Camera.prototype = {
 
         this.position.x = x;
         this.position.y = y;
+        this.lastPosition.x = x;
+        this.lastPosition.y = y;
+        this.targetPosition.x = x;
+        this.targetPosition.y = y;
 
     },
 
