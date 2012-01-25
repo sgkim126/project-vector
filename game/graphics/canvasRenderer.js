@@ -271,8 +271,6 @@ CanvasRenderer.prototype = {
         }
 
         this.graphics.lineWidth = 2;
-        //this.graphics.shadowBlur = 6;
-        this.graphics.shadowColor = '#FFFFFF';
 
         this.graphics.stroke();
 
