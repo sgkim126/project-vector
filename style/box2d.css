@@ -34,6 +34,9 @@ span.key {
 p {
 	padding-left: 20px;
 }
+body {
+    margin: 0px;
+}
 .contact {
 	border: 1px solid white;
 	padding: 5px;
