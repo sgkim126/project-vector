@@ -28,6 +28,8 @@ function GeomWarsLevel() {
 
     this.gridVertexPositions = new Array(n);
 
+    this.backgroundEnabled = false;
+
     for (var y = 0; y < n; y++) {
 
         this.gridVertexPositions[y] = new Array(n);
@@ -178,9 +180,13 @@ GeomWarsLevel.prototype = {
             mat33Pool.release(backMatrix);
         }
 
-        this.fluidSolver.tick(context.timeStep, visc, diff);
+        if (this.backgroundEnabled) {
 
-        this.particleManager.update(context, this.vScale);
+            this.fluidSolver.tick(context.timeStep, visc, diff);
+
+            this.particleManager.update(context, this.vScale);
+
+        }
 
     },
 
@@ -205,9 +211,14 @@ GeomWarsLevel.prototype = {
         camera.worldTransform(matrix, 0.8, gridMatrix1);
         camera.worldTransform(matrix, 0.7, gridMatrix2);
 
-        this.drawGrid(context, 0.5, this.vScale, gridMatrix0);
-        //this.drawGrid(context, 0.3, this.vScale * 0.66, gridMatrix1);
-        //this.drawGrid(context, 0.1, this.vScale * 0.33, gridMatrix2);
+
+        if (this.backgroundEnabled) {
+
+            this.drawGrid(context, 0.5, this.vScale, gridMatrix0);
+            //this.drawGrid(context, 0.3, this.vScale * 0.66, gridMatrix1);
+            //this.drawGrid(context, 0.1, this.vScale * 0.33, gridMatrix2);
+
+        }
 
         //renderer.drawWorld(this.world, worldMatrix);
 
