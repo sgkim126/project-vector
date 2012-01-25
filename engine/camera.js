@@ -17,11 +17,10 @@ function Camera(context) {
     this.displaySize = new box2d.Vec2(context.renderer.width, context.renderer.width);
     this.screenShape = new box2d.Vec2(context.renderer.width, context.renderer.height);
 
-    this.aspectRatio = this.displaySize.x / this.displaySize.y;
+    this.aspectRatio = context.renderer.width / context.renderer.height;
 
-    // FIXME: make dynamic
     this.virtualScreenSize = new box2d.Vec2(600, 600);
-    this.virtualScreenShape = new box2d.Vec2(600, 400);
+    this.virtualScreenShape = new box2d.Vec2(600, Math.floor(600 / this.aspectRatio));
 
     this.zoom = 1;
     this.position = new box2d.Vec2(0, 0);
