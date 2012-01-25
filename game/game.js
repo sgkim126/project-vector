@@ -12,48 +12,6 @@ function Game() {
 
     this.rootUIDisplayNode = new DisplayNode();
 
-    this.buildUI = function (context, root) {
-
-        var background = new UIBackground();
-        root.addChild(background);
-
-        var level = new UILevel();
-        root.addChild(level);
-
-        var toggle0 = new UIToggle(context);
-        toggle0.x = 0.05;
-        toggle0.y = 0.05;
-        root.addChild(toggle0, root);
-
-        var toggle1 = new UIToggle(context);
-        toggle1.x = 0.05;
-        toggle1.y = 0.15;
-        root.addChild(toggle1, root);
-
-        var elephant0 = new UIElephant(context, toggle0);
-        var transformer0 = new UITransformer(context);
-
-        elephant0.child = transformer0;
-        transformer0.parent = elephant0;
-
-        root.addChild(elephant0);
-
-        elephant0.addChild(transformer0);
-
-        toggle1.addEventListener('toggle', function (e) {
-
-            if (e.data == 'OFF') {
-                context.engine.currentLevel.world.m_gravity = new box2d.Vec2(0, 0);
-            }
-
-            else {
-                context.engine.currentLevel.world.m_gravity = new box2d.Vec2(0, 300);
-            }
-
-        });
-
-    };
-
 }
 
 Game.prototype = {
@@ -67,6 +25,60 @@ Game.prototype = {
         this.buildUI(context, this.rootUIDisplayNode);
 
         engine.addLevel('GeomWars', new GeomWarsLevel());
+
+    },
+
+    buildUI: function (context, root) {
+
+        var background = new UIBackground();
+
+        var level = new UILevel();
+
+        var toggle0 = new UIToggle(context);
+        toggle0.x = 0.05; toggle0.y = 0.05;
+
+        var toggle1 = new UIToggle(context);
+        toggle1.x = 0.05; toggle1.y = 0.15;
+ 
+        var elephant0 = new UIElephant(context, toggle0);
+
+        var transformer0 = new UITransformer(context);
+
+        root.addChild(background);
+
+        root.addChild(level);
+
+        root.addChild(toggle0);
+
+        root.addChild(toggle1);
+
+        root.addChild(elephant0);
+
+        elephant0.addChild(transformer0);
+
+        elephant0.child = transformer0;
+
+        transformer0.parent = elephant0;
+
+        toggle1.addEventListener('toggle', function (e) {
+
+            var level = context.engine.currentLevel;
+
+            if (!level) return;
+
+            if (e.data == 'OFF') {
+
+                level.world.m_gravity = new box2d.Vec2(0, 0);
+
+            }
+
+            else {
+
+                level.world.m_gravity = new box2d.Vec2(0, 300);
+
+            }
+
+        });
 
     },
 
@@ -97,14 +109,6 @@ Game.prototype = {
         this.rootUIDisplayNode.traverse(context, 'ui');
 
     },
-
-    /*render: function (context) {
-
-        var engine = context.engine;
-
-        engine.renderLevel(context);
-
-    },*/
 
     renderUI: function (context) {
 
