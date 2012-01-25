@@ -204,13 +204,13 @@ GeomWarsLevel.prototype = {
         var gridMatrix1 = mat33Pool.create();
         var gridMatrix2 = mat33Pool.create();
 
-        this.drawBackground(context, backMatrix);
-
         camera.worldTransform(matrix, 1, worldMatrix);
         camera.worldTransform(matrix, 0.9, gridMatrix0);
         camera.worldTransform(matrix, 0.8, gridMatrix1);
         camera.worldTransform(matrix, 0.7, gridMatrix2);
+        camera.uiTransform(matrix, 1, 0, 0, backMatrix);
 
+        this.drawBackground(context, backMatrix);
 
         if (this.backgroundEnabled) {
 

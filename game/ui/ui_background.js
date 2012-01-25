@@ -13,6 +13,13 @@ function UIBackground() {
 
 UIBackground.prototype = {
 
+    onUpdate: function(context) {
+
+        this.matrix.SetIdentity();
+        this.matrix.Scale(0.5, 0.5);
+
+    },
+
     onRender: function(context) {
 
         var camera = context.camera;
@@ -24,7 +31,7 @@ UIBackground.prototype = {
 
         matrix.Scale(0.5, 0.5);
 
-        renderer.drawImage(camera, assetManager.getAsset('back'), matrix, 0, this.alpha);
+        renderer.drawImage(camera, assetManager.getAsset('back'), this.drawMatrix, 0, this.alpha);
 
         mat33Pool.release(matrix);
 

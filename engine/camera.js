@@ -15,6 +15,7 @@ function Camera(context) {
     this.vec2Pool = context.vec2Pool;
 
     this.displaySize = new box2d.Vec2(context.renderer.width, context.renderer.width);
+    this.screenShape = new box2d.Vec2(context.renderer.width, context.renderer.height);
 
     this.aspectRatio = this.displaySize.x / this.displaySize.y;
 
@@ -105,7 +106,7 @@ Camera.prototype = {
         var drawPosition = vec2Pool.create();
         var drawScale = vec2Pool.create();
 
-        screenCenter.Set(this.virtualScreenShape.x * 0.5, this.virtualScreenShape.y * 0.5);
+        screenCenter.Set(this.screenShape.x * 0.5, this.screenShape.y * 0.5);
         drawPosition.Set(matrix.col1.z, matrix.col2.z);
         drawScale.Set(1, 1);
         out.SetM(matrix);
@@ -178,7 +179,7 @@ Camera.prototype = {
         var screenCenter = vec2Pool.create();
 
         drawScale.Set(1, 1);
-        screenCenter.Set(this.virtualScreenShape.x * 0.5, this.virtualScreenShape.y * 0.5);
+        screenCenter.Set(this.screenShape.x * 0.5, this.screenShape.y * 0.5);
         handle.Set(centerV, centerH);
         out.SetM(matrix);
 
