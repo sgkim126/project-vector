@@ -28,7 +28,7 @@ function GeomWarsLevel() {
 
     this.gridVertexPositions = new Array(n);
 
-    this.backgroundEnabled = false;
+    this.backgroundEnabled = true;
 
     for (var y = 0; y < n; y++) {
 
