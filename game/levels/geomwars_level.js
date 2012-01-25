@@ -212,13 +212,13 @@ GeomWarsLevel.prototype = {
 
         this.drawBackground(context, backMatrix);
 
-        //if (this.backgroundEnabled) {
+        if (this.backgroundEnabled) {
 
             this.drawGrid(context, 0.5, this.vScale, gridMatrix0);
             //this.drawGrid(context, 0.3, this.vScale * 0.66, gridMatrix1);
             //this.drawGrid(context, 0.1, this.vScale * 0.33, gridMatrix2);
 
-        //}
+        }
 
         //renderer.drawWorld(this.world, worldMatrix);
 
@@ -310,7 +310,7 @@ GeomWarsLevel.prototype = {
 
         }
 
-        renderer.beginLines('#000000', 2, 0, alpha, matrix);
+        renderer.beginLines('#000000', 2, 4, alpha, matrix);
 
         for (var y0 = 0; y0 < n; y0++) {
 
