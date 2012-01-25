@@ -38,7 +38,15 @@ Game.prototype = {
         title.x = 0.5; title.y = 0.2;
 
         var toggle0 = new UIToggle(context);
-        toggle0.x = 0.05; toggle0.y = 0.05;
+        toggle0.x = 0.85; toggle0.y = 0.55;
+
+        var playButton = new UIButton(context, 'play_up', 'play_down', function () {
+            alert('hello');
+        });
+        playButton.x = 0.5; playButton.y = 0.5;
+
+        var controlsContainer = new DisplayContainer();
+        controlsContainer.y = 1;
 
         root.addChild(background);
 
@@ -46,7 +54,11 @@ Game.prototype = {
 
         root.addChild(title);
 
-        root.addChild(toggle0);
+        root.addChild(controlsContainer);
+
+        controlsContainer.addChild(toggle0);
+
+        controlsContainer.addChild(playButton);
 
         var events = context.menuEvents;
 
@@ -57,7 +69,17 @@ Game.prototype = {
         var titleScaleIn = new Tween(events, title, 'scale', Tween.regularEaseOut, 3, 1, 1);
 
         titleAlphaIn.addEventListener('onMotionFinished', function(e) {
-            console.log('hello');
+
+            var controlsSlideIn = new Tween(events, controlsContainer, 'y', Tween.regularEaseOut, 1, 0, 1);
+
+            controlsSlideIn.addEventListener('onMotionFinished', function(e) {
+
+                playButton.enableClick();
+
+            });
+
+            controlsSlideIn.start();
+
         });
 
         backgroundAlphaIn.start();
