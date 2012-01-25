@@ -22,9 +22,9 @@ Game.prototype = {
 
         context.controls = new Controls(context);
 
-        this.buildUI(context, this.rootUIDisplayNode);
-
         engine.addLevel('GeomWars', new GeomWarsLevel());
+
+        this.buildUI(context, this.rootUIDisplayNode);
 
     },
 
@@ -72,6 +72,14 @@ Game.prototype = {
         playButton.x = 0.5; playButton.y = 0.5;
 
         root.addChild(level);
+
+        if (!context.startMenu) {
+
+            that.startGame(context);
+
+            return;
+
+        }
 
         root.addChild(background);
 
