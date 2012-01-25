@@ -14,6 +14,9 @@ function Game() {
 
     this.buildUI = function (context, root) {
 
+        var background = new UIBackground();
+        root.addChild(background);
+
         var level = new UILevel();
         root.addChild(level);
 
