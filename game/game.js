@@ -30,6 +30,8 @@ Game.prototype = {
 
     buildUI: function (context, root) {
 
+        var that = this;
+
         var background = new UIBackground();
 
         var level = new UILevel();
@@ -40,17 +42,38 @@ Game.prototype = {
         var toggle0 = new UIToggle(context);
         toggle0.x = 0.85; toggle0.y = 0.55;
 
-        var playButton = new UIButton(context, 'play_up', 'play_down', function () {
-            alert('hello');
-        });
-        playButton.x = 0.5; playButton.y = 0.5;
-
         var controlsContainer = new DisplayContainer();
         controlsContainer.y = 1;
 
-        root.addChild(background);
+        var playButton = new UIButton(context, 'play_up', 'play_down', function () {
+
+            playButton.disableClick();
+
+            var titleAlphaOut = new Tween(events, title, 'alpha', Tween.regularEaseIn, 1, 0, 1);
+
+            var controlsSlideOut = new Tween(events, controlsContainer, 'y', Tween.regularEaseIn, 0, 1, 1);
+
+            controlsSlideOut.addEventListener('onMotionFinished', function(e) {
+
+                var backgroundAlphaOut = new Tween(events, background, 'alpha', Tween.regularEaseIn, 1, 0, 0.5);
+
+                backgroundAlphaOut.start();
+
+                that.startGame(context);
+
+            });
+
+            controlsSlideOut.start();
+
+            titleAlphaOut.start();
+
+        });
+
+        playButton.x = 0.5; playButton.y = 0.5;
 
         root.addChild(level);
+
+        root.addChild(background);
 
         root.addChild(title);
 
