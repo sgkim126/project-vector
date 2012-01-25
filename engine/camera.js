@@ -143,7 +143,7 @@ Camera.prototype = {
 
         drawPosition.Set(matrix.col1.z, matrix.col2.z);
         drawScale.Set(1, 1);
-        handle.Set(centerH, centerV);
+        handle.Set(centerV, centerH);
         out.SetM(matrix);
 
         screenScale.SetV(this.displaySize);
