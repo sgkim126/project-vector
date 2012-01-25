@@ -34,51 +34,37 @@ Game.prototype = {
 
         var level = new UILevel();
 
+        var title = new UIBasic(context, 'title');
+        title.x = 0.5; title.y = 0.2;
+
         var toggle0 = new UIToggle(context);
         toggle0.x = 0.05; toggle0.y = 0.05;
-
-        var toggle1 = new UIToggle(context);
-        toggle1.x = 0.05; toggle1.y = 0.15;
- 
-        var elephant0 = new UIElephant(context, toggle0);
-
-        var transformer0 = new UITransformer(context);
 
         root.addChild(background);
 
         root.addChild(level);
 
+        root.addChild(title);
+
         root.addChild(toggle0);
 
-        root.addChild(toggle1);
+        var events = context.menuEvents;
 
-        root.addChild(elephant0);
+        var backgroundAlphaIn = new Tween(events, background, 'alpha', Tween.regularEaseOut, 0, 1, 1.5);
 
-        elephant0.addChild(transformer0);
+        var titleAlphaIn = new Tween(events, title, 'alpha', Tween.regularEaseOut, 0, 1, 1);
 
-        elephant0.child = transformer0;
+        var titleScaleIn = new Tween(events, title, 'scale', Tween.regularEaseOut, 3, 1, 1);
 
-        transformer0.parent = elephant0;
-
-        toggle1.addEventListener('toggle', function (e) {
-
-            var level = context.engine.currentLevel;
-
-            if (!level) return;
-
-            if (e.data == 'OFF') {
-
-                level.world.m_gravity = new box2d.Vec2(0, 0);
-
-            }
-
-            else {
-
-                level.world.m_gravity = new box2d.Vec2(0, 300);
-
-            }
-
+        titleAlphaIn.addEventListener('onMotionFinished', function(e) {
+            console.log('hello');
         });
+
+        backgroundAlphaIn.start();
+
+        titleAlphaIn.start();
+
+        titleScaleIn.start();
 
     },
 
