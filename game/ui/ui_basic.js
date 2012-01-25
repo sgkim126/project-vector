@@ -19,6 +19,7 @@ function UIBasic(context, spriteID) {
 
     this.scale = 1;
     this.brightness = 0;
+    this.alpha = 1;
 
     this.x = 0;
     this.y = 0;
@@ -30,14 +31,14 @@ UIBasic.prototype = {
     onUpdate: function(context) {
 
         this.matrix.SetIdentity();
-        this.matrix.Translate(this.x, this.y);
         this.matrix.Scale(this.scale, this.scale);
+        this.matrix.Translate(this.x, this.y);
 
     },
 
     onRender: function(context) {
 
-        context.renderer.drawImage(context.camera, this.sprite, this.drawMatrix, this.brightness);
+        context.renderer.drawImage(context.camera, this.sprite, this.drawMatrix, this.brightness, this.alpha);
 
     }
 
