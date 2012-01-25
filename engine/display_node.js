@@ -88,6 +88,9 @@ DisplayNode.prototype = {
 
         var that = this;
 
+        if (this.drawAlpha <= 0)
+            return;
+
         if (this.onRender) {
             this.onRender(context);
         }
