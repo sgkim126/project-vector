@@ -22,7 +22,7 @@ Game.prototype = {
 
         context.controls = new Controls(context);
 
-        engine.addLevel('GeomWars', new GeomWarsLevel());
+        engine.addLevel('GeomWars', new GeomWarsLevel(context));
 
         this.buildUI(context, this.rootUIDisplayNode);
 

@@ -62,8 +62,12 @@
               timeStep: 1.0 / 60,
               iteration: 1,
               paused: true,
-              startMenu: true,
-              blur: false
+              startMenu: false,
+              blur: false,
+              calcBackground: true,
+              drawBackground: true,
+              drawParticles: true,
+              debugDraw: false
           };
           context.renderer = new CanvasRenderer(context, canvas);
           var engine = new Engine();

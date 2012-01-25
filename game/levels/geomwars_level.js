@@ -8,7 +8,7 @@ goog.require('box2d.Vec2');
 goog.require('box2d.World');
 goog.require('box2d.BoxDef');
 
-function GeomWarsLevel() {
+function GeomWarsLevel(context) {
 
     this.prototype = Object.extend(this, new Level());
 
@@ -28,7 +28,13 @@ function GeomWarsLevel() {
 
     this.gridVertexPositions = new Array(n);
 
-    this.backgroundEnabled = true;
+    this.backgroundRenderingEnabled = context.drawBackground;
+
+    this.backgroundCalculationEnabled = context.calcBackground;
+
+    this.particleRenderingEnabled = context.drawParticles;
+
+    this.debugDraw = context.debugDraw;
 
     for (var y = 0; y < n; y++) {
 
@@ -155,7 +161,7 @@ GeomWarsLevel.prototype = {
 
         if (camera.zoom > 1.3) camera.zoom = 1.3;
 
-        if (controls.isDragging) {
+        if (controls.isDragging && this.backgroundCalculationEnabled) {
 
             var mat33Pool = context.mat33Pool;
             var camera = context.camera;
@@ -180,7 +186,7 @@ GeomWarsLevel.prototype = {
             mat33Pool.release(backMatrix);
         }
 
-        if (this.backgroundEnabled) {
+        if (this.backgroundCalculationEnabled) {
 
             this.fluidSolver.tick(context.timeStep, visc, diff);
 
@@ -212,17 +218,23 @@ GeomWarsLevel.prototype = {
 
         this.drawBackground(context, backMatrix);
 
-        if (this.backgroundEnabled) {
+        if (this.backgroundRenderingEnabled) {
 
             this.drawGrid(context, 0.5, this.vScale, gridMatrix0);
-            //this.drawGrid(context, 0.3, this.vScale * 0.66, gridMatrix1);
-            //this.drawGrid(context, 0.1, this.vScale * 0.33, gridMatrix2);
 
         }
 
-        //renderer.drawWorld(this.world, worldMatrix);
+        if (this.debugDraw) {
 
-        this.particleManager.render(context, worldMatrix);
+            renderer.drawWorld(this.world, worldMatrix);
+
+        }
+
+        if (this.particleRenderingEnabled) {
+
+            this.particleManager.render(context, worldMatrix);
+
+        }
 
         this.drawBorder(context, worldMatrix);
 
@@ -286,25 +298,34 @@ GeomWarsLevel.prototype = {
 
             for (var x = 0, x0 = 0; x < 1; x += xStep, x0++) {
 
-                var dx1 = fluidSolver.getDx(x0, y0) * vScale * 2;
-                var dy1 = fluidSolver.getDy(x0, y0) * vScale * 2;
+                if (this.backgroundCalculationEnabled) {
 
-                var lengthSquared = Math.abs(dx1 * dx1 + dy1 * dy1);
-                var maxLength = 0.2;
+                    var dx1 = fluidSolver.getDx(x0, y0) * vScale * 2;
+                    var dy1 = fluidSolver.getDy(x0, y0) * vScale * 2;
 
-                if (lengthSquared > maxLength * maxLength) {
+                    var lengthSquared = Math.abs(dx1 * dx1 + dy1 * dy1);
+                    var maxLength = 0.2;
 
-                    var inverseLength = 1 / Math.sqrt(lengthSquared);
-                    dx1 *= inverseLength * maxLength;
-                    dy1 *= inverseLength * maxLength;
+                    if (lengthSquared > maxLength * maxLength) {
+
+                        var inverseLength = 1 / Math.sqrt(lengthSquared);
+                        dx1 *= inverseLength * maxLength;
+                        dy1 *= inverseLength * maxLength;
+
+                    }
+
+                    dx1 = (x + dx1) * scaleX;
+                    dy1 = (y + dy1) * scaleY;
+
+                    gridVertexPositions[x0][y0][0] = dx1;
+                    gridVertexPositions[x0][y0][1] = dy1;
+
+                } else {
+
+                    gridVertexPositions[x0][y0][0] = x * scaleX;
+                    gridVertexPositions[x0][y0][1] = y * scaleY;
 
                 }
-
-                dx1 = (x + dx1) * scaleX;
-                dy1 = (y + dy1) * scaleY;
-
-                gridVertexPositions[x0][y0][0] = dx1;
-                gridVertexPositions[x0][y0][1] = dy1;
 
             }
 
