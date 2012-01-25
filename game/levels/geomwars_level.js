@@ -212,13 +212,13 @@ GeomWarsLevel.prototype = {
 
         this.drawBackground(context, backMatrix);
 
-        if (this.backgroundEnabled) {
+        //if (this.backgroundEnabled) {
 
             this.drawGrid(context, 0.5, this.vScale, gridMatrix0);
             //this.drawGrid(context, 0.3, this.vScale * 0.66, gridMatrix1);
             //this.drawGrid(context, 0.1, this.vScale * 0.33, gridMatrix2);
 
-        }
+        //}
 
         //renderer.drawWorld(this.world, worldMatrix);
 
@@ -286,7 +286,7 @@ GeomWarsLevel.prototype = {
 
             for (var x = 0, x0 = 0; x < 1; x += xStep, x0++) {
 
-                var dx1 = fluidSolver.getDx(x0, y0) * vScale * 2;
+                /*var dx1 = fluidSolver.getDx(x0, y0) * vScale * 2;
                 var dy1 = fluidSolver.getDy(x0, y0) * vScale * 2;
 
                 var lengthSquared = Math.abs(dx1 * dx1 + dy1 * dy1);
@@ -298,10 +298,10 @@ GeomWarsLevel.prototype = {
                     dx1 *= inverseLength * maxLength;
                     dy1 *= inverseLength * maxLength;
 
-                }
+                }*/
 
-                dx1 = (x + dx1) * scaleX;
-                dy1 = (y + dy1) * scaleY;
+                dx1 = (x) * scaleX;
+                dy1 = (y) * scaleY;
 
                 gridVertexPositions[x0][y0][0] = dx1;
                 gridVertexPositions[x0][y0][1] = dy1;
