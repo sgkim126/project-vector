@@ -165,8 +165,6 @@ Engine.prototype = {
 
     draw: function (context, game) {
 
-        game.render(context);
-
         game.renderUI(context);
 
     },

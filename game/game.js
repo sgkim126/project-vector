@@ -14,6 +14,9 @@ function Game() {
 
     this.buildUI = function (context, root) {
 
+        var level = new UILevel();
+        root.addChild(level);
+
         var toggle0 = new UIToggle(context);
         toggle0.x = 0.05;
         toggle0.y = 0.05;
@@ -66,6 +69,8 @@ Game.prototype = {
 
     startGame: function (context) {
 
+        var engine = context.engine;
+
         engine.setLevel('GeomWars');
 
     },
@@ -90,13 +95,13 @@ Game.prototype = {
 
     },
 
-    render: function (context) {
+    /*render: function (context) {
 
         var engine = context.engine;
 
         engine.renderLevel(context);
 
-    },
+    },*/
 
     renderUI: function (context) {
 
