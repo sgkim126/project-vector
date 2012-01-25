@@ -7,12 +7,12 @@ goog.require('box2d.Vec2');
 goog.require('box2d.ShapeDef');
 goog.require('box2d.Math');
 
-function CanvasRenderer(canvas) {
+function CanvasRenderer(context, canvas) {
     this.canvas = canvas;
     this.graphics = canvas[0].getContext('2d');
     this.width = canvas[0].width;
     this.height = canvas[0].height;
-    this.shadowsEnabled = false;
+    this.shadowsEnabled = context.blur;
 }
 
 CanvasRenderer.prototype = {
