@@ -61,6 +61,11 @@ Game.prototype = {
         this.buildUI(context, this.rootUIDisplayNode);
 
         engine.addLevel('GeomWars', new GeomWarsLevel());
+
+    },
+
+    startGame: function (context) {
+
         engine.setLevel('GeomWars');
 
     },

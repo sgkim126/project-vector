@@ -173,7 +173,11 @@ Engine.prototype = {
 
     renderLevel: function (context) {
 
-        this.currentLevel.render(context);
+        if (this.currentLevel) {
+
+            this.currentLevel.render(context);
+
+        }
 
     },
 
