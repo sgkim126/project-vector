@@ -21,7 +21,7 @@ function GeomWarsLevel(context) {
 
     this.player = null;
 
-    this.fluidSolver = new FluidSolver();
+    this.fluidSolver = new FluidSolver(14, context.backgroundAccuracy);
     var n = this.fluidSolver.N + 1;
 
     this.particleManager = new ParticleManager(this.fluidSolver, this, 80);
