@@ -143,7 +143,7 @@ Game.prototype = {
 
     renderUI: function (context) {
 
-        //this.rootUIDisplayNode.render(context);
+        this.rootUIDisplayNode.render(context);
 
     }
 

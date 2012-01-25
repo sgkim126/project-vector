@@ -34,21 +34,15 @@ CanvasRenderer.prototype = {
 
     beginTransform: function (m) {
 
-        this.graphics.save();
-
         this.graphics.setTransform(m.col1.x, m.col1.y, m.col2.x, m.col2.y, m.col1.z, m.col2.z);
 
     },
 
     endTransform: function () {
 
-        this.graphics.restore();
-
     },
 
     beginLines: function (color, width, blur, alpha, m) {
-
-        this.graphics.save();
 
         if (m) {
 
@@ -85,7 +79,8 @@ CanvasRenderer.prototype = {
 
         this.graphics.stroke();
 
-        this.graphics.restore();
+        this.graphics.globalAlpha = 1;
+        this.graphics.shadowBlur = 0;
 
     },
 
@@ -123,8 +118,6 @@ CanvasRenderer.prototype = {
         var x = matrix.col1.z;
         var y = matrix.col2.z;
 
-        this.graphics.save();
-
         if (alpha === undefined) {
             alpha = 1;
         }
@@ -135,11 +128,9 @@ CanvasRenderer.prototype = {
         this.graphics.setTransform(a11, a12, a21, a22, x, y);
         this.graphics.drawImage(texture, 0, 0);
 
-        this.graphics.restore();
+        this.graphics.globalAlpha = 1;
 
         if (brightness !== 0 && brightness !== undefined) {
-
-            this.graphics.save();
 
             if (brightness > 0) {
                 this.graphics.globalCompositeOperation = 'lighter';
@@ -147,12 +138,14 @@ CanvasRenderer.prototype = {
             else {
                 this.graphics.globalCompositeOperation = 'darker';
             }
+
             this.graphics.globalAlpha = brightness * (alpha);
             this.graphics.setTransform(a11, a12, a21, a22, x, y);
             this.graphics.drawImage(texture, 0, 0);
 
-            this.graphics.restore();
-    
+            this.graphics.globalCompositeOperation = 'source-over';
+            this.graphics.globalAlpha = 1;
+
         }
 
     },
