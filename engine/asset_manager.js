@@ -13,6 +13,11 @@ function AssetManager() {
     this.cache = {};
     this.downloadQueue = [];
 
+    this.cacheCanvas = document.createElement('canvas');
+
+    this.cacheCanvas.width = 128;
+    this.cacheCanvas.height = 128;
+
 }
 
 AssetManager.prototype = {
@@ -63,12 +68,17 @@ AssetManager.prototype = {
                     target: that
                 };
 
+                that.cacheCanvas.getContext('2d').drawImage(img, 0, 0);
+
                 that.dispatchEvent(event);
 
                 if (that.isDone()) {
 
-                    downloadCallback();
+                    setTimeout(function() {
 
+                        downloadCallback();
+
+                    }, 200);
                 }
 
             }, false);
