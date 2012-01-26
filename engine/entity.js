@@ -7,7 +7,11 @@ function Entity(context, world) {
 
     this.components = new ComponentManager();
 
+    this.id = Entity.idCounter++;
+
 };
+
+Entity.idCounter = 0;
 
 Entity.prototype = {
 
