@@ -11,6 +11,8 @@ function ParticleManager(fluidSolver, level, maxParticles) {
 
     this.fluidSolver = fluidSolver;
 
+    this.pointer = 0;
+
 }
 
 ParticleManager.prototype = {
@@ -18,6 +20,20 @@ ParticleManager.prototype = {
     add: function (x, y) {
 
         this.particles.push( { x: x, y: y } );
+
+    },
+
+    setPosition: function (x, y) {
+
+        var index = this.pointer % this.particles.length;
+
+        var particle = this.particles[index];
+
+        particle.x = x;
+
+        particle.y = y;
+
+        this.pointer++;
 
     },
 

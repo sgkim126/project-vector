@@ -17,6 +17,8 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     this.velocity = new box2d.Vec2();
 
+    var vec2Pool = context.vec2Pool;
+
     this.explosionForce = 0;
 
     var model = models.cube;
@@ -43,13 +45,39 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     var position = that.bodyComponent.object.m_position;
 
+                    var particleManager = level.particleManager;
+
                     var fluidSolver = that.level.fluidSolver;
 
-                    that.explodeX = (position.x / that.level.width) * fluidSolver.N;
+                    var N = fluidSolver.N;
 
-                    that.explodeY = (position.y / that.level.height) * fluidSolver.N;
+                    var particleSpread = 60;
 
-                    var explodeForceTween = new Tween(events, that, 'explosionForce', Tween.regularEaseIn, 5, 0, 0.5);
+                    for (var i = 0; i < 10; i++) {
+
+                        var rx = position.x + ((Math.random() * particleSpread) - (particleSpread / 2));
+
+                        var ry = position.y + ((Math.random() * particleSpread) - (particleSpread / 2));
+ 
+                        particleManager.setPosition(rx, ry);
+
+                    }
+
+                    that.explodeX = (position.x / level.width) * N;
+
+                    that.explodeY = (position.y / level.height) * N;
+
+                    var dx = position.x - body.m_position.x;
+
+                    var dy = position.y - body.m_position.y;
+
+                    var d = 1 / Math.sqrt(dx * dx + dy * dy);
+
+                    that.explosionDirectionX = dx * d;
+
+                    that.explosionDirectionY = dy * d;
+
+                    var explodeForceTween = new Tween(events, that, 'explosionForce', Tween.regularEaseOut, 125, 0, 0.2);
 
                     var fadeOutTween = new Tween(events, that.vectorDraw3DComponent, 'alpha', Tween.regularEaseOut, 1, 0, 0.15);
 
@@ -99,7 +127,11 @@ Enemy1.prototype = {
 
             var fluidSolver = this.level.fluidSolver;
 
-            fluidSolver.applyRadialForce(this.explodeX, this.explodeY, this.explosionForce);
+            var dx = this.explosionDirectionX * this.explosionForce;
+
+            var dy = this.explosionDirectionY * this.explosionForce;
+
+            fluidSolver.applyForceIntegerPosition(this.explodeX, this.explodeY, dx, dy);
 
         }
 
