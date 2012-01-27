@@ -126,6 +126,7 @@ CanvasRenderer.prototype = {
         }
 
         this.graphics.setTransform(a11, a12, a21, a22, x, y);
+
         this.graphics.drawImage(texture, 0, 0);
 
         this.graphics.globalAlpha = 1;

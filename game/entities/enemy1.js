@@ -53,7 +53,7 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     var particleSpread = 60;
 
-                    for (var i = 0; i < 10; i++) {
+                    for (var i = 0; i < 15; i++) {
 
                         var rx = position.x + ((Math.random() * particleSpread) - (particleSpread / 2));
 
@@ -77,7 +77,7 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     that.explosionDirectionY = dy * d;
 
-                    var explodeForceTween = new Tween(events, that, 'explosionForce', Tween.regularEaseOut, 125, 0, 0.2);
+                    var explodeForceTween = new Tween(events, that, 'explosionForce', Tween.regularEaseOut, 175, 0, 0.2);
 
                     var fadeOutTween = new Tween(events, that.vectorDraw3DComponent, 'alpha', Tween.regularEaseOut, 1, 0, 0.15);
 
