@@ -9,7 +9,7 @@ function ParticleBasicRendererController() {
 
 ParticleBasicRendererController.prototype = {
 
-    init: function (level, particle) {
+    init: function (context, level, particle) {
 
     },
 

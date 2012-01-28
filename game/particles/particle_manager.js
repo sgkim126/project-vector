@@ -33,7 +33,7 @@ ParticleManager.prototype = {
 
     },
 
-    add: function (level, x, y, logicControllerId, renderControllerId) {
+    add: function (context, level, x, y, info, logicControllerId, renderControllerId) {
 
         var logicController = this.logicControllers[logicControllerId];
 
@@ -41,9 +41,11 @@ ParticleManager.prototype = {
 
         var newParticle = this.particlePool.create();
 
-        newParticle.init(level, x, y, logicController, renderController);
+        newParticle.init(context, level, x, y, info, logicController, renderController);
 
         this.activeParticles.push( newParticle );
+
+        return newParticle;
 
     },
 

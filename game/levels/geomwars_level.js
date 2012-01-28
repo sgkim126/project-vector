@@ -30,6 +30,8 @@ function GeomWarsLevel(context) {
 
     this.particleManager.addRenderController('dot', new ParticleBasicRendererController());
 
+    this.particleManager.addRenderController('sprite', new ParticleSpriteRendererController());
+
     this.gridVertexPositions = new Array(n);
 
     this.backgroundRenderingEnabled = context.drawBackground;
@@ -55,12 +57,16 @@ function GeomWarsLevel(context) {
 
     }
 
+    var particleInfo = { sprite:'toggle_slider' }
+
     for (var i = 0; i < 80; i++) {
 
         var x = Math.random() * this.width;
         var y = Math.random() * this.height;
 
-        this.particleManager.add(this, x, y, 'fluid', 'dot');
+        var particle = this.particleManager.add(context, this, x, y, particleInfo, 'fluid', 'sprite');
+
+        particle.sprite = 'toggle_slider';
 
     }
 

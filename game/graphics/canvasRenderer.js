@@ -109,6 +109,16 @@ CanvasRenderer.prototype = {
 
     },
 
+    drawImageSimpleAlpha: function (texture, x, y, alpha) {
+
+        this.graphics.globalAlpha = alpha;
+
+        this.graphics.drawImage(texture, x, y);
+
+        this.graphics.globalAlpha = 1;
+
+    },
+
     drawImage: function (camera, texture, matrix, brightness, alpha) {
 
         var a11 = matrix.col1.x;

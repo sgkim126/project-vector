@@ -17,7 +17,7 @@ function ParticleFluidLogicController(level, fluidSolver) {
 
 ParticleFluidLogicController.prototype = {
 
-    init: function (level, particle) {
+    init: function (context, level, particle) {
 
     },
 

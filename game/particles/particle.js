@@ -9,11 +9,13 @@ function Particle() {
 
 Particle.prototype = {
 
-    init: function (level, x, y, logicController, renderController) {
+    init: function (context, level, x, y, info, logicController, renderController) {
 
         this.x = x;
 
         this.y = y;
+
+        this.info = info;
 
         this.lifeTimer = 0;
 
@@ -25,9 +27,9 @@ Particle.prototype = {
 
         this.renderController = renderController;
 
-        logicController.init(level, this);
+        logicController.init(context, level, this);
 
-        renderController.init(level, this);
+        renderController.init(context, level, this);
 
     },
 
