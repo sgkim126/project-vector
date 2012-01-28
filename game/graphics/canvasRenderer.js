@@ -84,7 +84,7 @@ CanvasRenderer.prototype = {
 
     },
 
-    drawCircle: function (x, y, radius, blur) {
+    drawCircle: function (x, y, radius, blur, alpha) {
 
         var graphics = this.graphics;
 
@@ -92,14 +92,14 @@ CanvasRenderer.prototype = {
             graphics.shadowBlur = blur;
         }
 
+        graphics.globalAlpha = alpha;
         graphics.shadowColor = "#000000";
-        graphics.strokeStyle = "#000000";
         graphics.fillStyle = "#000000";
         graphics.beginPath();
         graphics.arc(x, y, radius, 0, Math.PI*2, true);
         graphics.closePath();
-        graphics.stroke();
         graphics.fill();
+        graphics.globalAlpha = 1;
 
     },
 

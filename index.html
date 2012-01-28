@@ -31,8 +31,11 @@
 
     <script src='game/game.js'></script>
     <script src='game/graphics/canvasRenderer.js'></script>
-    <script src='game/graphics/particle_manager.js'></script>
     <script src='game/graphics/models.js'></script>
+    <script src='game/particles/particle.js'></script>
+    <script src='game/particles/particle_manager.js'></script>
+    <script src='game/particles/controllers/particle_fluid_logic_controller.js'></script>
+    <script src='game/particles/controllers/particle_basic_renderer_controller.js'></script>
     <script src='game/input/controls.js'></script>
     <script src='game/ui/ui_elephant.js'></script>
     <script src='game/ui/ui_transformer.js'></script>
@@ -62,7 +65,7 @@
               timeStep: 1.0 / 60,
               iteration: 1,
               paused: true,
-              startMenu: true,
+              startMenu: false,
               blur: false,
               calcBackground: true,
               backgroundAccuracy: 6, // Range: 1 - 20
@@ -76,14 +79,6 @@
           engine.initalise(context, 'game/resources/assets.json', function() {
               engine.start(context, new Game());
           });
-          var stats = new Stats();
-          stats.getDomElement().style.position = 'absolute';
-          stats.getDomElement().style.left = '0px';
-          stats.getDomElement().style.top = '0px';
-          document.body.appendChild(stats.getDomElement());
-          setInterval(function() {
-              stats.update();
-          }, 1000 / 60);
       });
     </script>
   </head>

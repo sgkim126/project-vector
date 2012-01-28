@@ -26,6 +26,10 @@ function GeomWarsLevel(context) {
 
     this.particleManager = new ParticleManager(this.fluidSolver, this, 80);
 
+    this.particleManager.addLogicController('fluid', new ParticleFluidLogicController( this, this.fluidSolver ));
+
+    this.particleManager.addRenderController('dot', new ParticleBasicRendererController());
+
     this.gridVertexPositions = new Array(n);
 
     this.backgroundRenderingEnabled = context.drawBackground;
@@ -56,7 +60,7 @@ function GeomWarsLevel(context) {
         var x = Math.random() * this.width;
         var y = Math.random() * this.height;
 
-        this.particleManager.add(x, y);
+        this.particleManager.add(this, x, y, 'fluid', 'dot');
 
     }
 
