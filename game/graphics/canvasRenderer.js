@@ -103,6 +103,12 @@ CanvasRenderer.prototype = {
 
     },
 
+    drawSprite: function (spriteSheet, sheetX, sheetY, spriteW, spriteH, x, y) {
+
+        this.graphics.drawImage(spriteSheet, sheetX, sheetY, spriteW, spriteH, x, y, spriteW, spriteH);
+
+    },
+
     drawImageSimple: function (texture, x, y) {
 
         this.graphics.drawImage(texture, x, y);
