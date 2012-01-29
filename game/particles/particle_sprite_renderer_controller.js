@@ -23,6 +23,18 @@ ParticleSpriteRendererController.prototype = {
 
         var frame = Math.floor((particle.lifeTimer / info.animationLength) * 60 * animationSpeed);
 
+        if (info.animationRepeats > 0) {
+
+            if (frame >= info.animationLength * info.animationRepeats) {
+
+                particle.remove = true;
+
+                return;
+
+            }
+
+        }
+
         var a = info.spriteAnimation[frame % info.animationLength];
 
         var texture = context.assetManager.getAsset(a[0]);

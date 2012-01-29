@@ -91,6 +91,8 @@ function GeomWarsLevel(context) {
 
         particle.info.animationSpeed = 23 * Math.random();
 
+        particle.info.animationRepeats = Math.floor(Math.random() * 3) + 1;
+
         this.explosionParticleManager.add(particle, context, this, x, y);
 
     }
