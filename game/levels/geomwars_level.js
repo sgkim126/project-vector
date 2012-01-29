@@ -59,15 +59,19 @@ function GeomWarsLevel(context) {
 
     }
 
-    var particleInfo = { sprite:'toggle_slider' }
-
     for (var i = 0; i < 80; i++) {
 
         var x = Math.random() * this.width;
 
         var y = Math.random() * this.height;
 
-        var particle = this.particleManager.add(context, this, x, y, particleInfo, 'fluid', 'sprite');
+        var particle = this.particleManager.getNewParticle('fluid', 'sprite');
+
+        particle.info.spriteAnimation = spriteAnimations.explosion;
+
+        particle.info.animationSpeed = 23 * Math.random();
+
+        this.particleManager.add(particle, context, this, x, y);
 
     }
 
