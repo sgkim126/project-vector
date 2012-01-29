@@ -42,6 +42,18 @@ CanvasRenderer.prototype = {
 
     },
 
+    setBlendLighter: function () {
+
+        this.graphics.globalCompositeOperation = 'lighter';
+
+    },
+
+    setBlendDefault: function () {
+
+        this.graphics.globalCompositeOperation = 'source-over';
+
+    },
+
     beginLines: function (color, width, blur, alpha, m) {
 
         if (m) {

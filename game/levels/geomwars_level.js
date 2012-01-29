@@ -26,13 +26,21 @@ function GeomWarsLevel(context) {
 
     var n = this.fluidSolver.N;
 
-    this.particleManager = new ParticleManager(this.fluidSolver, this, 80);
+    this.backgroundParticleManager = new ParticleManager(this.fluidSolver, this, 80);
 
-    this.particleManager.addLogicController('fluid', new ParticleFluidLogicController( this, this.fluidSolver ));
+    this.backgroundParticleManager.addLogicController('fluid', new ParticleFluidLogicController( this, this.fluidSolver ));
 
-    this.particleManager.addRenderController('dot', new ParticleBasicRendererController());
+    this.backgroundParticleManager.addRenderController('dot', new ParticleBasicRendererController());
 
-    this.particleManager.addRenderController('sprite', new ParticleSpriteRendererController());
+    this.backgroundParticleManager.addRenderController('sprite', new ParticleSpriteRendererController());
+
+    this.explosionParticleManager = new ParticleManager(this.fluidSolver, this, 80);
+
+    this.explosionParticleManager.addLogicController('fluid', new ParticleFluidLogicController( this, this.fluidSolver ));
+
+    this.explosionParticleManager.addRenderController('dot', new ParticleBasicRendererController());
+
+    this.explosionParticleManager.addRenderController('sprite', new ParticleSpriteRendererController());
 
     this.gridVertexPositions = new Array(n);
 
@@ -59,19 +67,31 @@ function GeomWarsLevel(context) {
 
     }
 
-    for (var i = 0; i < 80; i++) {
+    for (var i = 0; i < 60; i++) {
 
         var x = Math.random() * this.width;
 
         var y = Math.random() * this.height;
 
-        var particle = this.particleManager.getNewParticle('fluid', 'sprite');
+        var particle = this.backgroundParticleManager.getNewParticle('fluid', 'dot');
+
+        this.backgroundParticleManager.add(particle, context, this, x, y);
+
+    }
+
+    for (var i = 0; i < 20; i++) {
+
+        var x = Math.random() * this.width;
+
+        var y = Math.random() * this.height;
+
+        var particle = this.backgroundParticleManager.getNewParticle('fluid', 'sprite');
 
         particle.info.spriteAnimation = spriteAnimations.explosion;
 
         particle.info.animationSpeed = 23 * Math.random();
 
-        this.particleManager.add(particle, context, this, x, y);
+        this.explosionParticleManager.add(particle, context, this, x, y);
 
     }
 
@@ -234,7 +254,9 @@ GeomWarsLevel.prototype = {
 
             this.fluidSolver.tick(context.timeStep, visc, diff);
 
-            this.particleManager.update(context, this.vScale);
+            this.backgroundParticleManager.update(context, this.vScale);
+
+            this.explosionParticleManager.update(context, this.vScale);
 
         }
 
@@ -276,13 +298,23 @@ GeomWarsLevel.prototype = {
 
         if (this.particleRenderingEnabled) {
 
-            this.particleManager.render(context, worldMatrix);
+            this.backgroundParticleManager.render(context, worldMatrix);
 
         }
 
         this.drawBorder(context, worldMatrix);
 
         this.drawEntities(context);
+
+        if (this.particleRenderingEnabled) {
+
+            renderer.setBlendLighter();
+
+            this.explosionParticleManager.render(context, worldMatrix);
+
+            renderer.setBlendDefault();
+
+        }
 
         mat33Pool.release(matrix);
         mat33Pool.release(worldMatrix);
