@@ -9,7 +9,7 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     this.prototype = Object.extend(this, new Entity(context, world));
 
-    this.hitCount = 1;
+    this.hitCount = 2;
 
     this.target = target;
 
@@ -49,9 +49,9 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     var N = fluidSolver.N;
 
-                    var particleSpread = 60;
+                    var particleSpread = 150;
 
-                    for (var i = 0; i < 15; i++) {
+                    for (var i = 0; i < 20; i++) {
 
                         var rx = position.x + ((Math.random() * particleSpread) - (particleSpread / 2));
 
@@ -75,7 +75,7 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     that.explosionDirectionY = dy * d;
 
-                    var explodeForceTween = new Tween(events, that, 'explosionForce', Tween.regularEaseOut, 175, 0, 0.2);
+                    var explodeForceTween = new Tween(events, that, 'explosionForce', Tween.regularEaseOut, 135, 0, 0.2);
 
                     var fadeOutTween = new Tween(events, that.vectorDraw3DComponent, 'alpha', Tween.regularEaseOut, 1, 0, 0.15);
 

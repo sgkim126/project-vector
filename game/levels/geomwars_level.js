@@ -167,7 +167,7 @@ GeomWarsLevel.prototype = {
 
         particle.info.spriteAnimation = spriteAnimations.explosion;
 
-        particle.info.animationSpeed = 18 + (Math.random() * 6);
+        particle.info.animationSpeed = 18 + (Math.random() * 12);
 
         particle.info.animationRepeats = 1;
 
