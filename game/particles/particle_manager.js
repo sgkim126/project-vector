@@ -73,7 +73,15 @@ ParticleManager.prototype = {
 
             if (particle.remove) {
 
-                this.particlePool.release(particle);
+                var index = this.activeParticles.indexOf(particle);
+
+                if (index != -1) {
+
+                    this.particlePool.release(particle);
+
+                    this.activeParticles.splice(index, 1);
+
+                }
 
             } else {
 
