@@ -45,23 +45,21 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     var position = that.bodyComponent.object.m_position;
 
-                    var particleManager = level.particleManager;
-
                     var fluidSolver = that.level.fluidSolver;
 
                     var N = fluidSolver.N;
 
-                    //var particleSpread = 60;
+                    var particleSpread = 60;
 
-                    /*for (var i = 0; i < 15; i++) {
+                    for (var i = 0; i < 15; i++) {
 
                         var rx = position.x + ((Math.random() * particleSpread) - (particleSpread / 2));
 
                         var ry = position.y + ((Math.random() * particleSpread) - (particleSpread / 2));
  
-                        particleManager.setPosition(rx, ry);
+                        level.createExplosionParticle(context, rx, ry);
 
-                    }*/
+                    }
 
                     that.explodeX = (position.x / level.width) * N;
 

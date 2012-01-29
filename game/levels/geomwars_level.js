@@ -79,24 +79,6 @@ function GeomWarsLevel(context) {
 
     }
 
-    for (var i = 0; i < 20; i++) {
-
-        var x = Math.random() * this.width;
-
-        var y = Math.random() * this.height;
-
-        var particle = this.backgroundParticleManager.getNewParticle('fluid', 'sprite');
-
-        particle.info.spriteAnimation = spriteAnimations.explosion;
-
-        particle.info.animationSpeed = 23 * Math.random();
-
-        particle.info.animationRepeats = Math.floor(Math.random() * 3) + 1;
-
-        this.explosionParticleManager.add(particle, context, this, x, y);
-
-    }
-
 }
 
 GeomWarsLevel.prototype = {
@@ -176,6 +158,20 @@ GeomWarsLevel.prototype = {
             that.startGame(context);
 
         });
+
+    },
+
+    createExplosionParticle: function (context, x, y) {
+
+        var particle = this.explosionParticleManager.getNewParticle('fluid', 'sprite');
+
+        particle.info.spriteAnimation = spriteAnimations.explosion;
+
+        particle.info.animationSpeed = 18 + (Math.random() * 6);
+
+        particle.info.animationRepeats = 1;
+
+        this.explosionParticleManager.add(particle, context, this, x, y);
 
     },
 
