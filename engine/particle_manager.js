@@ -65,21 +65,23 @@ ParticleManager.prototype = {
 
             if (particle.remove) {
 
-                var index = this.activeParticles.indexOf(particle);
+                this.activeParticles.splice(i, 1);
 
-                if (index != -1) {
+                this.particlePool.release(particle);
 
-                    this.particlePool.release(particle);
-
-                    this.activeParticles.splice(index, 1);
-
-                }
-
-            } else {
-
-                this.activeParticles[i].update(context, this.level);
+                this.numParticles--;
 
             }
+
+        }
+
+        this.numParticles = this.activeParticles.length;
+
+        for (var i = 0; i < this.numParticles; i++) {
+
+            var particle = this.activeParticles[i];
+
+            this.activeParticles[i].update(context, this.level);
 
         }
 
