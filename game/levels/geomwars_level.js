@@ -130,15 +130,21 @@ GeomWarsLevel.prototype = {
         context.paused = false;
 
         context.camera.zoom = 1.3;
+
         context.camera.zoomTarget = 1;
-        context.camera.setPosition(500, 300);
 
         var halfWidth = this.width / 2;
+
         var halfHeight = this.height / 2;
 
+        context.camera.setPosition(halfWidth, halfHeight);
+
         this.createBox(this.world, 10, halfHeight, 10, halfHeight, true, 'ground');
+
         this.createBox(this.world, halfWidth, 10, halfWidth, 10, true, 'ground');
+
         this.createBox(this.world, this.width - 10, halfHeight, 10, halfHeight, true, 'ground');
+
         this.createBox(this.world, halfWidth, this.height - 10, halfWidth, 10, true, 'ground');
 
         var timerRegistery = context.timerRegistery;
@@ -161,13 +167,18 @@ GeomWarsLevel.prototype = {
 
         var timerRegistery = context.timerRegistery;
 
-        timerRegistery.add('spawn', 4, function () { that.spawnEnemy(context, that.player); } );
+        timerRegistery.add('spawn', 4, function () {
+
+            that.spawnEnemy(context, that.player); 
+
+        });
 
     },
 
     onUpdate: function (context) {
 
         var visc = 0.0001;
+
         var diff = 0.3;
 
         this.vScale = context.timeStep * 1.25;
@@ -179,11 +190,15 @@ GeomWarsLevel.prototype = {
         var border = camera.border;
 
         var horizontalLimit = this.width - border.x;
+
         var verticalLimit = this.height - border.y;
 
         if (camera.position.x < border.x) camera.position.x = border.x;
+
         if (camera.position.y < border.y) camera.position.y = border.y;
+
         if (camera.position.x > horizontalLimit) camera.position.x = horizontalLimit;
+
         if (camera.position.y > verticalLimit) camera.position.y = verticalLimit;
 
         if (camera.zoom > 1.3) camera.zoom = 1.3;
@@ -202,9 +217,11 @@ GeomWarsLevel.prototype = {
             var hitPoint = engine.Collision.BoxPointTest(controls.positionX, controls.positionY, this.width, this.height, backMatrix, true);
 
             var hx = hitPoint.x * fluidSolver.N;
+
             var hy = hitPoint.y * fluidSolver.N;
 
             var px = controls.normalDeltaX * 200;
+
             var py = controls.normalDeltaY * 200;
 
             fluidSolver.applyForce(hx, hy, px, py);
@@ -281,7 +298,6 @@ GeomWarsLevel.prototype = {
         var renderer = context.renderer;
 
         renderer.beginLines('#FFFFFF', 8, 4, 1, matrix);
-
         renderer.moveTo(15, 15);
         renderer.lineTo(this.width - 20, 15);
         renderer.lineTo(this.width - 20, this.height - 20);
@@ -299,6 +315,7 @@ GeomWarsLevel.prototype = {
         var mat33Pool = context.mat33Pool;
 
         matrix.Scale(0.5, 0.5);
+
         renderer.drawImage(camera, assetManager.getAsset('light'), matrix, 0, 1);
 
     },
