@@ -17,12 +17,14 @@ function GeomWarsLevel(context) {
     this.vScale = 50;
 
     this.width = 1000;
+
     this.height = 600;
 
     this.player = null;
 
     this.fluidSolver = new FluidSolver(14, context.backgroundAccuracy);
-    var n = this.fluidSolver.N + 1;
+
+    var n = this.fluidSolver.N;
 
     this.particleManager = new ParticleManager(this.fluidSolver, this, 80);
 
@@ -62,49 +64,60 @@ function GeomWarsLevel(context) {
     for (var i = 0; i < 80; i++) {
 
         var x = Math.random() * this.width;
+
         var y = Math.random() * this.height;
 
         var particle = this.particleManager.add(context, this, x, y, particleInfo, 'fluid', 'sprite');
-
-        particle.sprite = 'toggle_slider';
-
-    }
-
-    this.createBox = function (world, x, y, width, height, fixed, userData) {
-
-        if (typeof(fixed) == 'undefined') fixed = true;
-
-        var boxSd = new box2d.BoxDef();
-        if (!fixed) boxSd.density = 1.0;
-        boxSd.userData = userData;
-        boxSd.extents.Set(width, height);
-
-        var boxBd = new box2d.BodyDef();
-        boxBd.AddShape(boxSd);
-        boxBd.position.Set(x, y);
-
-        return world.CreateBody(boxBd);
-
-    };
-
-    this.spawnEnemy = function (context, player) {
-
-        var timerRegistery = context.timerRegistery;
-
-        var randomX = (Math.random() * 200) + 50;
-        var randomY = (Math.random() * 200) + 50;
-
-        var enemy1 = new Enemy1(context, that.world, that, player, randomX, randomY);
-
-        this.addEntity(context, enemy1);
-
-        timerRegistery.add('spawn', 4, function () { that.spawnEnemy(context, player); } );
 
     }
 
 }
 
 GeomWarsLevel.prototype = {
+
+    createBox: function (world, x, y, width, height, fixed, userData) {
+
+        if (typeof(fixed) == 'undefined') fixed = true;
+
+        var boxSd = new box2d.BoxDef();
+
+        if (!fixed) boxSd.density = 1.0;
+
+        boxSd.userData = userData;
+
+        boxSd.extents.Set(width, height);
+
+        var boxBd = new box2d.BodyDef();
+
+        boxBd.AddShape(boxSd);
+
+        boxBd.position.Set(x, y);
+
+        return world.CreateBody(boxBd);
+
+    },
+
+    spawnEnemy: function (context, player) {
+
+        var timerRegistery = context.timerRegistery;
+
+        var randomX = (Math.random() * 200) + 50;
+
+        var randomY = (Math.random() * 200) + 50;
+
+        var enemy1 = new Enemy1(context, this.world, this, player, randomX, randomY);
+
+        this.addEntity(context, enemy1);
+
+        var that = this;
+
+        timerRegistery.add('spawn', 4, function () {
+
+            that.spawnEnemy(context, player); } 
+
+        );
+
+    },
 
     onInitalize: function (context) {
 
