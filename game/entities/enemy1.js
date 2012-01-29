@@ -51,9 +51,9 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     var N = fluidSolver.N;
 
-                    var particleSpread = 60;
+                    //var particleSpread = 60;
 
-                    for (var i = 0; i < 15; i++) {
+                    /*for (var i = 0; i < 15; i++) {
 
                         var rx = position.x + ((Math.random() * particleSpread) - (particleSpread / 2));
 
@@ -61,7 +61,7 @@ function Enemy1(context, world, level, target, x, y, textureId) {
  
                         particleManager.setPosition(rx, ry);
 
-                    }
+                    }*/
 
                     that.explodeX = (position.x / level.width) * N;
 
