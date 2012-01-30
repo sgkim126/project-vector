@@ -35,7 +35,7 @@ AssetManager.prototype = {
 
     },
 
-    downloadAll: function (downloadCallback) {
+    downloadAll: function (context, downloadCallback) {
 
         var that = this;
 
@@ -52,7 +52,7 @@ AssetManager.prototype = {
 
             var img = new Image();
 
-            img.addEventListener('load', function() {
+            img.addEventListener('load', function(e) {
 
                 that.successCount += 1;
                 var complete = that.successCount / that.downloadQueue.length;
@@ -64,6 +64,8 @@ AssetManager.prototype = {
                 };
 
                 that.dispatchEvent(event);
+
+                context.renderer.drawImageSimpleAlpha(e.target, 0, 0, 0);
 
                 if (that.isDone()) {
 

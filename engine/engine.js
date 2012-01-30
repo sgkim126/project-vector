@@ -55,7 +55,7 @@ Engine.prototype = {
     loadResources: function (context, resourceList, callback) {
 
         var assetManager = context.assetManager;
-console.log(resourceList);
+
         assetManager.queueDownloads(resourceList);
 
         assetManager.addEventListener('error', function(event) {
@@ -64,7 +64,7 @@ console.log(resourceList);
 
         });
 
-        assetManager.downloadAll(function() {
+        assetManager.downloadAll(context, function() {
 
             callback();
 
