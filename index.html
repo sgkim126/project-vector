@@ -28,17 +28,17 @@
     <script src='engine/object_pool.js'></script>
     <script src='engine/component_manager.js'></script>
     <script src='engine/timer_registery.js'></script>
-
+    <script src='engine/particle.js'></script>
+    <script src='engine/particle_manager.js'></script>
+    
     <script src='game/game.js'></script>
     <script src='game/graphics/canvasRenderer.js'></script>
     <script src='game/resources/models.js'></script>
     <script src='game/resources/sprite_animations.js'></script>
-    <script src='game/particles/particle.js'></script>
-    <script src='game/particles/particle_manager.js'></script>
-    <script src='game/particles/controllers/particle_fluid_logic_controller.js'></script>
-    <script src='game/particles/controllers/particle_basic_renderer_controller.js'></script>
-    <script src='game/particles/controllers/particle_image_renderer_controller.js'></script>
-    <script src='game/particles/controllers/particle_sprite_renderer_controller.js'></script>
+    <script src='game/particles/particle_fluid_logic_controller.js'></script>
+    <script src='game/particles/particle_basic_renderer_controller.js'></script>
+    <script src='game/particles/particle_image_renderer_controller.js'></script>
+    <script src='game/particles/particle_sprite_renderer_controller.js'></script>
     <script src='game/input/controls.js'></script>
     <script src='game/ui/ui_elephant.js'></script>
     <script src='game/ui/ui_transformer.js'></script>
@@ -68,7 +68,7 @@
               timeStep: 1.0 / 60,
               iteration: 1,
               paused: true,
-              startMenu: false,
+              startMenu: true,
               blur: false,
               calcBackground: true,
               backgroundAccuracy: 6, // Range: 1 - 20
