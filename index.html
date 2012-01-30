@@ -76,10 +76,24 @@
               drawParticles: true,
               debugDraw: false
           };
+          var initalAssets = [
+              ["elephant", "game/resources/img/elephant.png"],
+              ["bike", "game/resources/img/bike.png"],
+              ["transformer", "game/resources/img/prime.png"],
+              ["light", "game/resources/img/light.jpg"],
+              ["back", "game/resources/img/back.jpg"],
+              ["fur", "game/resources/img/fur.png"],
+              ["toggle_back", "game/resources/img/toggle_back.png"],
+              ["toggle_slider", "game/resources/img/toggle_slider.png"],
+              ["title", "game/resources/img/title.png"],
+              ["play_up", "game/resources/img/play_up.png"],
+              ["play_down", "game/resources/img/play_down.png"],
+              ["sprites_1", "game/resources/img/sprites_1.png"]
+          ];
           context.renderer = new CanvasRenderer(context, canvas);
           var engine = new Engine();
           context.engine = engine;
-          engine.initalise(context, 'game/resources/assets.json', function() {
+          engine.initalise(context, initalAssets, function() {
               engine.start(context, new Game());
           });
       });

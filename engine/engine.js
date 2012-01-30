@@ -55,22 +55,18 @@ Engine.prototype = {
     loadResources: function (context, resourceList, callback) {
 
         var assetManager = context.assetManager;
+console.log(resourceList);
+        assetManager.queueDownloads(resourceList);
 
-        $j.get(resourceList, function(data) {
+        assetManager.addEventListener('error', function(event) {
 
-            assetManager.queueDownloads(JSON.parse(data));
+            alert(event.data);
 
-            assetManager.addEventListener('error', function(event) {
+        });
 
-                alert(event.data);
+        assetManager.downloadAll(function() {
 
-            });
-
-            assetManager.downloadAll(function() {
-
-                callback();
-
-            });
+            callback();
 
         });
 
