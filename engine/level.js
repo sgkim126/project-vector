@@ -68,6 +68,8 @@ Level.prototype = {
 
         }
 
+        this.world.CleanBodyList();
+
         for (var c = this.world.GetContactList(); c; c = c.GetNext()) {
 
             if (c.GetManifoldCount() > 0) {
