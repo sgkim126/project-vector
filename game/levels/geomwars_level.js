@@ -75,6 +75,8 @@ function GeomWarsLevel(context) {
 
         var particle = this.backgroundParticleManager.getNewParticle('fluid', 'dot');
 
+        particle.info.repositionOffScreen = true;
+
         this.backgroundParticleManager.add(particle, context, this, x, y);
 
     }
@@ -170,6 +172,8 @@ GeomWarsLevel.prototype = {
         particle.info.animationSpeed = 18 + (Math.random() * 12);
 
         particle.info.animationRepeats = 1;
+
+        particle.info.repositionOffScreen = false;
 
         this.explosionParticleManager.add(particle, context, this, x, y);
 

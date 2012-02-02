@@ -95,15 +95,19 @@ ParticleFluidLogicController.prototype = {
 
         particle.y += dy * 10;
 
-        if (particle.x < 10 || particle.x >= level.width - 10) {
+        if (particle.info.repositionOffScreen) {
 
-            particle.x = Math.random() * level.width;
+            if (particle.x < 10 || particle.x >= level.width - 10) {
 
-        }
+                particle.x = Math.random() * level.width;
 
-        if (particle.y < 10 || particle.y >= level.height - 20) {
+            }
 
-            particle.y = Math.random() * level.height;
+            if (particle.y < 10 || particle.y >= level.height - 20) {
+
+                particle.y = Math.random() * level.height;
+
+            }
 
         }
 
