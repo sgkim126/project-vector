@@ -27,9 +27,9 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     var timerRegistery = context.timerRegistery;
 
-    this.data = new function() {
+    this.data = {
 
-        this.contactEvent = function ( body, contact ) {
+        contactEvent: function ( body, contact ) {
 
             if (body.m_userData && body.m_userData.name === 'projectile') {
 
@@ -37,7 +37,9 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                 body.m_userData.name = 'spent_projectile';
 
-                if (that.hitCount <= 0) {
+                if (that.hitCount === 0) {
+
+                    //that.target.components.remove(context, 'weapon');
 
                     timerRegistery.add('entity_' + that.id, 0.5, that.die);
 
@@ -91,9 +93,9 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
             }
 
-        }
+        },
 
-        this.name = 'enemy1';
+        name: 'enemy1'
 
     }
 

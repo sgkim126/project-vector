@@ -68,7 +68,7 @@ Level.prototype = {
 
         }
 
-        this.world.CleanBodyList();
+        //this.world.CleanBodyList();
 
         for (var c = this.world.GetContactList(); c; c = c.GetNext()) {
 

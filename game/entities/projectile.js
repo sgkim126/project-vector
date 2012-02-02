@@ -19,9 +19,9 @@ function Projectile(context, world, level, position, vector, id) {
 
     var timerRegistery = context.timerRegistery;
 
-    this.data = new function() {
+    this.data = {
 
-        this.contactEvent = function ( body, contact ) {
+        contactEvent: function ( body, contact ) {
 
             timerRegistery.add('bullet_' + that.id, 0.15, that.die);
 
@@ -31,11 +31,11 @@ function Projectile(context, world, level, position, vector, id) {
 
             fadeOutTween.start();
 
-        }
+        },
 
-        this.name = 'projectile';
+        name: 'projectile'
 
-    }
+    };
 
     this.die = function (context) {
 
