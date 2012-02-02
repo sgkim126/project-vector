@@ -75,13 +75,16 @@ ComponentManager.prototype = {
 
         var removedComponent = this.components[id];
 
+        if (!removedComponent)
+            return;
+
         if (removedComponent.onRemove) {
 
             removedComponent.onRemove(context);
 
         }
 
-        this.components[removeId] = null;
+        delete this.components[id];
 
     },
 
