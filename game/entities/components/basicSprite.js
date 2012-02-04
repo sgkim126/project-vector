@@ -16,6 +16,10 @@ function BasicSprite(entity, bodyComponent, textureId) {
     this.matrix = new box2d.Mat33();
     this.worldMatrix = new box2d.Mat33();
 
+    this.alpha = 1;
+
+    this.scaleModify = 1;
+
 }
 
 BasicSprite.prototype = {
@@ -40,11 +44,11 @@ BasicSprite.prototype = {
 
         this.matrix.SetIdentity();
         this.matrix.ConcatM22(body.m_R);
-        this.matrix.Scale(0.1, 0.1);
+        this.matrix.Scale(this.scaleModify, this.scaleModify);
         this.matrix.TranslateV(body.m_position);
 
         camera.spriteTransform(this.matrix, 1, this.handleX, this.handleY, this.worldMatrix);
-        renderer.drawImage(camera, this.sprite, this.worldMatrix, 0, 1);
+        renderer.drawImage(camera, this.sprite, this.worldMatrix, 0, this.alpha);
 
     }
 

@@ -105,8 +105,8 @@ CanvasRenderer.prototype = {
         }
 
         graphics.globalAlpha = alpha;
-        graphics.shadowColor = "#000000";
-        graphics.fillStyle = "#000000";
+        graphics.shadowColor = "#FFFFFF";
+        graphics.fillStyle = "#FFFFFF";
         graphics.beginPath();
         graphics.arc(x, y, radius, 0, Math.PI*2, true);
         graphics.closePath();

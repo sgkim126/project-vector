@@ -27,7 +27,7 @@ function Projectile(context, world, level, position, vector, id) {
 
             that.bodyComponent.object.m_shapeList.m_groupIndex = -1;
 
-            var fadeOutTween = new Tween(events, that.vectorDraw3DComponent, 'alpha', Tween.regularEaseIn, 1, 0, 0.15);
+            var fadeOutTween = new Tween(events, that.basicSprite, 'alpha', Tween.regularEaseIn, 1, 0, 0.15);
 
             fadeOutTween.start();
 
@@ -45,11 +45,15 @@ function Projectile(context, world, level, position, vector, id) {
 
     this.bodyComponent = new SquareBody(this, world, level, 5, 5, position.x, position.y, 1, this.data);
 
-    this.vectorDraw3DComponent = new VectorDraw3D(this, model, this.bodyComponent, '#FF5500', 0.4);
+    //this.vectorDraw3DComponent = new VectorDraw3D(this, model, this.bodyComponent, '#FF5500', 0.4);
 
-    this.components.add(context, this.vectorDraw3DComponent, 'sprite');
+    //this.components.add(context, this.vectorDraw3DComponent, 'sprite');
 
     this.components.add(context, this.bodyComponent, 'body');
+
+    this.basicSprite = new BasicSprite(this, this.bodyComponent, 'bullet');
+
+    this.components.add(context, this.basicSprite, 'sprite');
 
 };
 
@@ -67,7 +71,7 @@ Projectile.prototype = {
 
         timerRegistery.add('bullet_' + this.id, 5, this.die);
 
-        var fadeInTween = new Tween(events, this.vectorDraw3DComponent, 'alpha', Tween.regularEaseIn, 0, 1, 0.05);
+        var fadeInTween = new Tween(events, this.basicSprite, 'alpha', Tween.regularEaseIn, 0, 1, 0.05);
 
         fadeInTween.start();
 

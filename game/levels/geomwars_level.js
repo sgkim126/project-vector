@@ -284,7 +284,8 @@ GeomWarsLevel.prototype = {
         camera.worldTransform(matrix, 0.7, gridMatrix2);
         camera.uiTransform(matrix, 1, 0, 0, backMatrix);
 
-        this.drawBackground(context, backMatrix);
+        //this.drawBackground(context, backMatrix);
+        renderer.clearBlack();
 
         if (this.backgroundRenderingEnabled) {
 

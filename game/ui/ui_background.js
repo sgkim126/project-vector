@@ -29,9 +29,10 @@ UIBackground.prototype = {
 
         var matrix = mat33Pool.create();
 
-        matrix.Scale(0.5, 0.5);
+        matrix.SetM(this.drawMatrix);
+        matrix.Scale(1.5, 1.5);
 
-        renderer.drawImage(camera, assetManager.getAsset('back'), this.drawMatrix, 0, this.alpha);
+        renderer.drawImage(camera, assetManager.getAsset('title_background'), matrix, 0, this.alpha);
 
         mat33Pool.release(matrix);
 

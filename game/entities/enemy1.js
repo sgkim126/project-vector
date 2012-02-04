@@ -79,9 +79,9 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     var explodeForceTween = new Tween(events, that, 'explosionForce', Tween.regularEaseOut, 135, 0, 0.2);
 
-                    var fadeOutTween = new Tween(events, that.vectorDraw3DComponent, 'alpha', Tween.regularEaseOut, 1, 0, 0.15);
+                    var fadeOutTween = new Tween(events, that.basicSprite, 'alpha', Tween.regularEaseOut, 1, 0, 0.15);
 
-                    var explodeTween = new Tween(events, that.vectorDraw3DComponent, 'scaleModify', Tween.regularEaseOut, 1, 2, 0.15);
+                    var explodeTween = new Tween(events, that.basicSprite, 'scaleModify', Tween.regularEaseOut, 1, 2, 0.15);
 
                     fadeOutTween.start();
 
@@ -107,11 +107,15 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     this.bodyComponent = new CircleBody(this, world, level, x, y, 20, 0, this.data);
 
-    this.vectorDraw3DComponent = new VectorDraw3D(this, model, this.bodyComponent, '#2255FF', 1.05);
+    //this.vectorDraw3DComponent = new VectorDraw3D(this, model, this.bodyComponent, '#2255FF', 1.05);
 
-    this.components.add(context, this.vectorDraw3DComponent, 'sprite');
+    //this.components.add(context, this.vectorDraw3DComponent, 'sprite');
 
     this.components.add(context, this.bodyComponent, 'body');
+
+    this.basicSprite = new BasicSprite(this, this.bodyComponent, 'enemy1');
+
+    this.components.add(context, this.basicSprite, 'sprite');
 
 };
 
