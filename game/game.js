@@ -45,6 +45,9 @@ Game.prototype = {
         var controlsContainer = new DisplayContainer();
         controlsContainer.y = 1;
 
+        var hudContainer = new DisplayContainer();
+        hudContainer.alpha = 0;
+
         var playButton = new UIButton(context, 'btn_play_up', 'btn_play_down', function () {
 
             playButton.disableClick();
@@ -59,6 +62,12 @@ Game.prototype = {
 
                 backgroundAlphaOut.start();
 
+                var hudAlphaIn = new Tween(events, hudContainer, 'alpha', Tween.regularEaseIn, 0, 1, 0.5);
+
+                hudAlphaIn.start();
+
+                context.score = 0;
+
                 that.startGame(context);
 
             });
@@ -72,6 +81,13 @@ Game.prototype = {
         playButton.x = 0.5; playButton.y = 0.5;
 
         root.addChild(level);
+
+        root.addChild(hudContainer);
+
+        var score = new UIScore(context);
+        score.x = 0.05; score.y = 0.05; score.scale = 0.75;
+
+        hudContainer.addChild(score);
 
         if (!context.startMenu) {
 

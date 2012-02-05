@@ -40,6 +40,8 @@ CanvasRenderer.prototype = {
 
     endTransform: function () {
 
+        this.graphics.setTransform(1, 0, 0, 1, 0, 0);
+
     },
 
     setBlendLighter: function () {

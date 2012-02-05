@@ -51,6 +51,8 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     that.state = 'dead';
 
+                    context.score += 12;
+
                     //that.target.components.remove(context, 'weapon');
 
                     timerRegistery.add('entity_' + that.id, 0.5, that.die);
