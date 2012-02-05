@@ -111,9 +111,9 @@ GeomWarsLevel.prototype = {
 
         var timerRegistery = context.timerRegistery;
 
-        var randomX = (Math.random() * 200) + 50;
+        var randomX = (Math.random() * (this.width - 200)) + 100;
 
-        var randomY = (Math.random() * 200) + 50;
+        var randomY = (Math.random() * (this.height - 200)) + 100;
 
         var enemy1 = new Enemy1(context, this.world, this, player, randomX, randomY);
 
