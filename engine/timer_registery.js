@@ -19,6 +19,12 @@ TimerRegistery.prototype = {
 
             timer.time -= context.timeStep;
 
+            if (timer.func) {
+
+                timer.func(context, timer.time);
+
+            }
+
             if (timer.time <= 0) {
 
                 delete this.timers[id];
@@ -28,6 +34,12 @@ TimerRegistery.prototype = {
             }
 
         }
+
+    },
+
+    addFunction: function (id, time, func, callback) {
+
+        this.timers[id] = { time: time, func: func, callback: callback };
 
     },
 
