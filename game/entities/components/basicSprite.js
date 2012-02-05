@@ -18,7 +18,7 @@ function BasicSprite(entity, bodyComponent, textureId) {
 
     this.alpha = 1;
 
-    this.brightness = 1;
+    this.brightness = 0;
 
     this.scaleModify = 1;
 
