@@ -27,6 +27,8 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     var timerRegistery = context.timerRegistery;
 
+    this.state = 'enter';
+
     this.data = {
 
         contactEvent: function ( body, contact ) {
@@ -46,6 +48,8 @@ function Enemy1(context, world, level, target, x, y, textureId) {
                 }
 
                 else if (that.hitCount === 0) {
+
+                    that.state = 'dead';
 
                     //that.target.components.remove(context, 'weapon');
 
@@ -125,6 +129,16 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     this.components.add(context, this.basicSprite, 'sprite');
 
+    var fadeInTween = new Tween(events, this.basicSprite, 'alpha', Tween.regularEaseOut, 0, 1, 1.5);
+
+    fadeInTween.start();
+
+    fadeInTween.addEventListener('onMotionFinished', function(e) {
+
+        that.state = 'follow';
+
+    });
+
 };
 
 Enemy1.prototype = {
@@ -147,28 +161,39 @@ Enemy1.prototype = {
 
         }
 
-        var targetBody = this.target.bodyComponent.object;
-        var body = this.bodyComponent.object;
+        if (this.state == 'follow') {
 
-        this.lastX = targetBody.m_position.x;
-        this.lastY = targetBody.m_position.y;
-        this.x = body.m_position.x;
-        this.y = body.m_position.y;
+            var targetBody = this.target.bodyComponent.object;
 
-        var dx = this.x - this.lastX;
-        var dy = this.y - this.lastY;
+            var body = this.bodyComponent.object;
 
-        var d = Math.sqrt(dx * dx + dy * dy);
+            this.lastX = targetBody.m_position.x;
 
-        if (d > 0.00001) {
+            this.lastY = targetBody.m_position.y;
 
-            dx /= d;
-            dy /= d;
+            this.x = body.m_position.x;
 
-            this.velocity.x = -dx * 5600;
-            this.velocity.y = -dy * 5600;
+            this.y = body.m_position.y;
 
-            body.m_force.add(this.velocity);
+            var dx = this.x - this.lastX;
+
+            var dy = this.y - this.lastY;
+
+            var d = Math.sqrt(dx * dx + dy * dy);
+
+            if (d > 0.00001) {
+
+                dx /= d;
+
+                dy /= d;
+
+                this.velocity.x = -dx * 5600;
+
+                this.velocity.y = -dy * 5600;
+
+                body.m_force.add(this.velocity);
+
+            }
 
         }
 
