@@ -23,11 +23,11 @@ function Projectile(context, world, level, position, vector, id) {
 
         contactEvent: function ( body, contact ) {
 
-            timerRegistery.add('bullet_' + that.id, 0.15, that.die);
+            timerRegistery.add('bullet_' + that.id, 0.35, that.die);
 
             that.bodyComponent.object.m_shapeList.m_groupIndex = -1;
 
-            var fadeOutTween = new Tween(events, that.basicSprite, 'alpha', Tween.regularEaseIn, 1, 0, 0.15);
+            var fadeOutTween = new Tween(events, that.basicSprite, 'alpha', Tween.regularEaseIn, 1, 0, 0.35);
 
             fadeOutTween.start();
 
@@ -53,7 +53,13 @@ function Projectile(context, world, level, position, vector, id) {
 
     this.basicSprite = new BasicSprite(this, this.bodyComponent, 'bullet');
 
+    this.basicSprite.handleOffsetY = 1.3;
+
+    this.basicSprite.overrideRotation = true;
+
     this.components.add(context, this.basicSprite, 'sprite');
+
+    this.velocity = new box2d.Vec2();
 
 };
 
@@ -73,7 +79,29 @@ Projectile.prototype = {
 
         var fadeInTween = new Tween(events, this.basicSprite, 'alpha', Tween.regularEaseIn, 0, 1, 0.05);
 
+        var brightInTween = new Tween(events, this.basicSprite, 'brightness', Tween.regularEaseIn, 1, 0, 0.25);
+
         fadeInTween.start();
+
+        brightInTween.start();
+
+    },
+
+    onUpdate: function (context) {
+
+        this.velocity.SetV(this.bodyComponent.object.m_linearVelocity);
+
+        var v = this.velocity;
+
+        if (Math.abs(v.x * v.x + v.y * v.y) > 0.01 * 0.01) {
+
+            v.Normalize();
+
+            this.rotation = Math.atan2(v.y, v.x);
+
+        }
+
+        this.basicSprite.rotation = this.rotation - (Math.PI / 2);
 
     },
 
