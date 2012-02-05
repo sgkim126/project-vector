@@ -37,15 +37,15 @@ Game.prototype = {
         var level = new UILevel();
 
         var title = new UIBasic(context, 'title');
-        title.x = 0.5; title.y = 0.2;
+        title.x = 0.5; title.y = 0.25;
 
         var toggle0 = new UIToggle(context);
-        toggle0.x = 0.85; toggle0.y = 0.55;
+        toggle0.x = 0.82; toggle0.y = 0.475;
 
         var controlsContainer = new DisplayContainer();
         controlsContainer.y = 1;
 
-        var playButton = new UIButton(context, 'play_up', 'play_down', function () {
+        var playButton = new UIButton(context, 'btn_play_up', 'btn_play_down', function () {
 
             playButton.disableClick();
 
