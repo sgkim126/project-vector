@@ -5,7 +5,7 @@
 
 function Player(context, world, level, x, y, textureId) {
 
-    this.prototype = Object.extend(this, new Entity(context, world));
+    this.prototype = Object.extend(this, new GeomWarsEntity(context, world));
 
     this.weaponPower = 250000;
 

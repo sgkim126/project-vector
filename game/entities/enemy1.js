@@ -7,7 +7,7 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     var that = this;
 
-    this.prototype = Object.extend(this, new Entity(context, world));
+    this.prototype = Object.extend(this, new GeomWarsEntity(context, world));
 
     this.hitCount = 2;
 
