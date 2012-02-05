@@ -37,7 +37,15 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                 body.m_userData.name = 'spent_projectile';
 
-                if (that.hitCount === 0) {
+                if (that.hitCount > 0) {
+
+                    var brightTween = new Tween(events, that.basicSprite, 'brightness', Tween.regularEaseOut, 1, 0, 0.33);
+
+                    brightTween.start();
+
+                }
+
+                else if (that.hitCount === 0) {
 
                     //that.target.components.remove(context, 'weapon');
 
