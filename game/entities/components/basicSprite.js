@@ -18,7 +18,16 @@ function BasicSprite(entity, bodyComponent, textureId) {
 
     this.alpha = 1;
 
+    this.brightness = 1;
+
     this.scaleModify = 1;
+
+    this.handleOffsetX = 1;
+    this.handleOffsetY = 1;
+
+    this.overrideRotation = false;
+    this.rotation = 0;
+    this.rotationMatrix = new box2d.Mat22();
 
 }
 
@@ -42,13 +51,19 @@ BasicSprite.prototype = {
         var assetManager = context.assetManager;
         var body = this.bodyComponent.object;
 
+        if (!this.overrideRotation) {
+            this.rotationMatrix.SetM(body.m_R);
+        } else {
+            this.rotationMatrix.Set(this.rotation);
+        }
+
         this.matrix.SetIdentity();
-        this.matrix.ConcatM22(body.m_R);
+        this.matrix.ConcatM22(this.rotationMatrix);
         this.matrix.Scale(this.scaleModify, this.scaleModify);
         this.matrix.TranslateV(body.m_position);
 
-        camera.spriteTransform(this.matrix, 1, this.handleX, this.handleY, this.worldMatrix);
-        renderer.drawImage(camera, this.sprite, this.worldMatrix, 0, this.alpha);
+        camera.spriteTransform(this.matrix, 1, this.handleX * this.handleOffsetX, this.handleY * this.handleOffsetY, this.worldMatrix);
+        renderer.drawImage(camera, this.sprite, this.worldMatrix, this.brightness, this.alpha);
 
     }
 
