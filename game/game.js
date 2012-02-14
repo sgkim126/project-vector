@@ -48,6 +48,14 @@ Game.prototype = {
         var hudContainer = new DisplayContainer();
         hudContainer.alpha = 0;
 
+        var pauseButton = new UIButton(context, 'btn_pause_up', 'btn_pause_down', function () {
+
+            context.paused = !context.paused;
+
+        });
+
+        pauseButton.x = 0.95; pauseButton.y = 0.05;
+
         var playButton = new UIButton(context, 'btn_play_up', 'btn_play_down', function () {
 
             playButton.disableClick();
@@ -70,6 +78,8 @@ Game.prototype = {
 
                 that.startGame(context);
 
+                pauseButton.enableClick();
+
             });
 
             controlsSlideOut.start();
@@ -88,6 +98,8 @@ Game.prototype = {
         score.x = 0.05; score.y = 0.05; score.scale = 0.75;
 
         hudContainer.addChild(score);
+
+        hudContainer.addChild(pauseButton);
 
         if (!context.startMenu) {
 

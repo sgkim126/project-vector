@@ -129,7 +129,7 @@ Engine.prototype = {
 
         game.updateUI(context);
 
-        timerRegistery.update(context);
+        menuTimerRegistery.update(context);
 
         menuEvents.dispatchEvent(tickEvent);
 
