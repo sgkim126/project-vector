@@ -274,22 +274,15 @@ GeomWarsLevel.prototype = {
         var matrix = mat33Pool.create();
         var worldMatrix = mat33Pool.create();
         var backMatrix = mat33Pool.create();
-        var gridMatrix0 = mat33Pool.create();
-        var gridMatrix1 = mat33Pool.create();
-        var gridMatrix2 = mat33Pool.create();
 
         camera.worldTransform(matrix, 1, worldMatrix);
-        camera.worldTransform(matrix, 0.9, gridMatrix0);
-        camera.worldTransform(matrix, 0.8, gridMatrix1);
-        camera.worldTransform(matrix, 0.7, gridMatrix2);
-        camera.uiTransform(matrix, 1, 0, 0, backMatrix);
+        camera.spriteTransform(matrix, 0.8, 320, 200, backMatrix);
 
-        //this.drawBackground(context, backMatrix);
         renderer.clearBlack();
 
         if (this.backgroundRenderingEnabled) {
 
-            this.drawGrid(context, 0.5, this.vScale, gridMatrix0);
+            this.drawBackground(context, backMatrix);
 
         }
 
@@ -322,9 +315,6 @@ GeomWarsLevel.prototype = {
         mat33Pool.release(matrix);
         mat33Pool.release(worldMatrix);
         mat33Pool.release(backMatrix);
-        mat33Pool.release(gridMatrix0);
-        mat33Pool.release(gridMatrix1);
-        mat33Pool.release(gridMatrix2);
 
     },
 
@@ -347,11 +337,10 @@ GeomWarsLevel.prototype = {
         var camera = context.camera;
         var renderer = context.renderer;
         var assetManager = context.assetManager;
-        var mat33Pool = context.mat33Pool;
 
-        matrix.Scale(0.5, 0.5);
-
-        renderer.drawImage(camera, assetManager.getAsset('light'), matrix, 0, 1);
+        matrix.Scale(1.2, 1.2);
+        matrix.Translate(-640* 0.8, -400 * 0.8);
+        renderer.drawImage(camera, assetManager.getAsset('hexes'), matrix, 0, 1);
 
     },
 
