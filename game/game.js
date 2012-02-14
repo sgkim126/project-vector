@@ -22,7 +22,7 @@ Game.prototype = {
 
         context.controls = new Controls(context);
 
-        engine.addLevel('GeomWars', new GeomWarsLevel(context));
+        engine.addLevel('GeomWars', GeomWarsLevel);
 
         this.buildUI(context, this.rootUIDisplayNode);
 
@@ -36,6 +36,8 @@ Game.prototype = {
 
         var level = new UILevel();
 
+        var events = context.menuEvents;
+
         var title = new UIBasic(context, 'title');
         title.x = 0.5; title.y = 0.25;
 
@@ -48,21 +50,51 @@ Game.prototype = {
         var hudContainer = new DisplayContainer();
         hudContainer.alpha = 0;
 
+        var quitButton = new UIButton(context, 'btn_quit', 'btn_quit', function () {
+
+            pauseButton.disableClick();
+
+            var x = parseFloat(quitButton.x);
+
+            var quitSlideOut = new Tween(events, quitButton, 'x', Tween.regularEaseIn, x, -0.06, 0.33);
+
+            quitSlideOut.start();
+
+            that.showTitle(context, title, background, controlsContainer, playButton, function() {
+
+                that.endGame(context);
+
+            });
+
+        });
+
         var pauseButton = new UIButton(context, 'btn_pause_up', 'btn_pause_down', function () {
 
             context.paused = !context.paused;
+
+            if (context.paused) {
+
+                var x = parseFloat(quitButton.x);
+
+                var quitSlideIn = new Tween(events, quitButton, 'x', Tween.regularEaseIn, x, 0.06, 0.33);
+
+                quitSlideIn.start();
+
+            } else {
+
+                var x = parseFloat(quitButton.x);
+
+                var quitSlideOut = new Tween(events, quitButton, 'x', Tween.regularEaseIn, x, -0.06, 0.33);
+
+                quitSlideOut.start();
+
+            }
 
         });
 
         pauseButton.x = 0.95; pauseButton.y = 0.05;
 
-        var quitButton = new UIButton(context, 'btn_quit', 'btn_quit', function () {
-
-            alert('quit');
-
-        });
-
-        quitButton.x = 0.06; quitButton.y = 0.54; quitButton.scale = 0.2;
+        quitButton.x = -0.06; quitButton.y = 0.54; quitButton.scale = 0.2;
 
         var playButton = new UIButton(context, 'btn_play_up', 'btn_play_down', function () {
 
@@ -131,6 +163,11 @@ Game.prototype = {
 
         controlsContainer.addChild(playButton);
 
+        this.showTitle(context, title, background, controlsContainer, playButton, null);
+    },
+
+    showTitle: function (context, title, background, controlsContainer, playButton, ready) {
+
         var events = context.menuEvents;
 
         var backgroundAlphaIn = new Tween(events, background, 'alpha', Tween.regularEaseOut, 0, 1, 1.5);
@@ -140,6 +177,12 @@ Game.prototype = {
         var titleScaleIn = new Tween(events, title, 'scale', Tween.regularEaseOut, 3, 1, 1);
 
         titleAlphaIn.addEventListener('onMotionFinished', function(e) {
+
+            if (ready) {
+
+                ready();
+
+            }
 
             var controlsSlideIn = new Tween(events, controlsContainer, 'y', Tween.regularEaseOut, 1, 0, 1);
 
@@ -165,7 +208,15 @@ Game.prototype = {
 
         var engine = context.engine;
 
-        engine.setLevel('GeomWars');
+        engine.setLevel('GeomWars', context);
+
+    },
+
+    endGame: function (context) {
+
+        var engine = context.engine;
+
+        engine.destroyLevel(context);
 
     },
 

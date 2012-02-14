@@ -42,6 +42,16 @@ Level.prototype = {
 
     },
 
+    destroy: function (context) {
+
+        if (this.onDestroy) {
+
+            this.onDestroy(context);
+
+        }
+
+    },
+
     update: function (context) {
 
         this.components.update(context);

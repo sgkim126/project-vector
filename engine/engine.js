@@ -20,11 +20,7 @@ Engine.prototype = {
 
         context.engine = this;
 
-        context.events = new function() {
-
-            this.prototype += Object.extend(this, new EventDispatcher());
-
-        }
+        this.createEventsAndTimers(context);
 
         context.menuEvents = new function() {
 
@@ -40,8 +36,6 @@ Engine.prototype = {
 
         context.assetManager = new AssetManager();
 
-        context.timerRegistery = new TimerRegistery();
-
         context.menuTimerRegistery = new TimerRegistery();
 
         this.loadResources(context, resourceList, function () {
@@ -49,6 +43,18 @@ Engine.prototype = {
             callback();
 
         });
+
+    },
+
+    createEventsAndTimers: function (context) {
+
+        context.events = new function() {
+
+            this.prototype += Object.extend(this, new EventDispatcher());
+
+        }
+
+        context.timerRegistery = new TimerRegistery();
 
     },
 
@@ -72,15 +78,27 @@ Engine.prototype = {
 
     },
 
-    addLevel: function(id, level) {
+    addLevel: function(id, levelClass) {
 
-        this.levels[id] = level;
+        this.levels[id] = levelClass;
 
     },
 
-    setLevel: function(id) {
+    setLevel: function(id, context) {
 
-        this.queuedLevel = this.levels[id];
+        this.queuedLevel = new this.levels[id](context);
+
+    },
+
+    destroyLevel: function(context) {
+
+        this.createEventsAndTimers(context);
+
+        this.currentLevel.destroy();
+
+        this.currentLevel = null;
+
+        context.paused = true;
 
     },
 
