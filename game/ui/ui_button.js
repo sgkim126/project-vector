@@ -9,6 +9,8 @@ function UIButton(context, upSpriteId, downSpriteId, clickEvent) {
 
     this.context = context;
 
+    var that = this;
+
     var assetManager = context.assetManager;
 
     this.upSprite = assetManager.getAsset(upSpriteId);
@@ -31,23 +33,34 @@ function UIButton(context, upSpriteId, downSpriteId, clickEvent) {
 
     this.pressedState = false;
 
+    this.upFunc = function(e, target) {
+
+        that.up(e, target);
+
+    };
+
+    this.downFunc = function(e, target) {
+
+        that.down(e, target);
+
+    };
 }
 
 UIButton.prototype = {
 
     enableClick: function() {
 
-        this.context.controls.addEventListener('end', this.up, this);
+        this.context.controls.addEventListener('end', this.upFunc, this);
 
-        this.context.controls.addEventListener('start', this.down, this);
+        this.context.controls.addEventListener('start', this.downFunc, this);
 
     },
 
     disableClick: function() {
 
-        this.context.controls.removeEventListener('end', this.up, this);
+        this.context.controls.removeEventListener('end', this.upFunc, this);
 
-        this.context.controls.removeEventListener('start', this.down, this);
+        this.context.controls.removeEventListener('start', this.downFunc, this);
 
     },
 
