@@ -32,7 +32,7 @@ function GeomWarsLevel(context) {
 
     this.backgroundParticleManager.addRenderController('dot', new ParticleBasicRendererController());
 
-    this.backgroundParticleManager.addRenderController('sprite', new ParticleSpriteRendererController());
+    this.backgroundParticleManager.addRenderController('image', new ParticleImageRendererController());
 
     this.explosionParticleManager = new ParticleManager(this.fluidSolver, this, 80);
 
@@ -73,9 +73,11 @@ function GeomWarsLevel(context) {
 
         var y = Math.random() * this.height;
 
-        var particle = this.backgroundParticleManager.getNewParticle('fluid', 'dot');
+        var particle = this.backgroundParticleManager.getNewParticle('fluid', 'image');
 
         particle.info.repositionOffScreen = true;
+
+        particle.info.sprite = 'bp' + Math.floor(Math.random() * 9);
 
         this.backgroundParticleManager.add(particle, context, this, x, y);
 

@@ -97,15 +97,25 @@ ParticleFluidLogicController.prototype = {
 
         if (particle.info.repositionOffScreen) {
 
+            if (particle.internalAlpha < 1) {
+
+                particle.internalAlpha += 0.01;
+
+            }
+
             if (particle.x < 10 || particle.x >= level.width - 10) {
 
                 particle.x = Math.random() * level.width;
+
+                particle.internalAlpha = 0;
 
             }
 
             if (particle.y < 10 || particle.y >= level.height - 20) {
 
                 particle.y = Math.random() * level.height;
+
+                particle.internalAlpha = 0;
 
             }
 
