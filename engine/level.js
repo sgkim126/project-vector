@@ -27,10 +27,14 @@ Level.prototype = {
 
     initalize: function (context) {
 
+        box2d.Settings.b2_linearSlop = 0.05;
+        box2d.Settings.b2_angularSlop = 0.005;
+        box2d.Settings.b2_maxLinearCorrection = 12;
+
         var worldAABB = new box2d.AABB();
 
-        worldAABB.minVertex.Set(-1000, -1000);
-        worldAABB.maxVertex.Set(1000, 1000);
+        worldAABB.minVertex.Set(0, 0);
+        worldAABB.maxVertex.Set(1000, 800);
 
         var gravity = new box2d.Vec2(0, 0);
 
@@ -98,7 +102,7 @@ Level.prototype = {
 
         }
 
-        this.world.Step(context.timeStep, context.iteration);
+        this.world.Step(context.timeStep, 1);
 
         while (this.destroyBodyList.length > 0) {
 
