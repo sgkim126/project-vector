@@ -22,7 +22,9 @@ function GeomWarsLevel(context) {
 
     this.player = null;
 
-    this.fluidSolver = new FluidSolver(14, context.backgroundAccuracy);
+   
+
+    this.fluidSolver = new FluidSolver(context.fluidSolverResolution, context.backgroundAccuracy);
 
     var n = this.fluidSolver.N;
 
@@ -67,7 +69,7 @@ function GeomWarsLevel(context) {
 
     }
 
-    for (var i = 0; i < 60; i++) {
+    for (var i = 0; i < context.particleCount; i++) {
 
         var x = Math.random() * this.width;
 
@@ -113,14 +115,14 @@ GeomWarsLevel.prototype = {
 
         var timerRegistery = context.timerRegistery;
 
-        var randomX = (Math.random() * (this.width - 200)) + 100;
+        /*var randomX = (Math.random() * (this.width - 200)) + 100;
 
         var randomY = (Math.random() * (this.height - 200)) + 100;
 
         var enemy1 = new Enemy1(context, this.world, this, player, randomX, randomY);
 
         this.addEntity(context, enemy1);
-
+*/
         var that = this;
 
         timerRegistery.add('spawn', 4, function () {
@@ -258,11 +260,11 @@ GeomWarsLevel.prototype = {
 
             this.fluidSolver.tick(context.timeStep, visc, diff);
 
-            this.backgroundParticleManager.update(context, this.vScale);
-
-            this.explosionParticleManager.update(context, this.vScale);
-
         }
+
+        this.backgroundParticleManager.update(context, this.vScale);
+
+        this.explosionParticleManager.update(context, this.vScale);
 
     },
 
@@ -305,7 +307,7 @@ GeomWarsLevel.prototype = {
 
         this.drawEntities(context);
 
-        if (this.particleRenderingEnabled) {
+        /*if (this.particleRenderingEnabled) {
 
             renderer.setBlendLighter();
 
@@ -313,7 +315,7 @@ GeomWarsLevel.prototype = {
 
             renderer.setBlendDefault();
 
-        }
+        }*/
 
         mat33Pool.release(matrix);
         mat33Pool.release(worldMatrix);
