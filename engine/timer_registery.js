@@ -7,6 +7,9 @@ function TimerRegistery() {
 
     this.timers = {};
 
+    this.anonTimers = [];
+    this.deadAnonTimers = [];
+
 }
 
 TimerRegistery.prototype = {
@@ -17,13 +20,7 @@ TimerRegistery.prototype = {
 
             var timer = this.timers[id];
 
-            timer.time -= context.timeStep;
-
-            if (timer.func) {
-
-                timer.func(context, timer.time);
-
-            }
+            this.processTimer(context, timer);
 
             if (timer.time <= 0) {
 
@@ -32,6 +29,44 @@ TimerRegistery.prototype = {
                 timer.callback(context);
 
             }
+
+        }
+
+        for (var i = 0; i < this.anonTimers.length; i++) {
+
+            var timer = this.anonTimers[i];
+
+            this.processTimer(context, timer);
+
+            if (timer.time <= 0) {
+
+                this.deadAnonTimers.push(timer);
+
+                timer.callback(context);
+
+            }
+
+        }
+
+        while (this.deadAnonTimers.length > 0) {
+
+            var deadTimer = this.deadAnonTimers.pop();
+
+            var i = this.anonTimers.indexOf(deadTimer);
+
+            this.anonTimers.splice(i, 1);
+
+        }
+
+    },
+
+    processTimer: function (context, timer) {
+
+        timer.time -= context.timeStep;
+
+        if (timer.func) {
+
+            timer.func(context, timer.time);
 
         }
 
@@ -46,6 +81,12 @@ TimerRegistery.prototype = {
     add: function (id, time, callback) {
 
         this.timers[id] = { time: time, callback: callback };
+
+    },
+
+    addAnon: function (time, callback) {
+
+        this.anonTimers.push( { time: time, callback: callback } );
 
     },
 
