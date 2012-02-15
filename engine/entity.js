@@ -29,13 +29,15 @@ Entity.prototype = {
 
     remove: function (context) {
 
-        //this.components.removeAll(context);
+        setTimeout(100, function () {
 
-        if (this.onRemove) {
+            if (this.onRemove) {
 
-            this.onRemove(context);
+                this.onRemove(context);
 
-        }
+            }
+
+        });
 
     },
 

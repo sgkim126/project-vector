@@ -11,6 +11,8 @@ function ObjectPool(objectClass) {
 
     this.count = 0;
 
+    this.allowInstanceNew = true;
+
 }
 
 ObjectPool.prototype = {
@@ -27,7 +29,12 @@ ObjectPool.prototype = {
 
         this.count++;
 
-        return new this.objectClass();
+        if (this.allowInstanceNew) {
+
+            return new this.objectClass();
+        }
+
+        return null;
 
     },
 
