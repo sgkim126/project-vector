@@ -75,21 +75,7 @@ Projectile.prototype = {
 
         var body = this.bodyComponent.object;
 
-        body.m_position.SetV(position);
-
-        body.m_position0.SetV(position);
-
-        body.m_linearVelocity.Default();
-
-        body.m_linearVelocity.Default();
-
-        body.m_angularVelocity = 0;
-
-        body.m_force.Default();
-
-        body.sMat0.SetIdentity();
-
-        body.m_R.SetIdentity();
+        body.Default();
 
         this.vector = direction;
 
