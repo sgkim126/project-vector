@@ -27,9 +27,9 @@ function Projectile(context, world, level, position, vector, id) {
 
             that.bodyComponent.object.m_shapeList.m_groupIndex = -1;
 
-            var fadeOutTween = new Tween(events, that.basicSprite, 'alpha', Tween.regularEaseIn, 1, 0, 0.35);
+            //var fadeOutTween = new Tween(events, that.basicSprite, 'alpha', Tween.regularEaseIn, 1, 0, 0.35);
 
-            fadeOutTween.start();
+            //fadeOutTween.start();
 
         },
 
@@ -77,13 +77,13 @@ Projectile.prototype = {
 
         timerRegistery.add('bullet_' + this.id, 5, this.die);
 
-        var fadeInTween = new Tween(events, this.basicSprite, 'alpha', Tween.regularEaseIn, 0, 1, 0.05);
+        //var fadeInTween = new Tween(events, this.basicSprite, 'alpha', Tween.regularEaseIn, 0, 1, 0.05);
 
-        var brightInTween = new Tween(events, this.basicSprite, 'brightness', Tween.regularEaseIn, 1, 0, 0.25);
+        //var brightInTween = new Tween(events, this.basicSprite, 'brightness', Tween.regularEaseIn, 1, 0, 0.25);
 
-        fadeInTween.start();
+        //fadeInTween.start();
 
-        brightInTween.start();
+        //brightInTween.start();
 
     },
 
@@ -98,6 +98,12 @@ Projectile.prototype = {
             v.Normalize();
 
             this.rotation = Math.atan2(v.y, v.x);
+
+            this.basicSprite.enabled = true;
+
+        } else {
+
+            this.basicSprite.enabled = false;
 
         }
 
