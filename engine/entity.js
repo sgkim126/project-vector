@@ -29,7 +29,7 @@ Entity.prototype = {
 
     remove: function (context) {
 
-        this.components.removeAll(context);
+        //this.components.removeAll(context);
 
         if (this.onRemove) {
 

@@ -7,6 +7,10 @@ function Weapon(entity, world, level, bodyComponent, vector) {
 
     var that = this;
 
+    this.projectilePool = new ObjectPool(Projectile);
+
+    this.projectilePool.allowInstanceNew = false;
+
     this.counter = 0;
 
     this.vector = vector;
@@ -21,7 +25,17 @@ function Weapon(entity, world, level, bodyComponent, vector) {
 
         var body = bodyComponent.object;
 
-        var projectile = new Projectile(context, world, level, body.m_position, that.vector, that.counter);
+        var projectile = that.projectilePool.create();
+
+        if (!projectile) {
+
+            projectile = new Projectile(context, that, world, level, body.m_position, that.vector, that.counter);
+
+        } else {
+
+            projectile.reset(context, body.m_position, that.vector);
+
+        }
 
         level.addEntity(context, projectile);
 

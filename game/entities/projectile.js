@@ -3,7 +3,9 @@
 
 'use strict';
 
-function Projectile(context, world, level, position, vector, id) {
+function Projectile(context, weapon, world, level, position, vector, id) {
+
+    this.bodyGroupIndex = 1;
 
     var that = this;
 
@@ -11,9 +13,9 @@ function Projectile(context, world, level, position, vector, id) {
 
     this.id = id;
 
-    this.vector = vector;
+    this.weapon = weapon;
 
-    var model = models.octahedron;
+    this.vector = vector;
 
     var events = context.events;
 
@@ -27,9 +29,9 @@ function Projectile(context, world, level, position, vector, id) {
 
             that.bodyComponent.object.m_shapeList.m_groupIndex = -1;
 
-            //var fadeOutTween = new Tween(events, that.basicSprite, 'alpha', Tween.regularEaseIn, 1, 0, 0.35);
+            var fadeOutTween = new Tween(events, that.basicSprite, 'alpha', Tween.regularEaseIn, 1, 0, 0.35);
 
-            //fadeOutTween.start();
+            fadeOutTween.start();
 
         },
 
@@ -43,11 +45,7 @@ function Projectile(context, world, level, position, vector, id) {
 
     }
 
-    this.bodyComponent = new SquareBody(this, world, level, 5, 5, position.x, position.y, 1, this.data);
-
-    //this.vectorDraw3DComponent = new VectorDraw3D(this, model, this.bodyComponent, '#FF5500', 0.4);
-
-    //this.components.add(context, this.vectorDraw3DComponent, 'sprite');
+    this.bodyComponent = new SquareBody(this, world, level, 5, 5, position.x, position.y, this.bodyGroupIndex, this.data);
 
     this.components.add(context, this.bodyComponent, 'body');
 
@@ -65,6 +63,34 @@ function Projectile(context, world, level, position, vector, id) {
 
 Projectile.prototype = {
 
+    Default: function() {
+
+        this.velocity.Default();
+
+        this.bodyComponent.object.m_shapeList.m_groupIndex = this.bodyGroupIndex;
+
+    },
+
+    reset: function (context, position, direction) {
+
+        var body = this.bodyComponent.object;
+
+        body.m_position.SetV(position);
+
+        body.m_linearVelocity.Default();
+
+        body.m_linearVelocity.Default();
+
+        body.m_angularVelocity = 0;
+
+        body.m_force.Default();
+
+        this.vector = direction;
+
+        this.velocity.Default();
+
+    },
+
     onInitalize: function (context) {
 
         var timerRegistery = context.timerRegistery;
@@ -77,13 +103,13 @@ Projectile.prototype = {
 
         timerRegistery.add('bullet_' + this.id, 5, this.die);
 
-        //var fadeInTween = new Tween(events, this.basicSprite, 'alpha', Tween.regularEaseIn, 0, 1, 0.05);
+        var fadeInTween = new Tween(events, this.basicSprite, 'alpha', Tween.regularEaseIn, 0, 1, 0.05);
 
-        //var brightInTween = new Tween(events, this.basicSprite, 'brightness', Tween.regularEaseIn, 1, 0, 0.25);
+        var brightInTween = new Tween(events, this.basicSprite, 'brightness', Tween.regularEaseIn, 1, 0, 0.25);
 
-        //fadeInTween.start();
+        fadeInTween.start();
 
-        //brightInTween.start();
+        brightInTween.start();
 
     },
 
@@ -112,6 +138,8 @@ Projectile.prototype = {
     },
 
     onRemove: function (context) {
+
+        this.weapon.projectilePool.release(this);
 
     },
 

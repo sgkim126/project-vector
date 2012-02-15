@@ -13,6 +13,8 @@ function Level() {
 
     this.addQueueEntities = [];
 
+    this.removeQueueEntities = [];
+
     this.world = null;
 
     this.destroyBodyList = [];
@@ -71,6 +73,22 @@ Level.prototype = {
             entity.initalize(context);
 
             this.entities.push(entity);
+
+        }
+
+        while (this.removeQueueEntities.length > 0) {
+
+            var entity = this.removeQueueEntities.pop();
+
+            var index = this.entities.indexOf(entity);
+
+            if (index != -1) {
+
+                this.entities.splice(index, 1);
+                entity.remove(context);
+                entity = null;
+
+            }
 
         }
 
@@ -146,15 +164,7 @@ Level.prototype = {
 
     removeEntity: function (context, entity) {
 
-        var index = this.entities.indexOf(entity);
-
-        if (index != -1) {
-
-            this.entities.splice(index, 1);
-            entity.remove(context);
-            entity = null;
-
-        }
+        this.removeQueueEntities.push(entity);
 
     },
 
