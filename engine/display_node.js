@@ -45,9 +45,12 @@ DisplayNode.prototype = {
 
         camera.uiTransform(this.transformedMatrix, 1, this.centerX, this.centerY, this.drawMatrix, level === 1);
 
-        this.children.forEach(function (childNode) {
+        var childCount = this.children.length;
+
+        for (var i = 0; i < childCount; i++) {
+            var childNode = this.children[i];
             childNode.traverse(context, transformType, that.transformedMatrix, that.drawAlpha, level + 1);
-        });
+        }
 
         if (!inputMatrix) {
             mat33Pool.release(parentMatrix);
@@ -78,9 +81,12 @@ DisplayNode.prototype = {
             this.onUpdate(context);
         }
 
-        this.children.forEach(function (childNode) {
+        var childCount = this.children.length;
+
+        for (var i = 0; i < childCount; i++) {
+            var childNode = this.children[i];
             childNode.update(context, childNode);
-        });
+        }
 
     },
 
@@ -95,9 +101,12 @@ DisplayNode.prototype = {
             this.onRender(context);
         }
 
-        this.children.forEach(function (childNode) {
+        var childCount = this.children.length;
+
+        for (var i = 0; i < childCount; i++) {
+            var childNode = this.children[i];
             childNode.render(context, childNode);
-        });
+        }
 
     }
 
