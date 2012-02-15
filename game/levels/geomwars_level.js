@@ -300,7 +300,8 @@ GeomWarsLevel.prototype = {
 
         }
 
-        this.drawBorder(context, worldMatrix);
+        // FIXME: This is slow on mobile
+        //this.drawBorder(context, worldMatrix);
 
         this.drawEntities(context);
 
