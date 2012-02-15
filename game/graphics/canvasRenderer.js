@@ -165,7 +165,7 @@ CanvasRenderer.prototype = {
 
         this.graphics.globalAlpha = 1;
 
-        if (brightness !== 0 && brightness !== undefined) {
+        /*if (brightness !== 0 && brightness !== undefined) {
 
             if (brightness > 0) {
                 this.graphics.globalCompositeOperation = 'lighter';
@@ -181,7 +181,7 @@ CanvasRenderer.prototype = {
             this.graphics.globalCompositeOperation = 'source-over';
             this.graphics.globalAlpha = 1;
 
-        }
+        }*/
 
     },
 
