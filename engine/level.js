@@ -11,6 +11,8 @@ function Level() {
 
     this.entities = [];
 
+    this.addQueueEntities = [];
+
     this.world = null;
 
     this.destroyBodyList = [];
@@ -59,6 +61,16 @@ Level.prototype = {
         if (this.onUpdate) {
 
             this.onUpdate(context);
+
+        }
+
+        while (this.addQueueEntities.length > 0) {
+
+            var entity = this.addQueueEntities.pop();
+
+            entity.initalize(context);
+
+            this.entities.push(entity);
 
         }
 
@@ -128,8 +140,7 @@ Level.prototype = {
         if (this.entities.indexOf(entity) != -1)
             throw new Error('Entity already added to level.');
 
-        entity.initalize(context);
-        this.entities.push(entity);
+        this.addQueueEntities.push(entity);
 
     },
 
