@@ -52,7 +52,8 @@
     <script src='game/entities/geomwars_entity.js'></script>
     <script src='game/entities/player.js'></script>
     <script src='game/entities/projectile.js'></script>
-    <script src='game/entities/enemy1.js'></script>
+    <script src='game/entities/enemy.js'></script>
+    <script src='game/entities/explosion.js'></script>
     <script src='game/entities/components/cameraFollow.js'></script>
     <script src='game/entities/components/controlMove.js'></script>
     <script src='game/entities/components/circleBody.js'></script>
@@ -60,6 +61,7 @@
     <script src='game/entities/components/basicSprite.js'></script>
     <script src='game/entities/components/weapon.js'></script>
     <script src='game/entities/components/vectorDraw3D.js'></script>
+    <script src='game/entities/components/simpleSprite.js'></script>
 
     <script>
       var $j = jQuery.noConflict();
@@ -72,10 +74,10 @@
               paused: true,
               startMenu: true,
               blur: false,
-              particleCount: 30,
+              particleCount: 45,
               calcBackground: true,
-              fluidSolverResolution: 8,
-              backgroundAccuracy: 2, // Range: 1 - 20
+              fluidSolverResolution: 14,  // 8 - 14
+              backgroundAccuracy: 6, // Range: 2 - 6
               drawBackground: true,
               drawParticles: true,
               debugDraw: false

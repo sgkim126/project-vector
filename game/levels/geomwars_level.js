@@ -121,9 +121,9 @@ GeomWarsLevel.prototype = {
 
         var enemyType = Math.floor((Math.random() * 3) + 1);
 
-        var enemy1 = new Enemy1(context, this.world, this, player, randomX, randomY, enemyType);
+        var enemy = new Enemy(context, this.world, this, player, randomX, randomY, enemyType);
 
-        this.addEntity(context, enemy1);
+        this.addEntity(context, enemy);
 
         var that = this;
 
