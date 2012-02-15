@@ -27,6 +27,14 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     var timerRegistery = context.timerRegistery;
 
+    this.brightTween = new Tween();
+
+    this.explodeForceTween = new Tween();
+
+    this.fadeOutTween = new Tween();
+
+    this.explodeTween = new Tween();
+
     this.state = 'enter';
 
     this.data = {
@@ -41,9 +49,9 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                 if (that.hitCount > 0) {
 
-                    var brightTween = new Tween(events, that.basicSprite, 'brightness', Tween.regularEaseOut, 1, 0, 0.33);
+                    that.brightTween.init(events, that.basicSprite, 'brightness', Tween.regularEaseOut, 1, 0, 0.33);
 
-                    brightTween.start();
+                    that.brightTween.start();
 
                 }
 
@@ -91,17 +99,17 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     that.explosionDirectionY = dy * d;
 
-                    var explodeForceTween = new Tween(events, that, 'explosionForce', Tween.regularEaseOut, 135, 0, 0.2);
+                    that.explodeForceTween.init(events, that, 'explosionForce', Tween.regularEaseOut, 135, 0, 0.2);
 
-                    var fadeOutTween = new Tween(events, that.basicSprite, 'alpha', Tween.regularEaseOut, 1, 0, 0.15);
+                    that.fadeOutTween.init(events, that.basicSprite, 'alpha', Tween.regularEaseOut, 1, 0, 0.15);
 
-                    var explodeTween = new Tween(events, that.basicSprite, 'scaleModify', Tween.regularEaseOut, 1, 2, 0.15);
+                    that.explodeTween.init(events, that.basicSprite, 'scaleModify', Tween.regularEaseOut, 1, 2, 0.15);
 
-                    fadeOutTween.start();
+                    that.fadeOutTween.start();
 
-                    explodeTween.start();
+                    that.explodeTween.start();
 
-                    explodeForceTween.start();
+                    that.explodeForceTween.start();
 
                 }
 
