@@ -65,9 +65,11 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     timerRegistery.add('entity_' + that.id, 0.5, that.die);
 
-                    that.bodyComponent.object.m_shapeList.m_groupIndex = -1;
+                    var thatbody = that.bodyComponent.object;
 
-                    var position = that.bodyComponent.object.m_position;
+                    thatbody.m_shapeList.m_groupIndex = -1;
+
+                    var position = thatbody.m_position;
 
                     var fluidSolver = that.level.fluidSolver;
 
@@ -110,6 +112,10 @@ function Enemy1(context, world, level, target, x, y, textureId) {
                     that.explodeTween.start();
 
                     that.explodeForceTween.start();
+
+                    var explodeEntity = new Explosion(context, world, level, thatbody.m_position);
+
+                    level.addEntity(context, explodeEntity);
 
                 }
 
