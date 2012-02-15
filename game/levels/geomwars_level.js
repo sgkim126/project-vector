@@ -115,14 +115,16 @@ GeomWarsLevel.prototype = {
 
         var timerRegistery = context.timerRegistery;
 
-        /*var randomX = (Math.random() * (this.width - 200)) + 100;
+        var randomX = (Math.random() * (this.width - 200)) + 100;
 
         var randomY = (Math.random() * (this.height - 200)) + 100;
 
-        var enemy1 = new Enemy1(context, this.world, this, player, randomX, randomY);
+        var enemyType = Math.floor((Math.random() * 3) + 1);
+
+        var enemy1 = new Enemy1(context, this.world, this, player, randomX, randomY, enemyType);
 
         this.addEntity(context, enemy1);
-*/
+
         var that = this;
 
         timerRegistery.add('spawn', 4, function () {
@@ -307,7 +309,7 @@ GeomWarsLevel.prototype = {
 
         this.drawEntities(context);
 
-        /*if (this.particleRenderingEnabled) {
+        if (this.particleRenderingEnabled) {
 
             renderer.setBlendLighter();
 
@@ -315,7 +317,7 @@ GeomWarsLevel.prototype = {
 
             renderer.setBlendDefault();
 
-        }*/
+        }
 
         mat33Pool.release(matrix);
         mat33Pool.release(worldMatrix);
