@@ -9,7 +9,7 @@ function Player(context, world, level, x, y, textureId) {
 
     this.weaponPower = 250000;
 
-    this.weaponVector = new box2d.Vec2(1 * this.weaponPower, 0);
+    this.weaponVector = new box2d.Vec2(0, 1 * this.weaponPower);
 
     this.bodyComponent = new CircleBody(this, world, level, x, y, 12, 1);
 
