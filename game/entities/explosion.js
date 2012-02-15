@@ -3,7 +3,7 @@
 
 'use strict';
 
-function Explosion(context, world, level, position) {
+function Explosion(context, world, level, position, type) {
 
     var that = this;
 
@@ -23,11 +23,11 @@ function Explosion(context, world, level, position) {
 
     this.fadeOutTween2 = new Tween();
 
-    this.sprite0 = new SimpleSprite(this, position, 'exp1_01');
+    this.sprite0 = new SimpleSprite(this, position, 'exp' + type + '_01');
 
-    this.sprite1 = new SimpleSprite(this, position, 'exp1_02');
+    this.sprite1 = new SimpleSprite(this, position, 'exp' + type + '_02');
 
-    this.sprite2 = new SimpleSprite(this, position, 'exp1_03');
+    this.sprite2 = new SimpleSprite(this, position, 'exp' + type + '_03');
 
     this.sprite0.alpha = 0.75;
 

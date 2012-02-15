@@ -3,7 +3,7 @@
 
 'use strict';
 
-function Enemy1(context, world, level, target, x, y, textureId) {
+function Enemy1(context, world, level, target, x, y, type) {
 
     var that = this;
 
@@ -113,7 +113,7 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
                     that.explodeForceTween.start();
 
-                    var explodeEntity = new Explosion(context, world, level, thatbody.m_position);
+                    var explodeEntity = new Explosion(context, world, level, thatbody.m_position, that.type);
 
                     level.addEntity(context, explodeEntity);
 
@@ -133,15 +133,30 @@ function Enemy1(context, world, level, target, x, y, textureId) {
 
     }
 
+    var textureId = 'enemy1';
+
+    this.type = type;
+
+    switch (type) {
+        case 1:
+            textureId = 'enemy1';
+            break;
+        case 2:
+            textureId = 'enemy2';
+            break;
+        case 3:
+            textureId = 'enemy3';
+            break;
+        case 4:
+            textureId = 'enemy4';
+            break;
+    }
+
     this.bodyComponent = new CircleBody(this, world, level, x, y, 20, 0, this.data);
-
-    //this.vectorDraw3DComponent = new VectorDraw3D(this, model, this.bodyComponent, '#2255FF', 1.05);
-
-    //this.components.add(context, this.vectorDraw3DComponent, 'sprite');
 
     this.components.add(context, this.bodyComponent, 'body');
 
-    this.basicSprite = new BasicSprite(this, this.bodyComponent, 'enemy1');
+    this.basicSprite = new BasicSprite(this, this.bodyComponent, textureId);
 
     this.components.add(context, this.basicSprite, 'sprite');
 
