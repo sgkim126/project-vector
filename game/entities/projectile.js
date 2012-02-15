@@ -21,6 +21,12 @@ function Projectile(context, weapon, world, level, position, vector, id) {
 
     var timerRegistery = context.timerRegistery;
 
+    this.fadeOutTween = new Tween();
+
+    this.fadeInTween = new Tween();
+
+    this.brightInTween = new Tween();
+
     this.data = {
 
         contactEvent: function ( body, contact ) {
@@ -29,9 +35,9 @@ function Projectile(context, weapon, world, level, position, vector, id) {
 
             that.bodyComponent.object.m_shapeList.m_groupIndex = -1;
 
-            var fadeOutTween = new Tween(events, that.basicSprite, 'alpha', Tween.regularEaseIn, 1, 0, 0.35);
+            that.fadeOutTween.init(events, that.basicSprite, 'alpha', Tween.regularEaseIn, 1, 0, 0.35);
 
-            fadeOutTween.start();
+            that.fadeOutTween.start();
 
         },
 
@@ -95,13 +101,13 @@ Projectile.prototype = {
 
         timerRegistery.add('bullet_' + this.id, 5, this.die);
 
-        var fadeInTween = new Tween(events, this.basicSprite, 'alpha', Tween.regularEaseIn, 0, 1, 0.05);
+        this.fadeInTween.init(events, this.basicSprite, 'alpha', Tween.regularEaseIn, 0, 1, 0.05);
 
-        var brightInTween = new Tween(events, this.basicSprite, 'brightness', Tween.regularEaseIn, 1, 0, 0.25);
+        this.brightInTween.init(events, this.basicSprite, 'brightness', Tween.regularEaseIn, 1, 0, 0.25);
 
-        fadeInTween.start();
+        this.fadeInTween.start();
 
-        brightInTween.start();
+        this.brightInTween.start();
 
     },
 
