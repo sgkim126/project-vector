@@ -13,6 +13,12 @@ function ControlMove(entity, bodyComponent) {
 
     this.velocity = new box2d.Vec2();
 
+    this.avgXLog = [];
+
+    this.avgYLog = [];
+
+    this.direction = new box2d.Vec2();
+
 }
 
 ControlMove.prototype = {
@@ -29,6 +35,47 @@ ControlMove.prototype = {
             this.velocity.y = controls.normalDeltaY * 220000;
 
             body.m_force.add(this.velocity);
+
+            this.direction.x += controls.normalDeltaX;
+
+            this.direction.y += controls.normalDeltaY;
+
+            var dx = this.direction.x * 5;
+
+            var dy = this.direction.y * 5;
+
+            var d = Math.sqrt(dx * dx + dy * dy);
+
+            if (d > 1) {
+
+                this.direction.x /= d;
+
+                this.direction.y /= d;
+
+            }
+
+            if (d > 0.00005) {
+
+                dx /= d;
+
+                dy /= d;
+
+                this.entity.weaponVector.x = -dx * this.entity.weaponPower;
+
+                this.entity.weaponVector.y = -dy * this.entity.weaponPower;
+
+                var rotation = Math.atan2(dy, dx);
+
+                this.entity.basicSprite.rotation = rotation + (Math.PI / 2);
+
+            }
+
+            if (this.avgXLog.length > 5) {
+
+                this.avgXLog.shift();
+
+                this.avgYLog.shift();
+            }
 
         }
 

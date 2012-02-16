@@ -61,44 +61,6 @@ Player.prototype = {
 
     onUpdate: function (context) {
 
-        var controls = context.controls;
-
-        if (controls.isDragging) {
-
-        var body = this.bodyComponent.object;
-
-            this.lastX = this.x;
-
-            this.lastY = this.y;
-
-            this.x = body.m_position.x;
-
-            this.y = body.m_position.y;
-
-            var dx = this.x - this.lastX;
-
-            var dy = this.y - this.lastY;
-
-            var d = Math.sqrt(dx * dx + dy * dy);
-
-            if (d > 0.00001) {
-
-                dx /= d;
-
-                dy /= d;
-
-                this.weaponVector.x = -dx * this.weaponPower;
-
-                this.weaponVector.y = -dy * this.weaponPower;
-
-                var rotation = Math.atan2(dy, dx);
-
-                this.basicSprite.rotation = rotation + (Math.PI / 2);
-
-            }
-
-        }
-
     },
 
     onRender: function (context) {
