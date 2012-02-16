@@ -28,6 +28,8 @@ function SimpleSprite(entity, position, textureId) {
     this.rotation = 0;
     this.rotationMatrix = new box2d.Mat22();
 
+    this.lighten = false;
+
 }
 
 SimpleSprite.prototype = {
@@ -55,8 +57,16 @@ SimpleSprite.prototype = {
         this.matrix.Scale(this.scaleModify, this.scaleModify);
         this.matrix.TranslateV(this.position);
 
+        if (this.lighten) {
+            renderer.setBlendLighter();
+        }
+
         camera.spriteTransform(this.matrix, 1, this.handleX * this.handleOffsetX, this.handleY * this.handleOffsetY, this.worldMatrix);
         renderer.drawImage(camera, this.sprite, this.worldMatrix, this.brightness, this.alpha);
+
+        if (this.lighten) {
+            renderer.setBlendDefault();
+        }
 
     }
 

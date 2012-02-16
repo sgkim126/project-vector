@@ -61,6 +61,10 @@ function Projectile(context, weapon, world, level, position, vector, id) {
 
     this.basicSprite.overrideRotation = true;
 
+    this.basicSprite.shadowBlur = 6;
+
+    this.basicSprite.shadowColor = 'rgba(255,255,255,1)';
+
     this.components.add(context, this.basicSprite, 'sprite');
 
     this.velocity = new box2d.Vec2();

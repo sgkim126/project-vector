@@ -37,6 +37,12 @@ function Explosion(context, world, level, position, type) {
 
     this.sprite2.enabled = false;
 
+    this.sprite0.lighten = true;
+
+    this.sprite1.lighten = true;
+
+    this.sprite2.lighten = true;
+
     this.components.add(context, this.sprite0, 'sprite0');
 
     this.components.add(context, this.sprite1, 'sprite1');

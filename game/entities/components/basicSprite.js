@@ -29,6 +29,9 @@ function BasicSprite(entity, bodyComponent, textureId) {
     this.rotation = 0;
     this.rotationMatrix = new box2d.Mat22();
 
+    this.shadowBlur = 0;
+    this.shadowColor = 'rgba(0,0,0,0)';
+
 }
 
 BasicSprite.prototype = {
@@ -63,7 +66,12 @@ BasicSprite.prototype = {
         this.matrix.TranslateV(body.m_position);
 
         camera.spriteTransform(this.matrix, 1, this.handleX * this.handleOffsetX, this.handleY * this.handleOffsetY, this.worldMatrix);
+
+        renderer.setShadow(this.shadowBlur, this.shadowColor);
+
         renderer.drawImage(camera, this.sprite, this.worldMatrix, this.brightness, this.alpha);
+
+        renderer.setShadow(0, 'rgba(0,0,0,0)');
 
     }
 

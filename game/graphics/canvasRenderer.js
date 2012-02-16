@@ -56,6 +56,13 @@ CanvasRenderer.prototype = {
 
     },
 
+    setShadow: function (blur, color) {
+
+        this.graphics.shadowBlur = blur;
+        this.graphics.shadowColor = color;
+
+    },
+
     beginLines: function (color, width, blur, alpha, m) {
 
         if (m) {

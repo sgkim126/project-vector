@@ -115,15 +115,19 @@ GeomWarsLevel.prototype = {
 
         var timerRegistery = context.timerRegistery;
 
-        var randomX = (Math.random() * (this.width - 200)) + 100;
+        for (var i = 0; i < 3; i++) {
 
-        var randomY = (Math.random() * (this.height - 200)) + 100;
+            var randomX = (Math.random() * (this.width - 200)) + 100;
 
-        var enemyType = Math.floor((Math.random() * 3) + 1);
+            var randomY = (Math.random() * (this.height - 200)) + 100;
 
-        var enemy = new Enemy(context, this.world, this, player, randomX, randomY, enemyType);
+            var enemyType = Math.floor((Math.random() * 3) + 1);
 
-        this.addEntity(context, enemy);
+            var enemy = new Enemy(context, this.world, this, player, randomX, randomY, enemyType);
+
+            this.addEntity(context, enemy);
+
+        }
 
         var that = this;
 
