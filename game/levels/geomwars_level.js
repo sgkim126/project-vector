@@ -199,9 +199,17 @@ GeomWarsLevel.prototype = {
 
         var timerRegistery = context.timerRegistery;
 
-        timerRegistery.add('spawn', 4, function () {
+        timerRegistery.add('spawn', 2, function () {
 
             that.spawnEnemy(context, that.player); 
+                        
+        });
+
+        timerRegistery.add('gameOver', 60, function() {
+                
+            context.paused = true;
+
+            context.game.gameOver();
 
         });
 

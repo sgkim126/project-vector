@@ -106,6 +106,8 @@ Engine.prototype = {
 
         var that = this;
 
+        context.game = game;
+
         game.initalize(context);
 
         context.step = function() {

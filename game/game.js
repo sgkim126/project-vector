@@ -50,6 +50,16 @@ Game.prototype = {
         var hudContainer = new DisplayContainer();
         hudContainer.alpha = 0;
 
+        this.gameOver = function() {
+
+            that.showTitle(context, title, background, controlsContainer, playButton, function() {
+
+                that.endGame(context);
+
+            });
+
+        }
+
         var quitButton = new UIButton(context, 'btn_quit', 'btn_quit', function () {
 
             pauseButton.disableClick();
@@ -60,11 +70,7 @@ Game.prototype = {
 
             quitSlideOut.start();
 
-            that.showTitle(context, title, background, controlsContainer, playButton, function() {
-
-                that.endGame(context);
-
-            });
+            that.gameOver();
 
         });
 
