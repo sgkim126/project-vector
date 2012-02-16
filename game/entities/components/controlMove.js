@@ -38,7 +38,9 @@ ControlMove.prototype = {
 
             this.direction.x += controls.normalDeltaX;
 
-            this.direction.y += controls.normalDeltaY;
+
+            //FIXME: Screen Ratio
+            this.direction.y += controls.normalDeltaY * (16 / 9);
 
             var dx = this.direction.x * 5;
 

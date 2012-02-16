@@ -399,7 +399,7 @@ GeomWarsLevel.prototype = {
         }
 
         // FIXME: This is slow on mobile
-        //this.drawBorder(context, worldMatrix);
+        this.drawBorder(context, worldMatrix);
 
         this.drawEntities(context);
 
@@ -424,14 +424,11 @@ GeomWarsLevel.prototype = {
     drawBorder: function(context, matrix) {
 
         var renderer = context.renderer;
-
-        renderer.beginLines('#FFFFFF', 8, 4, 1, matrix);
-        renderer.moveTo(15, 15);
-        renderer.lineTo(this.width - 20, 15);
-        renderer.lineTo(this.width - 20, this.height - 20);
-        renderer.lineTo(15, this.height - 20);
-        renderer.lineTo(15, 15);
-        renderer.endLines();
+        renderer.beginTransform(matrix);
+        renderer.drawRect(7, 7, this.width - 14, 8, "#FFFFFF", 0, 1);
+        renderer.drawRect(this.width - 15, 7, 8, this.height - 14, "#FFFFFF", 0, 1);
+        renderer.drawRect(7, this.height - 15, this.width - 14, 8, "#FFFFFF", 0, 1);
+        renderer.drawRect(7, 7, 8, this.height - 14, "#FFFFFF", 0, 1);
 
     },
 
