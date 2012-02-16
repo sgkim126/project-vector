@@ -132,6 +132,10 @@ CanvasRenderer.prototype = {
 
         graphics.globalAlpha = alpha;
 
+        graphics.shadowBlur = blur;
+
+        graphics.shadowColor = "#FFFFFF";
+
         graphics.fillRect (x, y, width, height);
 
         graphics.fillStyle = null;

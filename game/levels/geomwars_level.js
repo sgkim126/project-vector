@@ -425,10 +425,10 @@ GeomWarsLevel.prototype = {
 
         var renderer = context.renderer;
         renderer.beginTransform(matrix);
-        renderer.drawRect(7, 7, this.width - 14, 8, "#FFFFFF", 0, 1);
-        renderer.drawRect(this.width - 15, 7, 8, this.height - 14, "#FFFFFF", 0, 1);
-        renderer.drawRect(7, this.height - 15, this.width - 14, 8, "#FFFFFF", 0, 1);
-        renderer.drawRect(7, 7, 8, this.height - 14, "#FFFFFF", 0, 1);
+        renderer.drawRect(7, 7, this.width - 14, 8, "#FFFFFF", 10, 1);
+        renderer.drawRect(this.width - 15, 7, 8, this.height - 14, "#FFFFFF", 10, 1);
+        renderer.drawRect(7, this.height - 15, this.width - 14, 8, "#FFFFFF", 10, 1);
+        renderer.drawRect(7, 7, 8, this.height - 14, "#FFFFFF", 10, 1);
 
     },
 
