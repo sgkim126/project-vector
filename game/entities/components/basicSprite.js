@@ -67,7 +67,7 @@ BasicSprite.prototype = {
 
         camera.spriteTransform(this.matrix, 1, this.handleX * this.handleOffsetX, this.handleY * this.handleOffsetY, this.worldMatrix);
 
-        renderer.setShadow(this.shadowBlur, this.shadowColor);
+        renderer.setShadow(Math.round(this.shadowBlur), this.shadowColor);
 
         renderer.drawImage(camera, this.sprite, this.worldMatrix, this.brightness, this.alpha);
 

@@ -124,6 +124,22 @@ CanvasRenderer.prototype = {
 
     },
 
+    drawRect: function (x, y, width, height, color, blur, alpha) {
+
+        var graphics = this.graphics;
+
+        graphics.fillStyle = color;
+
+        graphics.globalAlpha = alpha;
+
+        graphics.fillRect (x, y, width, height);
+
+        graphics.fillStyle = null;
+
+        graphics.globalAlpha = 1;
+
+    },
+
     drawSprite: function (spriteSheet, sheetX, sheetY, spriteW, spriteH, x, y) {
 
         var halfW = spriteW / 2;

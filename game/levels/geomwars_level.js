@@ -22,7 +22,7 @@ function GeomWarsLevel(context) {
 
     this.player = null;
 
-   
+    this.flashAlpha = 0;
 
     this.fluidSolver = new FluidSolver(context.fluidSolverResolution, context.backgroundAccuracy);
 
@@ -323,6 +323,8 @@ GeomWarsLevel.prototype = {
 
         }
 
+        this.drawFlash(context, this.flashAlpha);
+
         mat33Pool.release(matrix);
         mat33Pool.release(worldMatrix);
         mat33Pool.release(backMatrix);
@@ -352,6 +354,20 @@ GeomWarsLevel.prototype = {
         matrix.Scale(1.2, 1.2);
         matrix.Translate(-640* 0.8, -400 * 0.8);
         renderer.drawImage(camera, assetManager.getAsset('hexes'), matrix, 0, 1);
+
+    },
+
+    drawFlash: function (context, alpha) {
+        
+        if( alpha < 0 ) {
+            return;
+        }
+
+        var renderer = context.renderer;
+
+        renderer.endTransform();
+
+        renderer.drawRect(0, 0, this.width, this.height, "#FFFFFF", 0, alpha);
 
     },
 

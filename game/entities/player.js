@@ -7,11 +7,60 @@ function Player(context, world, level, x, y, textureId) {
 
     this.prototype = Object.extend(this, new GeomWarsEntity(context, world));
 
+    var that = this;
+
     this.weaponPower = 250000;
 
     this.weaponVector = new box2d.Vec2(0, 1 * this.weaponPower);
 
-    this.bodyComponent = new CircleBody(this, world, level, x, y, 12, 1);
+    this.timerRegistery = context.timerRegistery;
+
+    this.playerInvincible = false;
+
+    this.flashTween = new Tween();
+
+    this.blurTween = new Tween();
+
+    this.events = context.events;
+
+    this.data = {
+
+        name: 'player',
+
+        contactEvent: function( collidingBody, contact ) {
+            
+            if( collidingBody.m_userData && collidingBody.m_userData.name === 'enemy1' ) {
+
+                if( !that.playerInvincible ) {
+                    
+                    context.score -= 10;
+
+                    if(context.score < 0) {
+                        context.score = 0;
+                    }
+                    
+                    that.flashTween.init( that.events, level, 'flashAlpha', null, 0.5, 0, 1 );
+
+                    that.flashTween.start();
+
+                    that.blurTween.init( that.events, that.basicSprite, 'shadowBlur', null, 20, 0, 2 );
+
+                    that.blurTween.start();
+
+                    that.playerInvincible = true;
+
+                    that.timerRegistery.add( 'playerInvincible', 2, function() {
+                        
+                        that.playerInvincible = false;
+
+                    });
+                    
+                }
+            }
+        }
+    }
+
+    this.bodyComponent = new CircleBody(this, world, level, x, y, 12, 1, this.data);
 
     this.cameraFollowComponent = new CameraFollow(this, this.bodyComponent);
 
@@ -24,6 +73,8 @@ function Player(context, world, level, x, y, textureId) {
     this.basicSprite.scaleModify = 0.7;
 
     this.basicSprite.overrideRotation = true;
+
+    this.basicSprite.shadowColor = 'rgba(255, 0, 0, 1)';
 
     this.components.add(context, this.bodyComponent, 'body');
 
