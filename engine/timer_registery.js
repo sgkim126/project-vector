@@ -64,6 +64,12 @@ TimerRegistery.prototype = {
 
         timer.time -= context.timeStep;
 
+        if (timer.time < 0) {
+
+            timer.time = 0;
+
+        }
+
         if (timer.func) {
 
             timer.func(context, timer.time);

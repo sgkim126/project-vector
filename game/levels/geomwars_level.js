@@ -143,6 +143,8 @@ GeomWarsLevel.prototype = {
 
         var that = this;
 
+        context.timer = 59;
+
         context.paused = false;
 
         context.camera.zoom = 1.3;
@@ -205,13 +207,22 @@ GeomWarsLevel.prototype = {
                         
         });
 
-        timerRegistery.add('gameOver', 60, function() {
+        timerRegistery.addFunction('gameOver', 60,
+
+            function(context, time){
+
+                context.timer = Math.floor(time);
+
+            }, 
+            
+            function() {
                 
-            context.paused = true;
+                context.paused = true;
 
-            context.game.gameOver();
+                context.game.gameOver();
 
-        });
+            }
+        );
 
     },
 

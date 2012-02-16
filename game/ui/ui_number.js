@@ -3,7 +3,7 @@
 
 'use strict';
 
-function UIScore(context) {
+function UINumber(context, reference, value) {
 
     this.prototype = Object.extend(this, new DisplayNode());
 
@@ -20,6 +20,10 @@ function UIScore(context) {
     this.x = 0;
 
     this.y = 0;
+
+    this.reference = reference;
+
+    this.value = value;
 
     this.digits = [];
 
@@ -41,7 +45,7 @@ function UIScore(context) {
 
 }
 
-UIScore.prototype = {
+UINumber.prototype = {
 
     onUpdate: function(context) {
 
@@ -59,25 +63,30 @@ UIScore.prototype = {
 
         var renderer = context.renderer;
 
-        var score = '' + context.score;
+        var number = '' + this.reference[this.value];
 
         renderer.beginTransform(this.drawMatrix);
 
-        var scoreDigits = score.split('');
+        var numberDigits = number.split('');
 
-        for (var i = 0; i < scoreDigits.length; i++) {
+        for (var i = 0; i < numberDigits.length; i++) {
 
-            var digit = scoreDigits[i];
+            var digit = numberDigits[i];
+            var digitImage = this.digits[digit];
 
-            renderer.drawImageSimpleAlpha(this.digits[digit], horizontal, 0, this.alpha);
+            if(digitImage) {
 
-            horizontal += this.digitWidth;
+                renderer.drawImageSimpleAlpha(this.digits[digit], horizontal, 0, this.alpha);
+
+                horizontal += this.digitWidth;
+
+            }
 
         }
 
-        scoreDigits = null;
+        numberDigits = null;
 
-        score = null;
+        number = null;
 
         renderer.endTransform();
 

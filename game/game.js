@@ -142,10 +142,15 @@ Game.prototype = {
 
         root.addChild(hudContainer);
 
-        var score = new UIScore(context);
+        var score = new UINumber(context, context, 'score');
         score.x = 0.05; score.y = 0.05; score.scale = 0.75;
 
+        var timer = new UINumber(context, context, 'timer');
+        timer.x = 0.05; timer.y = 0.1; timer.scale = 0.5;
+
         hudContainer.addChild(score);
+
+        hudContainer.addChild(timer);
 
         hudContainer.addChild(pauseButton);
 
