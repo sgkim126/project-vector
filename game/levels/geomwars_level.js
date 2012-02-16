@@ -54,6 +54,8 @@ function GeomWarsLevel(context) {
 
     this.debugDraw = context.debugDraw;
 
+    this.enemyProbability = [1,1,1,1,2,2,2,2,3,4];
+    
     for (var y = 0; y < n; y++) {
 
         this.gridVertexPositions[y] = new Array(n);
@@ -115,23 +117,34 @@ GeomWarsLevel.prototype = {
 
         var timerRegistery = context.timerRegistery;
 
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < 4; i++) {
 
             var randomX = (Math.random() * (this.width - 200)) + 100;
 
             var randomY = (Math.random() * (this.height - 200)) + 100;
 
-            var enemyType = Math.floor((Math.random() * 3) + 1);
+            var playerPosition = this.player.bodyComponent.object.m_position;
 
-            var enemy = new Enemy(context, this.world, this, player, randomX, randomY, enemyType);
+            var dx = playerPosition.x - randomX;
 
-            this.addEntity(context, enemy);
+            var dy = playerPosition.y - randomY;
 
+            if (Math.sqrt(dx * dx + dy * dy) > 150 && context.enemyCount < 15) {
+
+                var enemyType = this.enemyProbability[Math.floor(Math.random() * 9.99)];
+            
+                var enemy = new Enemy(context, this.world, this, player, randomX, randomY, enemyType);
+
+                context.enemyCount += 1;
+
+                this.addEntity(context, enemy);
+
+            }
         }
 
         var that = this;
 
-        timerRegistery.add('spawn', 4, function () {
+        timerRegistery.add('spawn', 2, function () {
 
             that.spawnEnemy(context, player); } 
 
@@ -142,6 +155,8 @@ GeomWarsLevel.prototype = {
     onInitalize: function (context) {
 
         var that = this;
+
+        context.enemyCount = 0;
 
         context.timer = 59;
 
@@ -207,6 +222,18 @@ GeomWarsLevel.prototype = {
                         
         });
 
+        timerRegistery.add('changeProbability1', 20, function() {
+
+            that.enemyProbability = [1,1,1,1,2,2,3,3,3,4];
+
+        });
+
+        timerRegistery.add('changeProbability2', 40, function() {
+
+            that.enemyProbability = [1,2,2,3,3,3,3,4,4,4];
+
+        });
+
         timerRegistery.addFunction('gameOver', 60,
 
             function(context, time){
@@ -223,6 +250,50 @@ GeomWarsLevel.prototype = {
 
             }
         );
+
+    },
+
+    pushEnemies: function(context, x, y, force) {
+
+        var forceVector = new box2d.Vec2();
+
+        for (var i in this.entities) {
+
+            var entity = this.entities[i];
+
+            if (entity.bodyComponent) {
+
+            var body = entity.bodyComponent.object;
+
+            if (body.m_userData && body.m_userData.name == 'enemy1') {
+
+                var dx = body.m_position.x - x;
+
+                var dy = body.m_position.y - y;
+
+                var d = Math.sqrt(dx * dx + dy * dy);
+
+                if (d > 10) {
+
+                    //if (d<100) d = 100;
+
+                    var inverseD = 1 / d;
+
+                    dx *= inverseD;
+
+                    dy *= inverseD;
+
+                    forceVector.x = dx * force;// * inverseD;
+
+                    forceVector.y = dy * force;// * inverseD;
+
+                    body.m_force.add(forceVector);
+
+                }
+            }
+            }
+
+        }
 
     },
 

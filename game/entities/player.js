@@ -33,7 +33,7 @@ function Player(context, world, level, x, y, textureId) {
 
                 if( !that.playerInvincible ) {
                     
-                    context.score -= 10;
+                    context.score -= 100;
 
                     if(context.score < 0) {
                         context.score = 0;

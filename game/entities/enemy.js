@@ -11,6 +11,8 @@ function Enemy(context, world, level, target, x, y, type) {
 
     this.hitCount = 2;
 
+    this.followSpeedModifier = 1;
+
     this.target = target;
 
     this.level = level;
@@ -37,6 +39,39 @@ function Enemy(context, world, level, target, x, y, type) {
 
     this.state = 'enter';
 
+    this.killPoints = 12;
+
+    var textureId = 'enemy1';
+
+    this.type = type;
+
+    switch (type) {
+        case 1:
+            textureId = 'enemy1';
+            this.hitCount = 1;
+            this.followSpeedModifier = 1;
+            this.killPoints = 12;
+            break;
+        case 2:
+            textureId = 'enemy3';
+            this.hitCount = 2;
+            this.followSpeedModifier = 0.75;
+            this.killPoints = 16;
+            break;
+        case 3:
+            textureId = 'enemy2';
+            this.hitCount = 1;
+            this.followSpeedModifier = 2;
+            this.killPoints = 50;
+            break;
+        case 4:
+            textureId = 'enemy4';
+            this.hitCount = 1;
+            this.followSpeedModifier = 1.5;
+            this.killPoints = 30;
+            break;
+    }
+
     this.data = {
 
         contactEvent: function ( body, contact ) {
@@ -59,7 +94,7 @@ function Enemy(context, world, level, target, x, y, type) {
 
                     that.state = 'dead';
 
-                    context.score += 12;
+                    context.score += that.killPoints;
 
                     //that.target.components.remove(context, 'weapon');
 
@@ -117,6 +152,8 @@ function Enemy(context, world, level, target, x, y, type) {
 
                     level.addEntity(context, explodeEntity);
 
+                    level.pushEnemies(context, position.x, position.y, 150000);
+
                 }
 
             }
@@ -131,25 +168,8 @@ function Enemy(context, world, level, target, x, y, type) {
 
         level.removeEntity(context, that);
 
-    }
+        context.enemyCount -= 1;
 
-    var textureId = 'enemy1';
-
-    this.type = type;
-
-    switch (type) {
-        case 1:
-            textureId = 'enemy1';
-            break;
-        case 2:
-            textureId = 'enemy2';
-            break;
-        case 3:
-            textureId = 'enemy3';
-            break;
-        case 4:
-            textureId = 'enemy4';
-            break;
     }
 
     this.bodyComponent = new CircleBody(this, world, level, x, y, 20, 0, this.data);
@@ -220,9 +240,9 @@ Enemy.prototype = {
 
                 dy /= d;
 
-                this.velocity.x = -dx * 5600;
+                this.velocity.x = -dx * 5600 * this.followSpeedModifier;
 
-                this.velocity.y = -dy * 5600;
+                this.velocity.y = -dy * 5600 * this.followSpeedModifier;
 
                 body.m_force.add(this.velocity);
 
