@@ -81,7 +81,19 @@ function GeomWarsLevel(context) {
 
         particle.info.repositionOffScreen = true;
 
-        particle.info.sprite = 'bp' + Math.floor(Math.random() * 9);
+        //particle.info.sprite = 'bp' + Math.floor(Math.random() * 9);
+
+        switch(Math.floor(Math.random() * 2.9999)) {
+            case 0:
+            particle.info.color = '#ffe138';
+            break;
+        case 1:
+            particle.info.color = '#719d6f';
+            break;
+        case 2:
+            particle.info.color = '#276ba9';
+            break;
+        }
 
         this.backgroundParticleManager.add(particle, context, this, x, y);
 
@@ -245,14 +257,6 @@ GeomWarsLevel.prototype = {
             function() {
                 
                 context.paused = true;
-
-                if (context.score > context.highScore) {
-
-                    localStorage['highScore'] = context.score;
-
-                    context.highScore = context.score;
-
-                }
 
                 context.game.gameOver();
 
@@ -449,8 +453,8 @@ GeomWarsLevel.prototype = {
         var renderer = context.renderer;
         var assetManager = context.assetManager;
 
-        //matrix.Scale(1.2, 1.2);
-        //matrix.Translate(-640* 0.8, -400 * 0.8);
+        matrix.Scale(1.2, 1.2);
+
         renderer.drawImage(camera, assetManager.getAsset('hexes'), matrix, 0, alpha);
 
     },

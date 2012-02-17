@@ -105,7 +105,7 @@ CanvasRenderer.prototype = {
 
     },
 
-    drawCircle: function (x, y, radius, blur, alpha) {
+    drawCircle: function (x, y, radius, blur, alpha, color) {
 
         var graphics = this.graphics;
 
@@ -115,7 +115,10 @@ CanvasRenderer.prototype = {
 
         graphics.globalAlpha = alpha;
         graphics.shadowColor = "#FFFFFF";
-        graphics.fillStyle = "#FFFFFF";
+        if (!color)
+            graphics.fillStyle = "#FFFFFF";
+        else
+            graphics.fillStyle = color;
         graphics.beginPath();
         graphics.arc(x, y, radius, 0, Math.PI*2, true);
         graphics.closePath();
