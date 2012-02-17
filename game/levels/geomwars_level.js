@@ -377,8 +377,8 @@ GeomWarsLevel.prototype = {
         var backMatrix2 = mat33Pool.create();
 
         camera.worldTransform(matrix, 1, worldMatrix);
-        camera.spriteTransform(matrix, 0.8, 320, 200, backMatrix);
-        camera.spriteTransform(matrix, 0.9, 320, 200, backMatrix2);
+        camera.spriteTransform(matrix, 0.8, -320, -200, backMatrix);
+        camera.spriteTransform(matrix, 0.9, -320, -200, backMatrix2);
 
         renderer.clearBlack();
 
@@ -441,8 +441,8 @@ GeomWarsLevel.prototype = {
         var renderer = context.renderer;
         var assetManager = context.assetManager;
 
-        matrix.Scale(1.2, 1.2);
-        matrix.Translate(-640* 0.8, -400 * 0.8);
+        //matrix.Scale(1.2, 1.2);
+        //matrix.Translate(-640* 0.8, -400 * 0.8);
         renderer.drawImage(camera, assetManager.getAsset('hexes'), matrix, 0, alpha);
 
     },
