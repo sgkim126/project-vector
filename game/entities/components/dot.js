@@ -3,7 +3,7 @@
 
 'use strict';
 
-function BasicSprite(entity, bodyComponent, textureId) {
+function Dot(entity, bodyComponent, textureId) {
 
     this.entity = entity;
 
@@ -34,7 +34,7 @@ function BasicSprite(entity, bodyComponent, textureId) {
 
 }
 
-BasicSprite.prototype = {
+Dot.prototype = {
 
     onInitalize: function (context) {
 
@@ -61,11 +61,11 @@ BasicSprite.prototype = {
         }
 
         this.matrix.SetIdentity();
-        this.matrix.ConcatM22(this.rotationMatrix);
-        this.matrix.Scale(this.scaleModify, this.scaleModify);
-        this.matrix.TranslateV(body.m_position);
+        //this.matrix.ConcatM22(this.rotationMatrix);
+        //this.matrix.Scale(this.scaleModify, this.scaleModify);
+        //this.matrix.TranslateV(body.m_position);
 
-        camera.spriteTransform(this.matrix, 1, this.handleX * this.handleOffsetX, this.handleY * this.handleOffsetY, this.worldMatrix);
+        camera.spriteTransform(this.matrix, 1, 0, 0, this.worldMatrix);
 
         renderer.setShadow(Math.round(this.shadowBlur), this.shadowColor);
 
@@ -73,7 +73,11 @@ BasicSprite.prototype = {
             renderer.setBlendLighter();
         }
 
-        renderer.drawImage(camera, this.sprite, this.worldMatrix, this.brightness, this.alpha);
+        renderer.beginTransform(this.worldMatrix);
+
+        renderer.drawCircles(body.m_position.x, body.m_position.y, 3, 6, 1);
+
+        renderer.endTransform();
 
         if(this.lighten) {
             renderer.setBlendDefault();

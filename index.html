@@ -62,6 +62,7 @@
     <script src='game/entities/components/weapon.js'></script>
     <script src='game/entities/components/vectorDraw3D.js'></script>
     <script src='game/entities/components/simpleSprite.js'></script>
+    <script src='game/entities/components/dot.js'></script>
 
     <script>
       var $j = jQuery.noConflict();
@@ -69,7 +70,7 @@
           var canvas = $j("#gameCanvas");
           var context = {
               canvas: canvas,
-              timeStep: 1.0 / 60,
+              timeStep: 1.0 / 30,
               iteration: 10,
               paused: true,
               startMenu: true,

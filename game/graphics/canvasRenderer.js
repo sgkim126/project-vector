@@ -124,6 +124,31 @@ CanvasRenderer.prototype = {
 
     },
 
+    drawCircles: function (x, y, radius, blur, alpha) {
+
+        var graphics = this.graphics;
+
+        if (this.shadowsEnabled) {
+            graphics.shadowBlur = blur;
+        }
+
+        for (var i = 0; i< 10; i++) {
+
+            graphics.globalAlpha = alpha;
+            graphics.shadowColor = "#FFFFFF";
+            graphics.fillStyle = "#FFFFFF";
+            graphics.beginPath();
+            var rx = (Math.random() * 10) - 5;
+            var ry = (Math.random() * 10) - 5;
+            graphics.arc(x + rx, y + ry, radius, 0, Math.PI*2, true);
+            graphics.closePath();
+            graphics.fill();
+            graphics.globalAlpha = 1;
+
+        }
+
+    },
+
     drawRect: function (x, y, width, height, color, blur, alpha) {
 
         var graphics = this.graphics;

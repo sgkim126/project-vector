@@ -77,7 +77,7 @@ function GeomWarsLevel(context) {
 
         var y = Math.random() * this.height;
 
-        var particle = this.backgroundParticleManager.getNewParticle('fluid', 'image');
+        var particle = this.backgroundParticleManager.getNewParticle('fluid', 'dot');
 
         particle.info.repositionOffScreen = true;
 
@@ -374,15 +374,18 @@ GeomWarsLevel.prototype = {
         var matrix = mat33Pool.create();
         var worldMatrix = mat33Pool.create();
         var backMatrix = mat33Pool.create();
+        var backMatrix2 = mat33Pool.create();
 
         camera.worldTransform(matrix, 1, worldMatrix);
         camera.spriteTransform(matrix, 0.8, 320, 200, backMatrix);
+        camera.spriteTransform(matrix, 0.9, 320, 200, backMatrix2);
 
         renderer.clearBlack();
 
         if (this.backgroundRenderingEnabled) {
 
-            this.drawBackground(context, backMatrix);
+            this.drawBackground(context, 1, backMatrix);
+            this.drawBackground(context, 0.5, backMatrix2);
 
         }
 
@@ -399,7 +402,7 @@ GeomWarsLevel.prototype = {
         }
 
         // FIXME: This is slow on mobile
-        this.drawBorder(context, worldMatrix);
+        //this.drawBorder(context, worldMatrix);
 
         this.drawEntities(context);
 
@@ -432,7 +435,7 @@ GeomWarsLevel.prototype = {
 
     },
 
-    drawBackground: function (context, matrix) {
+    drawBackground: function (context, alpha, matrix) {
 
         var camera = context.camera;
         var renderer = context.renderer;
@@ -440,7 +443,7 @@ GeomWarsLevel.prototype = {
 
         matrix.Scale(1.2, 1.2);
         matrix.Translate(-640* 0.8, -400 * 0.8);
-        renderer.drawImage(camera, assetManager.getAsset('hexes'), matrix, 0, 1);
+        renderer.drawImage(camera, assetManager.getAsset('hexes'), matrix, 0, alpha);
 
     },
 

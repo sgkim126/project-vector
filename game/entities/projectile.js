@@ -55,7 +55,7 @@ function Projectile(context, weapon, world, level, position, vector, id) {
 
     this.components.add(context, this.bodyComponent, 'body');
 
-    this.basicSprite = new BasicSprite(this, this.bodyComponent, 'bullet');
+    this.basicSprite = new Dot(this, this.bodyComponent, 'bullet');
 
     this.basicSprite.handleOffsetY = 1.3;
 

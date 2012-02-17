@@ -15,7 +15,7 @@ ParticleBasicRendererController.prototype = {
 
     render: function (context, renderer, particle) {
 
-        renderer.drawCircle(particle.x, particle.y, 3, 4, particle.internalAlpha);
+        renderer.drawCircle(particle.x, particle.y, 6, 4, particle.internalAlpha * 0.5);
 
     }
 

@@ -130,6 +130,9 @@ Engine.prototype = {
 
     step: function(context, game) {
 
+        var d1 = new Date();
+        var startTime = d1.getTime();
+
         var events = context.events;
         var menuEvents = context.menuEvents;
 
@@ -165,9 +168,12 @@ Engine.prototype = {
 
         }
 
+        var d2 = new Date();
+        var totalTime = d2.getTime() - startTime;
+
         var timeStepMillis = Math.floor(context.timeStep * 1000);
 
-        setTimeout(context.step, timeStepMillis);
+        setTimeout(context.step, timeStepMillis - totalTime);
 
     },
 
