@@ -78,7 +78,7 @@ Explosion.prototype = {
         });
 
 
-        this.scaleInTween1.init(events, this.sprite1, 'scaleModify', null, 0.7, 2.5, 0.5);
+        this.scaleInTween1.init(events, this.sprite1, 'scaleModify', null, 0.7, 2.6, 0.5);
 
         this.startTweenDelayed(context, 0.08, this.sprite1, this.scaleInTween1);
 
@@ -93,9 +93,9 @@ Explosion.prototype = {
         this.startTweenDelayed(context, 0.08, this.sprite1, this.fadeOutTween1);
 
 
-        this.scaleInTween2.init(events, this.sprite2, 'scaleModify', Tween.regularEaseOut, 1.25, 2.3, 0.9);
+        this.scaleInTween2.init(events, this.sprite2, 'scaleModify', Tween.regularEaseOut, 1.1, 2.3, 0.9);
 
-        this.startTweenDelayed(context, 0.18, this.sprite2, this.scaleInTween2);
+        this.startTweenDelayed(context, 0.2, this.sprite2, this.scaleInTween2);
 
         this.scaleInTween2.addEventListener('onMotionFinished', function(e) {
 
@@ -107,7 +107,7 @@ Explosion.prototype = {
 
         this.fadeOutTween2.init(events, this.sprite2, 'alpha', Tween.regularEaseIn, 1, 0, 0.9);
 
-        this.startTweenDelayed(context, 0.18, this.sprite2, this.fadeOutTween2);
+        this.startTweenDelayed(context, 0.2, this.sprite2, this.fadeOutTween2);
 
     },
 
