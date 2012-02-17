@@ -33,7 +33,7 @@ Level.prototype = {
 
         var worldAABB = new box2d.AABB();
 
-        worldAABB.minVertex.Set(0, 0);
+        worldAABB.minVertex.Set(-100, -100);
         worldAABB.maxVertex.Set(1000, 800);
 
         var gravity = new box2d.Vec2(0, 0);
