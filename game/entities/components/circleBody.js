@@ -5,6 +5,8 @@
 
 function CircleBody(entity, world, level, x, y, radius, group, userData) {
 
+    this.prototype = Object.extend(this, new BodyComponent());
+
     this.entity = entity;
 
     this.world = world;

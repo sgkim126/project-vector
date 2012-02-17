@@ -5,6 +5,8 @@
 
 function SquareBody(entity, world, level, width, height, x, y, group, userData) {
 
+    this.prototype = Object.extend(this, new BodyComponent());
+
     this.entity = entity;
 
     this.world = world;

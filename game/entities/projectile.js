@@ -99,9 +99,11 @@ Projectile.prototype = {
 
         var events = context.events;
 
-        var body = this.bodyComponent.object;
+        //var body = this.bodyComponent.object;
 
-        body.m_force.add( this.vector );
+        //body.m_force.add( this.vector );
+
+        this.bodyComponent.applyForce(context, this.vector);
 
         timerRegistery.add('bullet_' + this.id, 5, this.die);
 

@@ -29,15 +29,16 @@ ControlMove.prototype = {
 
         if (controls.isDragging) {
 
-            var body = this.bodyComponent.object;
+            //var body = this.bodyComponent.object;
 
             this.velocity.x = controls.normalDeltaX * 220000;
             this.velocity.y = controls.normalDeltaY * 220000;
 
-            body.m_force.add(this.velocity);
+            //body.m_force.add(this.velocity);
+
+            this.bodyComponent.applyForce(context, this.velocity);
 
             this.direction.x += controls.normalDeltaX;
-
 
             //FIXME: Screen Ratio
             this.direction.y += controls.normalDeltaY * (16 / 9);

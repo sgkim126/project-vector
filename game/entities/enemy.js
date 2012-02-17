@@ -244,7 +244,9 @@ Enemy.prototype = {
 
                 this.velocity.y = -dy * 5600 * this.followSpeedModifier;
 
-                body.m_force.add(this.velocity);
+                //body.m_force.add(this.velocity);
+
+                this.bodyComponent.applyForce(context, this.velocity);
 
             }
 
