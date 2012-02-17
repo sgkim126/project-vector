@@ -258,6 +258,14 @@ GeomWarsLevel.prototype = {
                 
                 context.paused = true;
 
+                if (context.score > context.highScore) {
+                    
+                    localStorage['highScore'] = context.score;
+
+                    context.highScore = context.score;
+
+                }
+
                 context.game.gameOver();
 
             }
