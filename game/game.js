@@ -41,8 +41,20 @@ Game.prototype = {
         var title = new UIBasic(context, 'title');
         title.x = 0.5; title.y = 0.25;
 
+        context.highScore = 0;
+
+        if (localStorage['highScore'] !== undefined) {
+         
+            context.highScore = localStorage['highScore'];
+
+        }
+
+        var highScore = new UINumber(context, context, 'highScore');
+        highScore.x = 0.5; highScore.y = 0.4; 
+        highScore.center = true;
+        highScore.alpha = 0;
         var toggle0 = new UIToggle(context);
-        toggle0.x = 0.82; toggle0.y = 0.475;
+        toggle0.x = 1; toggle0.y = 0.475;
 
         var controlsContainer = new DisplayContainer();
         controlsContainer.y = 1;
@@ -52,7 +64,7 @@ Game.prototype = {
 
         this.gameOver = function() {
 
-            that.showTitle(context, title, background, controlsContainer, playButton, function() {
+            that.showTitle(context, title, background, playButton, highScore, toggle0, function() {
 
                 that.endGame(context);
 
@@ -108,9 +120,13 @@ Game.prototype = {
 
             var titleAlphaOut = new Tween(events, title, 'alpha', Tween.regularEaseIn, 1, 0, 1);
 
-            var controlsSlideOut = new Tween(events, controlsContainer, 'y', Tween.regularEaseIn, 0, 1, 1);
+            var playButtonAlphaOut = new Tween(events, playButton, 'alpha', Tween.regularEaseIn, 1, 0, 1);
 
-            controlsSlideOut.addEventListener('onMotionFinished', function(e) {
+            var highScoreAlphaOut = new Tween(events, highScore, 'alpha', Tween.regularEaseIn, 1, 0, 1);
+
+            var toggleSlideOut = new Tween(events, toggle0, 'x', Tween.regularEaseIn, 0.82, 1, 1);
+
+            playButtonAlphaOut.addEventListener('onMotionFinished', function(e) {
 
                 var backgroundAlphaOut = new Tween(events, background, 'alpha', Tween.regularEaseIn, 1, 0, 0.5);
 
@@ -130,13 +146,18 @@ Game.prototype = {
 
             });
 
-            controlsSlideOut.start();
+            highScoreAlphaOut.start();
+
+            toggleSlideOut.start();
+
+            playButtonAlphaOut.start();
 
             titleAlphaOut.start();
 
         });
 
         playButton.x = 0.5; playButton.y = 0.5;
+        playButton.alpha = 0;
 
         root.addChild(level);
 
@@ -164,20 +185,22 @@ Game.prototype = {
 
         }
 
+
+
         root.addChild(background);
 
         root.addChild(title);
 
-        root.addChild(controlsContainer);
+        root.addChild(highScore);
 
-        controlsContainer.addChild(toggle0);
+        root.addChild(toggle0);
 
-        controlsContainer.addChild(playButton);
+        root.addChild(playButton);
 
-        this.showTitle(context, title, background, controlsContainer, playButton, null);
+        this.showTitle(context, title, background,  playButton, highScore, toggle0, null);
     },
 
-    showTitle: function (context, title, background, controlsContainer, playButton, ready) {
+    showTitle: function (context, title, background, playButton, highScore, toggle0, ready) {
 
         var events = context.menuEvents;
 
@@ -194,18 +217,28 @@ Game.prototype = {
                 ready();
 
             }
+            
+            var playButtonAlphaIn = new Tween(events, playButton, 'alpha', Tween.regularEaseOut, 0, 1, 1);
 
-            var controlsSlideIn = new Tween(events, controlsContainer, 'y', Tween.regularEaseOut, 1, 0, 1);
+            playButtonAlphaIn.start();
 
-            controlsSlideIn.addEventListener('onMotionFinished', function(e) {
+            var toggleSlideIn = new Tween(events, toggle0, 'x', Tween.regularEaseOut, 1, 0.82, 1);
+
+            var highScoreAlphaIn = new Tween(events, highScore, 'alpha', Tween.regularEaseOut, 0, 1, 1);
+
+            highScoreAlphaIn.addEventListener('onMotionFinished', function(e) {
 
                 playButton.enableClick();
 
             });
 
-            controlsSlideIn.start();
+            highScoreAlphaIn.start();
+
+            toggleSlideIn.start();
 
         });
+
+        
 
         backgroundAlphaIn.start();
 
