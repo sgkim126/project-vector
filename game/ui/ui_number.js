@@ -27,6 +27,8 @@ function UINumber(context, reference, value) {
 
     this.digits = [];
 
+    this.center = false;
+
     for (var i = 0; i < 10; i++) {
 
         this.digits[i] = assetManager.getAsset('d' + i);
@@ -61,6 +63,8 @@ UINumber.prototype = {
 
         var horizontal = 0;
 
+        var totalWidth = -this.digitWidth;
+
         var renderer = context.renderer;
 
         var number = '' + this.reference[this.value];
@@ -68,6 +72,16 @@ UINumber.prototype = {
         renderer.beginTransform(this.drawMatrix);
 
         var numberDigits = number.split('');
+        
+        if (this.center) {
+
+            for (var i = 0; i < numberDigits.length; i++) {
+
+                totalWidth += this.digitWidth;
+
+            }
+
+        }
 
         for (var i = 0; i < numberDigits.length; i++) {
 
@@ -76,7 +90,7 @@ UINumber.prototype = {
 
             if(digitImage) {
 
-                renderer.drawImageSimpleAlpha(this.digits[digit], horizontal, 0, this.alpha);
+                renderer.drawImageSimpleAlpha(this.digits[digit], horizontal - (totalWidth / 2), 0, this.alpha);
 
                 horizontal += this.digitWidth;
 
