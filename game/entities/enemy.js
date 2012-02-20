@@ -136,7 +136,7 @@ function Enemy(context, world, level, target, x, y, type) {
 
                     that.explosionDirectionY = dy * d;
 
-                    that.explodeForceTween.init(events, that, 'explosionForce', Tween.regularEaseOut, 155, 0, 0.2);
+                    that.explodeForceTween.init(events, that, 'explosionForce', Tween.regularEaseOut, 225, 0, 0.2);
 
                     that.fadeOutTween.init(events, that.basicSprite, 'alpha', Tween.regularEaseOut, 1, 0, 0.15);
 

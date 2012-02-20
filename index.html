@@ -15,6 +15,7 @@
     <script src="lib/request_animation_frame.js"></script>
     <script src="lib/stats.js"></script>
     <script src="lib/array_clone.js"></script>
+    <script src="lib/alea.js"></script>
     <script src="deps.js"></script>
 
     <script src='engine/engine.js'></script>
@@ -35,6 +36,7 @@
     <script src='game/graphics/canvasRenderer.js'></script>
     <script src='game/resources/models.js'></script>
     <script src='game/resources/sprite_animations.js'></script>
+    <script src='game/resources/demo_data.js'></script>
     <script src='game/particles/particle_fluid_logic_controller.js'></script>
     <script src='game/particles/particle_basic_renderer_controller.js'></script>
     <script src='game/particles/particle_image_renderer_controller.js'></script>
@@ -74,7 +76,9 @@
               canvas: canvas,
               timeStep: 1.0 / 30,
               iteration: 10,
+              random: new Alea('dsvjSDNklvSLDNKvzsdnk'),
               paused: true,
+              gameMode: 'demo',  //'play', 'demo'
               startMenu: true,
               blur: false,
               particleCount: 45,

@@ -129,11 +129,19 @@ GeomWarsLevel.prototype = {
 
         var timerRegistery = context.timerRegistery;
 
+        var rand = Math.random;
+
+        if (context.gameMode == 'demo') {
+
+            rand = context.random;
+
+        }
+
         for (var i = 0; i < 4; i++) {
 
-            var randomX = (Math.random() * (this.width - 200)) + 100;
+            var randomX = (rand() * (this.width - 200)) + 100;
 
-            var randomY = (Math.random() * (this.height - 200)) + 100;
+            var randomY = (rand() * (this.height - 200)) + 100;
 
             var playerPosition = this.player.bodyComponent.object.m_position;
 
@@ -143,7 +151,7 @@ GeomWarsLevel.prototype = {
 
             if (Math.sqrt(dx * dx + dy * dy) > 150 && context.enemyCount < 15) {
 
-                var enemyType = this.enemyProbability[Math.floor(Math.random() * 9.99)];
+                var enemyType = this.enemyProbability[Math.floor(rand() * 9.99)];
 
                 var enemy = new Enemy(context, this.world, this, player, randomX, randomY, enemyType);
 
