@@ -44,15 +44,22 @@ Game.prototype = {
         context.highScore = 0;
 
         if (localStorage['highScore'] !== undefined) {
-         
+
             context.highScore = localStorage['highScore'];
 
         }
 
+        var highScoreText = new UIString(context, null, null, 'High Score', 'bold 20pt Arial', '#FFFFFF', true, 6);
+        highScoreText.x = 0.39; highScoreText.y = 0.35;
+        highScoreText.strokeColor = '#3297FC';
+        highScoreText.blur = 6;
+        highScoreText.alpha = 0;
+
         var highScore = new UINumber(context, context, 'highScore');
-        highScore.x = 0.5; highScore.y = 0.4; 
+        highScore.x = 0.5; highScore.y = 0.4;
         highScore.center = true;
         highScore.alpha = 0;
+
         var toggle0 = new UIToggle(context);
         toggle0.x = 1; toggle0.y = 0.475;
 
@@ -64,7 +71,7 @@ Game.prototype = {
 
         this.gameOver = function() {
 
-            that.showTitle(context, title, background, playButton, highScore, toggle0, function() {
+            that.showTitle(context, title, background, playButton, highScore, highScoreText, toggle0, function() {
 
                 that.endGame(context);
 
@@ -124,6 +131,8 @@ Game.prototype = {
 
             var highScoreAlphaOut = new Tween(events, highScore, 'alpha', Tween.regularEaseIn, 1, 0, 1);
 
+            var highScoreTextAlphaOut = new Tween(events, highScoreText, 'alpha', Tween.regularEaseIn, 1, 0, 1);
+
             var toggleSlideOut = new Tween(events, toggle0, 'x', Tween.regularEaseIn, 0.82, 1, 1);
 
             playButtonAlphaOut.addEventListener('onMotionFinished', function(e) {
@@ -148,6 +157,8 @@ Game.prototype = {
 
             highScoreAlphaOut.start();
 
+            highScoreTextAlphaOut.start();
+
             toggleSlideOut.start();
 
             playButtonAlphaOut.start();
@@ -163,15 +174,27 @@ Game.prototype = {
 
         root.addChild(hudContainer);
 
-        var score = new UINumber(context, context, 'score');
-        score.x = 0.05; score.y = 0.05; score.scale = 0.75;
+        var score = new UIString(context, context, 'score', 'Score : ', 'bold 15pt Arial', '#FFFFFF', true, 0);
+        score.x = 0.02; score.y = 0.05;
+        score.strokeColor = '#ffe138';
+        score.blur = 6;
 
-        var timer = new UINumber(context, context, 'timer');
-        timer.x = 0.05; timer.y = 0.1; timer.scale = 0.5;
+        var timer = new UIString(context, context, 'timer', 'Time : ', '13pt Arial', '#FFFFFF', true, 0);
+        timer.x = 0.02; timer.y = 0.09;
+        timer.strokeColor = '#719d6f';
+        timer.blur = 6;
+
+
+        var fps = new UIString(context, context, 'fps', 'fps : ', 'bold 15pt Arial', '#FFFFFF', true, 6);
+        fps.x = 0.45; fps.y = 0.05;
+        fps.strokeColor = '#276ba9';
+        fps.blur = 6;
 
         hudContainer.addChild(score);
 
         hudContainer.addChild(timer);
+
+        hudContainer.addChild(fps);
 
         hudContainer.addChild(pauseButton);
 
@@ -191,16 +214,18 @@ Game.prototype = {
 
         root.addChild(title);
 
+        root.addChild(highScoreText);
+
         root.addChild(highScore);
 
         root.addChild(toggle0);
 
         root.addChild(playButton);
 
-        this.showTitle(context, title, background,  playButton, highScore, toggle0, null);
+        this.showTitle(context, title, background,  playButton, highScore, highScoreText, toggle0, null);
     },
 
-    showTitle: function (context, title, background, playButton, highScore, toggle0, ready) {
+    showTitle: function (context, title, background, playButton, highScore, highScoreText, toggle0, ready) {
 
         var events = context.menuEvents;
 
@@ -217,7 +242,7 @@ Game.prototype = {
                 ready();
 
             }
-            
+
             var playButtonAlphaIn = new Tween(events, playButton, 'alpha', Tween.regularEaseOut, 0, 1, 1);
 
             playButtonAlphaIn.start();
@@ -225,6 +250,8 @@ Game.prototype = {
             var toggleSlideIn = new Tween(events, toggle0, 'x', Tween.regularEaseOut, 1, 0.82, 1);
 
             var highScoreAlphaIn = new Tween(events, highScore, 'alpha', Tween.regularEaseOut, 0, 1, 1);
+
+            var highScoreTextAlphaIn = new Tween(events, highScoreText, 'alpha', Tween.regularEaseOut, 0, 1, 1);
 
             highScoreAlphaIn.addEventListener('onMotionFinished', function(e) {
 
@@ -234,11 +261,13 @@ Game.prototype = {
 
             highScoreAlphaIn.start();
 
+            highScoreTextAlphaIn.start();
+
             toggleSlideIn.start();
 
         });
 
-        
+
 
         backgroundAlphaIn.start();
 

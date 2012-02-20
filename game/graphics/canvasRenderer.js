@@ -182,6 +182,40 @@ CanvasRenderer.prototype = {
 
     },
 
+    drawText: function (text, font, color, stroke, strokeColor, x, y, blur, alpha) {
+
+        this.graphics.font = font;
+
+        this.graphics.fillStyle = color;
+
+        this.graphics.globalAlpha = alpha;
+
+        this.graphics.shadowBlur = blur;
+
+        this.graphics.shadowColor = color;
+
+        if (stroke) this.graphics.shadowColor = strokeColor;
+
+        this.graphics.fillText(text, x, y);
+
+        if (stroke){
+
+            this.graphics.strokeStyle = strokeColor;
+
+            this.graphics.strokeText(text, x, y);
+
+            this.graphics.strokeStyle = null;
+
+        }
+
+        this.graphics.shadowBlur = 0;
+
+        this.graphics.globalAlpha = 1;
+
+        this.graphics.fillStyle = null;
+
+    },
+
     drawImageSimple: function (texture, x, y) {
 
         this.graphics.drawImage(texture, x, y);
