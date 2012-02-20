@@ -49,6 +49,7 @@ Game.prototype = {
 
         }
 
+
         var highScoreText = new UIString(context, null, null, 'High Score', 'bold 20pt Arial', '#FFFFFF', true, 6);
         highScoreText.x = 0.39; highScoreText.y = 0.35;
         highScoreText.strokeColor = '#3297FC';
@@ -59,6 +60,29 @@ Game.prototype = {
         highScore.x = 0.5; highScore.y = 0.4;
         highScore.center = true;
         highScore.alpha = 0;
+
+        var totalScoreText = new UIString(context, null, null, 'Total Score', 'bold 20pt Arial', '#FFFFFF', true, 6);
+        totalScoreText.x = 0.38; totalScoreText.y = 0.35;
+        totalScoreText.strokeColor = '#3297FC';
+        totalScoreText.blur = 6;
+        totalScoreText.alpha = 0;
+
+        var totalScore = new UINumber(context, context, 'score');
+        totalScore.x = 0.5; totalScore.y = 0.4;
+        totalScore.center = true;
+        totalScore.alpha = 0;
+
+        var averageFpsText = new UIString(context, null, null, 'Average FPS', 'bold 20pt Arial', '#FFFFFF', true, 6);
+        averageFpsText.x = 0.36; averageFpsText.y = 0.17;
+        averageFpsText.strokeColor = '#3297FC';
+        averageFpsText.blur = 6;
+        averageFpsText.alpha = 0;
+
+        var averageFps = new UINumber(context, context, 'averageFps');
+        averageFps.x = 0.5; averageFps.y = 0.23;
+        averageFps.center = true;
+        averageFps.alpha = 0;
+
 
         var toggle0 = new UIToggle(context);
         toggle0.x = 1; toggle0.y = 0.475;
@@ -71,12 +95,25 @@ Game.prototype = {
 
         this.gameOver = function() {
 
-            that.showTitle(context, title, background, playButton, highScore, highScoreText, toggle0, function() {
+            if(!context.quitted) {
 
-                that.endGame(context);
+                that.showResult(context, background, menuButton, totalScore, totalScoreText, averageFps, averageFpsText, function() {
 
-            });
+                    hudContainer.alpha = 0;
 
+                    that.endGame(context);
+
+                });
+
+            }
+            else {
+
+                that.showTitle(context, title, background, playButton, highScore, highScoreText, toggle0, function() {
+
+                    that.endGame(context);
+
+                });
+            }
         }
 
         var quitButton = new UIButton(context, 'btn_quit', 'btn_quit', function () {
@@ -88,6 +125,8 @@ Game.prototype = {
             var quitSlideOut = new Tween(events, quitButton, 'x', Tween.regularEaseIn, x, -0.06, 0.33);
 
             quitSlideOut.start();
+
+            context.quitted = true;
 
             that.gameOver();
 
@@ -120,6 +159,37 @@ Game.prototype = {
         pauseButton.x = 0.95; pauseButton.y = 0.05;
 
         quitButton.x = -0.06; quitButton.y = 0.54; quitButton.scale = 0.2;
+
+        var menuButton = new UIButton(context, 'btn_play_up', 'btn_play_down', function() {
+
+            menuButton.disableClick();
+
+            var menuButtonAlphaOut = new Tween(events, menuButton, 'alpha', Tween.regularEaseIn, 1, 0, 1);
+
+            var averageFpsAlphaOut = new Tween(events, averageFps, 'alpha', Tween.regularEaseIn, 1, 0, 1);
+
+            var averageFpsTextAlphaOut = new Tween(events, averageFpsText, 'alpha', Tween.regularEaseIn, 1, 0, 1);
+
+            var totalScoreAlphaOut = new Tween(events, totalScore, 'alpha', Tween.regularEaseIn, 1, 0, 1);
+
+            var totalScoreTextAlphaOut = new Tween(events, totalScoreText, 'alpha', Tween.regularEaseIn, 1, 0, 1);
+
+            menuButtonAlphaOut.addEventListener('onMotionFinished', function(e) {
+
+                that.showTitle(context, title, background, playButton, highScore, highScoreText, toggle0, null);
+
+            });
+
+            averageFpsAlphaOut.start();
+            averageFpsTextAlphaOut.start();
+            totalScoreAlphaOut.start();
+            totalScoreTextAlphaOut.start();
+            menuButtonAlphaOut.start();
+
+        });
+
+        menuButton.x = 0.5; menuButton.y = 0.5;
+        menuButton.alpha = 0;
 
         var playButton = new UIButton(context, 'btn_play_up', 'btn_play_down', function () {
 
@@ -184,7 +254,6 @@ Game.prototype = {
         timer.strokeColor = '#719d6f';
         timer.blur = 6;
 
-
         var fps = new UIString(context, context, 'fps', 'fps : ', 'bold 15pt Arial', '#FFFFFF', true, 6);
         fps.x = 0.45; fps.y = 0.05;
         fps.strokeColor = '#276ba9';
@@ -208,8 +277,6 @@ Game.prototype = {
 
         }
 
-
-
         root.addChild(background);
 
         root.addChild(title);
@@ -217,6 +284,16 @@ Game.prototype = {
         root.addChild(highScoreText);
 
         root.addChild(highScore);
+
+        root.addChild(totalScoreText);
+
+        root.addChild(totalScore);
+
+        root.addChild(averageFpsText);
+
+        root.addChild(averageFps);
+
+        root.addChild(menuButton);
 
         root.addChild(toggle0);
 
@@ -274,6 +351,53 @@ Game.prototype = {
         titleAlphaIn.start();
 
         titleScaleIn.start();
+
+    },
+
+    showResult: function (context, background, menuButton, totalScore, totalScoreText, averageFps, averageFpsText, ready) {
+
+        var events = context.menuEvents;
+
+        var backgroundAlphaIn = new Tween(events, background, 'alpha', Tween.regularEaseOut, 0, 1, 1.5);
+
+        backgroundAlphaIn.addEventListener('onMotionFinished', function(e) {
+
+            if (ready) {
+
+                ready();
+
+            }
+
+            var menuButtonAlphaIn = new Tween(events, menuButton, 'alpha', Tween.regularEaseOut, 0, 1, 1);
+
+            menuButtonAlphaIn.start();
+
+            var totalScoreAlphaIn = new Tween(events, totalScore, 'alpha', Tween.regularEaseOut, 0, 1, 1);
+
+            var totalScoreTextAlphaIn = new Tween(events, totalScoreText, 'alpha', Tween.regularEaseOut, 0, 1, 1);
+
+            var averageFpsAlphaIn = new Tween(events, averageFps, 'alpha', Tween.regularEaseOut, 0, 1, 1);
+
+            var averageFpsTextAlphaIn = new Tween(events, averageFpsText, 'alpha', Tween.regularEaseOut, 0, 1, 1);
+
+
+            totalScoreAlphaIn.addEventListener('onMotionFinished', function(e) {
+
+                menuButton.enableClick();
+
+            });
+
+            totalScoreAlphaIn.start();
+
+            totalScoreTextAlphaIn.start();
+
+            averageFpsAlphaIn.start();
+
+            averageFpsTextAlphaIn.start();
+
+        });
+
+        backgroundAlphaIn.start();
 
     },
 

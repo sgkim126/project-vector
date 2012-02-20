@@ -217,7 +217,12 @@ Engine.prototype = {
 
             averageFps *= 60;
 
-            console.log(averageFps);
+            // console.log(averageFps);
+            if (context.recordingFps) {
+
+                context.fpsRecords.push(averageFps);
+
+            }
 
             context.fps = Math.round(averageFps);
 
