@@ -55,7 +55,7 @@ function GeomWarsLevel(context) {
     this.debugDraw = context.debugDraw;
 
     this.enemyProbability = [1,1,1,1,2,2,2,2,3,4];
-    
+
     for (var y = 0; y < n; y++) {
 
         this.gridVertexPositions[y] = new Array(n);
@@ -166,7 +166,7 @@ GeomWarsLevel.prototype = {
 
         timerRegistery.add('spawn', 2, function () {
 
-            that.spawnEnemy(context, player); } 
+            that.spawnEnemy(context, player); }
 
         );
 
@@ -181,6 +181,8 @@ GeomWarsLevel.prototype = {
         context.timer = 59;
 
         context.paused = false;
+
+        context.quitted = false;
 
         context.camera.zoom = 1.3;
 
@@ -201,6 +203,10 @@ GeomWarsLevel.prototype = {
         this.createBox(this.world, halfWidth, this.height - 10, halfWidth, 10, true, 'ground');
 
         var timerRegistery = context.timerRegistery;
+
+        context.fpsRecords = [];
+
+        context.recordingFps = true;
 
         timerRegistery.add('startGame', 1, function () {
 
@@ -234,12 +240,14 @@ GeomWarsLevel.prototype = {
 
         this.addEntity(context, this.player);
 
+        context.quitted = false;
+
         var timerRegistery = context.timerRegistery;
 
         timerRegistery.add('spawn', 2, function () {
 
-            that.spawnEnemy(context, that.player); 
-                        
+            that.spawnEnemy(context, that.player);
+
         });
 
         timerRegistery.add('changeProbability1', 20, function() {
@@ -260,19 +268,33 @@ GeomWarsLevel.prototype = {
 
                 context.timer = Math.floor(time);
 
-            }, 
-            
+            },
+
             function() {
-                
+
                 context.paused = true;
 
                 if (context.score > context.highScore) {
-                    
+
                     localStorage['highScore'] = context.score;
 
                     context.highScore = context.score;
 
                 }
+
+                context.recordingFps = false;
+
+                var averageFps = 0;
+
+                for (var i = 0; i < context.fpsRecords.length; i++) {
+
+                    averageFps += context.fpsRecords[i];
+
+                }
+
+                averageFps /= context.fpsRecords.length;
+
+                context.averageFps = Math.round(averageFps);
 
                 context.game.gameOver();
 
@@ -476,7 +498,7 @@ GeomWarsLevel.prototype = {
     },
 
     drawFlash: function (context, alpha) {
-        
+
         if( alpha < 0 ) {
             return;
         }
