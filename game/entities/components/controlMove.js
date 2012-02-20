@@ -27,21 +27,51 @@ ControlMove.prototype = {
 
         var controls = context.controls;
 
-        if (controls.isDragging) {
+        var isDemo = context.gameMode == 'demo';
 
-            //var body = this.bodyComponent.object;
+        //context.recordInput = true;
 
-            this.velocity.x = controls.normalDeltaX * 220000;
-            this.velocity.y = controls.normalDeltaY * 220000;
+        var updateCounter = this.entity.updateCounter;
 
-            //body.m_force.add(this.velocity);
+        if (controls.isDragging || isDemo) {
+
+            if (context.recordInput) {
+
+                console.log(updateCounter+ ': { x:' + controls.normalDeltaX + ', y: ' + controls.normalDeltaY + '},');
+
+            }
+
+            if (isDemo && !demoData[updateCounter])
+                return;
+
+            var controlX = 0;
+
+            var controlY = 0;
+
+            if (isDemo) {
+
+                controlX = demoData[updateCounter].x;
+
+                controlY = demoData[updateCounter].y;
+
+            } else {
+
+                controlX = controls.normalDeltaX;
+
+                controlY = controls.normalDeltaY;
+
+            }
+
+            this.velocity.x = controlX * 220000;
+
+            this.velocity.y = controlY * 220000;
 
             this.bodyComponent.applyForce(context, this.velocity);
 
-            this.direction.x += controls.normalDeltaX;
+            this.direction.x += controlX;
 
             //FIXME: Screen Ratio
-            this.direction.y += controls.normalDeltaY * (16 / 9);
+            this.direction.y += controlY * (16 / 9);
 
             var dx = this.direction.x * 5;
 

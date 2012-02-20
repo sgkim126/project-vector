@@ -9,6 +9,8 @@ function Player(context, world, level, x, y, textureId) {
 
     var that = this;
 
+    this.updateCounter = 0;
+
     this.weaponPower = 250000;
 
     this.weaponVector = new box2d.Vec2(0, 1 * this.weaponPower);
@@ -111,6 +113,8 @@ Player.prototype = {
     },
 
     onUpdate: function (context) {
+
+        this.updateCounter++;
 
     },
 
