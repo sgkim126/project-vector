@@ -196,13 +196,13 @@ Engine.prototype = {
         this.fpsArray.push(totalTime);
 
         if (this.fpsArray.length > 120) {
-            
+
             this.fpsArray.shift();
 
             var averageFps = 0;
 
             for (var i = 0; i < this.fpsArray.length; i++) {
-                
+
                 averageFps += this.fpsArray[i];
 
             }
@@ -218,6 +218,9 @@ Engine.prototype = {
             averageFps *= 60;
 
             console.log(averageFps);
+
+            context.fps = Math.round(averageFps);
+
         }
 
     },
