@@ -175,7 +175,7 @@ Game.prototype = {
 
         quitButton.x = -0.06; quitButton.y = 0.54; quitButton.scale = 0.2;
 
-        var menuButton = new UIButton(context, 'btn_play_up', 'btn_play_down', function() {
+        var menuButton = new UIButton(context, 'continue_up', 'continue_down', function() {
 
             menuButton.disableClick();
 
