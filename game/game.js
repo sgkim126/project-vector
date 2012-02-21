@@ -83,9 +83,22 @@ Game.prototype = {
         averageFps.center = true;
         averageFps.alpha = 0;
 
+        var demoSwitchText = new UIString(context, null, null, 'Demo Switch', '13pt Arial', '#FFFFFF', true, 0);
+        demoSwitchText.x = 0.78; demoSwitchText.y = 0.56;
+        demoSwitchText.strokeColor = '#9095A6';
+        demoSwitchText.alpha = 0;
 
         var toggle0 = new UIToggle(context);
         toggle0.x = 1; toggle0.y = 0.475;
+        toggle0.addEventListener('toggle', function(e) {
+            if(e.data === 'ON') {
+                context.gameMode = 'demo';
+            }
+            else {
+                context.gameMode = 'play';
+            }
+
+        });
 
         var controlsContainer = new DisplayContainer();
         controlsContainer.y = 1;
@@ -108,7 +121,7 @@ Game.prototype = {
             }
             else {
 
-                that.showTitle(context, title, background, playButton, highScore, highScoreText, toggle0, function() {
+                that.showTitle(context, title, background, playButton, highScore, highScoreText, toggle0, demoSwitchText, function() {
 
                     that.endGame(context);
 
@@ -176,7 +189,11 @@ Game.prototype = {
 
             menuButtonAlphaOut.addEventListener('onMotionFinished', function(e) {
 
-                that.showTitle(context, title, background, playButton, highScore, highScoreText, toggle0, null);
+                averageFpsText.alpha = 0;
+
+                totalScoreText.alpha = 0;
+
+                that.showTitle(context, title, background, playButton, highScore, highScoreText, toggle0, demoSwitchText, null);
 
             });
 
@@ -205,6 +222,8 @@ Game.prototype = {
 
             var toggleSlideOut = new Tween(events, toggle0, 'x', Tween.regularEaseIn, 0.82, 1, 1);
 
+            var demoSwitchTextAlphaOut = new Tween(events, demoSwitchText, 'alpha', Tween.regularEaseIn, 1, 0, 1);
+
             playButtonAlphaOut.addEventListener('onMotionFinished', function(e) {
 
                 var backgroundAlphaOut = new Tween(events, background, 'alpha', Tween.regularEaseIn, 1, 0, 0.5);
@@ -230,6 +249,8 @@ Game.prototype = {
             highScoreTextAlphaOut.start();
 
             toggleSlideOut.start();
+
+            demoSwitchTextAlphaOut.start();
 
             playButtonAlphaOut.start();
 
@@ -297,12 +318,14 @@ Game.prototype = {
 
         root.addChild(toggle0);
 
+        root.addChild(demoSwitchText);
+
         root.addChild(playButton);
 
-        this.showTitle(context, title, background,  playButton, highScore, highScoreText, toggle0, null);
+        this.showTitle(context, title, background,  playButton, highScore, highScoreText, toggle0, demoSwitchText, null);
     },
 
-    showTitle: function (context, title, background, playButton, highScore, highScoreText, toggle0, ready) {
+    showTitle: function (context, title, background, playButton, highScore, highScoreText, toggle0, demoSwitchText, ready) {
 
         var events = context.menuEvents;
 
@@ -330,6 +353,9 @@ Game.prototype = {
 
             var highScoreTextAlphaIn = new Tween(events, highScoreText, 'alpha', Tween.regularEaseOut, 0, 1, 1);
 
+            var demoSwitchTextAlphaIn = new Tween(events, demoSwitchText, 'alpha', Tween.regularEaseOut, 0, 1, 1);
+
+
             highScoreAlphaIn.addEventListener('onMotionFinished', function(e) {
 
                 playButton.enableClick();
@@ -341,6 +367,8 @@ Game.prototype = {
             highScoreTextAlphaIn.start();
 
             toggleSlideIn.start();
+
+            demoSwitchTextAlphaIn.start();
 
         });
 
