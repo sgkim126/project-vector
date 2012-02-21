@@ -133,6 +133,8 @@ Game.prototype = {
 
             pauseButton.disableClick();
 
+            quitButton.disableClick();
+
             var x = parseFloat(quitButton.x);
 
             var quitSlideOut = new Tween(events, quitButton, 'x', Tween.regularEaseIn, x, -0.06, 0.33);
