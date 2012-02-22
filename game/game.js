@@ -73,15 +73,26 @@ Game.prototype = {
         totalScore.alpha = 0;
 
         var averageFpsText = new UIString(context, null, null, 'Average FPS', 'bold 20pt Arial', '#FFFFFF', true, 6);
-        averageFpsText.x = 0.36; averageFpsText.y = 0.17;
+        averageFpsText.x = 0.6; averageFpsText.y = 0.17;
         averageFpsText.strokeColor = '#3297FC';
         averageFpsText.blur = 6;
         averageFpsText.alpha = 0;
 
         var averageFps = new UINumber(context, context, 'averageFps');
-        averageFps.x = 0.5; averageFps.y = 0.23;
+        averageFps.x = 0.72; averageFps.y = 0.23;
         averageFps.center = true;
         averageFps.alpha = 0;
+
+        var totalRenderText = new UIString(context, null, null, 'Total Render Update', 'bold 20pt Arial', '#FFFFFF', true, 6);
+        totalRenderText.x = 0.1; totalRenderText.y = 0.17;
+        totalRenderText.strokeColor = '#3297FC';
+        totalRenderText.blur = 6;
+        totalRenderText.alpha = 0;
+
+        var totalRender = new UINumber(context, context, 'renderUpdate');
+        totalRender.x = 0.32; totalRender.y = 0.23;
+        totalRender.center = true;
+        totalRender.alpha = 0;
 
         var demoSwitchText = new UIString(context, null, null, 'Demo Switch', '13pt Arial', '#FFFFFF', true, 0);
         demoSwitchText.x = 0.78; demoSwitchText.y = 0.56;
@@ -110,7 +121,7 @@ Game.prototype = {
 
             if(!context.quitted) {
 
-                that.showResult(context, background, menuButton, totalScore, totalScoreText, averageFps, averageFpsText, function() {
+                that.showResult(context, background, menuButton, totalScore, totalScoreText, averageFps, averageFpsText, totalRender, totalRenderText, function() {
 
                     hudContainer.alpha = 0;
 
@@ -189,16 +200,24 @@ Game.prototype = {
 
             var totalScoreTextAlphaOut = new Tween(events, totalScoreText, 'alpha', Tween.regularEaseIn, 1, 0, 1);
 
+            var totalRenderAlphaOut = new Tween(events, totalRender, 'alpha', Tween.regularEaseIn, 1, 0, 1);
+
+            var totalRenderTextAlphaOut = new Tween(events, totalRenderText, 'alpha', Tween.regularEaseIn, 1, 0, 1);
+
             menuButtonAlphaOut.addEventListener('onMotionFinished', function(e) {
 
                 averageFpsText.alpha = 0;
 
                 totalScoreText.alpha = 0;
 
+                totalRenderText.alpha = 0;
+
                 that.showTitle(context, title, background, playButton, highScore, highScoreText, toggle0, demoSwitchText, null);
 
             });
 
+            totalRenderAlphaOut.start();
+            totalRenderTextAlphaOut.start();
             averageFpsAlphaOut.start();
             averageFpsTextAlphaOut.start();
             totalScoreAlphaOut.start();
@@ -277,16 +296,16 @@ Game.prototype = {
         timer.strokeColor = '#719d6f';
         timer.blur = 6;
 
-        var fps = new UIString(context, context, 'fps', 'fps : ', 'bold 15pt Arial', '#FFFFFF', true, 6);
-        fps.x = 0.45; fps.y = 0.05;
-        fps.strokeColor = '#276ba9';
-        fps.blur = 6;
+        var renderUpdate = new UIString(context, context, 'renderUpdate', 'update : ', '12pt Arial', '#FFFFFF', true, 1);
+        renderUpdate.x = 0.43; renderUpdate.y = 0.05;
+        renderUpdate.strokeColor = '#276ba9';
+        renderUpdate.blur = 6;
 
         hudContainer.addChild(score);
 
         hudContainer.addChild(timer);
 
-        hudContainer.addChild(fps);
+        hudContainer.addChild(renderUpdate);
 
         hudContainer.addChild(pauseButton);
 
@@ -311,6 +330,10 @@ Game.prototype = {
         root.addChild(totalScoreText);
 
         root.addChild(totalScore);
+
+        root.addChild(totalRenderText);
+
+        root.addChild(totalRender);
 
         root.addChild(averageFpsText);
 
@@ -384,7 +407,7 @@ Game.prototype = {
 
     },
 
-    showResult: function (context, background, menuButton, totalScore, totalScoreText, averageFps, averageFpsText, ready) {
+    showResult: function (context, background, menuButton, totalScore, totalScoreText, averageFps, averageFpsText, totalRender, totalRenderText, ready) {
 
         var events = context.menuEvents;
 
@@ -410,6 +433,9 @@ Game.prototype = {
 
             var averageFpsTextAlphaIn = new Tween(events, averageFpsText, 'alpha', Tween.regularEaseOut, 0, 1, 1);
 
+            var totalRenderAlphaIn = new Tween(events, totalRender, 'alpha', Tween.regularEaseOut, 0, 1, 1);
+
+            var totalRenderTextAlphaIn = new Tween(events, totalRenderText, 'alpha', Tween.regularEaseOut, 0, 1, 1);
 
             totalScoreAlphaIn.addEventListener('onMotionFinished', function(e) {
 
@@ -420,6 +446,10 @@ Game.prototype = {
             totalScoreAlphaIn.start();
 
             totalScoreTextAlphaIn.start();
+
+            totalRenderAlphaIn.start();
+
+            totalRenderTextAlphaIn.start();
 
             averageFpsAlphaIn.start();
 

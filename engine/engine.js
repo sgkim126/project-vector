@@ -182,49 +182,13 @@ Engine.prototype = {
 
     render: function (context, game) {
 
-        //var d1 = new Date();
-        //var startTime = d1.getTime();
-
         window.requestAnimationFrame( context.render );
 
         this.draw(context, game);
 
-        var d2 = new Date();
-        var totalTime = d2.getTime() - this.lastTime;
-        this.lastTime = d2.getTime();
+        if (context.recordingFps) {
 
-        this.fpsArray.push(totalTime);
-
-        if (this.fpsArray.length > 120) {
-
-            this.fpsArray.shift();
-
-            var averageFps = 0;
-
-            for (var i = 0; i < this.fpsArray.length; i++) {
-
-                averageFps += this.fpsArray[i];
-
-            }
-
-            averageFps /= this.fpsArray.length;
-
-            averageFps /= 1000;
-
-            averageFps /= (1/60);
-
-            averageFps = (1/averageFps);
-
-            averageFps *= 60;
-
-            // console.log(averageFps);
-            if (context.recordingFps) {
-
-                context.fpsRecords.push(averageFps);
-
-            }
-
-            context.fps = Math.round(averageFps);
+            context.renderUpdate += 1;
 
         }
 

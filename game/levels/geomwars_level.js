@@ -204,11 +204,15 @@ GeomWarsLevel.prototype = {
 
         var timerRegistery = context.timerRegistery;
 
-        context.fpsRecords = [];
-
         context.recordingFps = true;
 
+        context.renderUpdate = 0;
+
         timerRegistery.add('startGame', 1, function () {
+
+            var d = new Date();
+
+            that.startPlayingTime = d.getTime();
 
             that.startGame(context);
 
@@ -286,15 +290,11 @@ GeomWarsLevel.prototype = {
 
                 var averageFps = 0;
 
-                for (var i = 0; i < context.fpsRecords.length; i++) {
+                var d = new Date();
 
-                    averageFps += context.fpsRecords[i];
+                var endPlayingTime = d.getTime();
 
-                }
-
-                averageFps /= context.fpsRecords.length;
-
-                context.averageFps = Math.round(averageFps);
+                context.averageFps = Math.round(context.renderUpdate * 1000 / (endPlayingTime - that.startPlayingTime));
 
                 context.game.gameOver();
 
