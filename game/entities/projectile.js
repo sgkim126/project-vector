@@ -85,7 +85,7 @@ Projectile.prototype = {
 
         var body = this.bodyComponent.object;
 
-        body.Default();
+        body.Default(position);
 
         this.vector = direction;
 

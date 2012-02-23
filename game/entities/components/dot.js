@@ -75,7 +75,7 @@ Dot.prototype = {
 
         renderer.beginTransform(this.worldMatrix);
 
-        renderer.drawCircles(body.m_position.x, body.m_position.y, 3, 6, 1);
+        renderer.drawCircles(body.m_position.x, body.m_position.y, 3, 6, this.alpha);
 
         renderer.endTransform();
 

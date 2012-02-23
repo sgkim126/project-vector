@@ -29,15 +29,17 @@ Entity.prototype = {
 
     remove: function (context) {
 
-        setTimeout(100, function () {
+        var that = this;
+
+        setTimeout(function () {
 
             if (this.onRemove) {
 
-                this.onRemove(context);
+                that.onRemove(context);
 
             }
 
-        });
+        }, 100);
 
     },
 

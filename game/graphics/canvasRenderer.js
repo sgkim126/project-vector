@@ -166,8 +166,6 @@ CanvasRenderer.prototype = {
 
         graphics.fillRect (x, y, width, height);
 
-        graphics.fillStyle = null;
-
         graphics.globalAlpha = 1;
 
     },
@@ -204,15 +202,11 @@ CanvasRenderer.prototype = {
 
             this.graphics.strokeText(text, x, y);
 
-            this.graphics.strokeStyle = null;
-
         }
 
         this.graphics.shadowBlur = 0;
 
         this.graphics.globalAlpha = 1;
-
-        this.graphics.fillStyle = null;
 
     },
 
